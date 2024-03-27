@@ -1,6 +1,4 @@
-const { resolve } = require('node:path');
-
-/** @type {import("eslint").Linter.Config} */
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: ['@oechul/eslint-config/base.js'],
   env: {
