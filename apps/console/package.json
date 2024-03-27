@@ -1,0 +1,31 @@
+{
+  "name": "console",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 8081",
+    "build": "vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,md}": "prettier --write",
+    "**/*.{ts,tsx}": "eslint --fix --max-warnings 0"
+  },
+  "dependencies": {
+    "@oechul/style": "workspace:*",
+    "@oechul/ui": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@oechul/eslint-config": "workspace:*",
+    "@oechul/typescript-config": "workspace:*",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "@oechul/typescript-config/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "vite.config.ts"],
+  "exclude": ["node_modules"]
+}

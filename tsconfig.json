@@ -1,0 +1,3 @@
+{
+  "extends": "@oechul/typescript-config/base.json"
+}
