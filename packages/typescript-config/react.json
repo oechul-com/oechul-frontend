@@ -5,14 +5,9 @@
   "compilerOptions": {
     "useDefineForClassFields": true,
     "allowImportingTsExtensions": true,
-    "jsx": "react-jsx",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "composite": true,
-    "noEmit": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "allowJs": true
   }

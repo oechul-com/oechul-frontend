@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout.tsx';
 
 const LoginPage = () => {
-  return <Layout>Login Page</Layout>;
+  return <Layout>asdf</Layout>;
 };
 
 export default LoginPage;

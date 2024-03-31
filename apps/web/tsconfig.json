@@ -1,6 +1,7 @@
 {
   "extends": "@oechul/typescript-config/react.json",
   "compilerOptions": {
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
