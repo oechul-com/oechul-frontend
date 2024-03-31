@@ -19,29 +19,32 @@ const colors = {
     alert: '#DA4040',
     accent: '#FF4B4B',
     alertBg: '#FBECEC',
+    warningBg: '#FBF2EC',
   },
   green: {
     main: '#1CC54B',
+    background: '#E8F9ED',
   },
   blue: {
     main: '#0085FF',
     style: '#F2F9FF',
   },
-  black: {
-    1: '#FFFFFF',
-    2: '#FCFCFC',
-    3: '#F5F5F5',
-    4: '#F0F0F0',
-    5: '#D9D9D9',
-    6: '#BFBFBF',
-    7: '#8C8C8C',
-    8: '#595959',
-    9: '#454545',
-    10: '#262626',
-    11: '#1F1F1F',
-    12: '#141414',
-    13: '#000000',
-  },
+
+  white: '#FFFFFF',
+  black: '#000000',
+
+  gray100: '#FCFCFC',
+  gray150: '#F8F8F8',
+  gray200: '#F5F5F5',
+  gray250: '#F0F0F0',
+  gray300: '#D9D9D9',
+  gray400: '#BFBFBF',
+  gray500: '#8C8C8C',
+  gray600: '#595959',
+  gray700: '#454545',
+  gray800: '#262626',
+  gray850: '#1F1F1F',
+  gray900: '#141414',
 };
 
 const layout = {
