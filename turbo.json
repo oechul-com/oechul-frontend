@@ -6,9 +6,10 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
+    "deploy": {
+      "dependsOn": ["build", "lint"]
     },
+    "lint": {},
     "dev": {
       "cache": false,
       "persistent": true

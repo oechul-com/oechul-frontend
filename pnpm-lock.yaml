@@ -35,9 +35,9 @@ importers:
 
   apps/console:
     dependencies:
-      '@oechul/style':
+      '@oechul/styles':
         specifier: workspace:*
-        version: link:../../packages/style
+        version: link:../../packages/styles
       '@oechul/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -72,9 +72,9 @@ importers:
 
   apps/web:
     dependencies:
-      '@oechul/style':
+      '@oechul/styles':
         specifier: workspace:*
-        version: link:../../packages/style
+        version: link:../../packages/styles
       '@oechul/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -161,7 +161,11 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/style:
+  packages/styles:
+    dependencies:
+      styled-components:
+        specifier: ^6.1.8
+        version: 6.1.8(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@oechul/eslint-config':
         specifier: workspace:*
@@ -1361,6 +1365,7 @@ packages:
 
   /@turbo/workspaces@1.12.4:
     resolution: {integrity: sha512-a1hF8Nr6MOeCpvlLR569dGTlzgRLj2Rxo6dTb4jtL+jhHwCb94A9kDPgcRnYGFr45mgulICarVaNZxDjw4/riQ==}
+    hasBin: true
     dependencies:
       chalk: 2.4.2
       commander: 10.0.1
@@ -1372,7 +1377,7 @@ packages:
       js-yaml: 4.1.0
       ora: 4.1.1
       rimraf: 3.0.2
-      semver: 7.5.4
+      semver: 7.6.0
       update-check: 1.5.4
     dev: true
 
@@ -4741,6 +4746,7 @@ packages:
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
