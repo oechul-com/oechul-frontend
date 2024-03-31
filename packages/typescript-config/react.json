@@ -3,6 +3,7 @@
   "display": "React",
   "extends": "./base.json",
   "compilerOptions": {
+    "jsx": "preserve",
     "useDefineForClassFields": true,
     "allowImportingTsExtensions": true,
     "noUnusedLocals": true,

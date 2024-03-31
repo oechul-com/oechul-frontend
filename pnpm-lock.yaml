@@ -47,6 +47,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      styled-components:
+        specifier: ^6.1.8
+        version: 6.1.8(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@oechul/eslint-config':
         specifier: workspace:*
@@ -69,6 +72,9 @@ importers:
       vite:
         specifier: ^5.2.0
         version: 5.2.6(@types/node@20.11.24)
+      vite-tsconfig-paths:
+        specifier: ^4.3.2
+        version: 4.3.2(typescript@5.3.3)(vite@5.2.6)
 
   apps/web:
     dependencies:
