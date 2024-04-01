@@ -215,6 +215,9 @@ importers:
       '@oechul/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@oechul/styles':
+        specifier: workspace:*
+        version: link:../styles
       '@oechul/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config

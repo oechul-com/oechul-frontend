@@ -4,7 +4,6 @@
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "sideEffects": false,
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -19,6 +18,7 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@oechul/styles": "workspace:*",
     "@oechul/eslint-config": "workspace:*",
     "@oechul/typescript-config": "workspace:*",
     "@turbo/gen": "^1.12.4",

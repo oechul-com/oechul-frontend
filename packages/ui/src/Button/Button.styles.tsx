@@ -1,15 +1,17 @@
 import styled from 'styled-components';
+import { rem, theme } from '@oechul/styles';
 
-export const StyledButton = styled.button`
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-size: 1rem;
+export const BaseButton = styled.button`
+  ${theme.layout.center};
+  padding-block: ${rem(25)};
+
+  font-size: ${theme.fontSizes.lg};
+  font-weight: ${theme.fontWeights.semibold};
+
+  outline: none;
   cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
+  border: none;
+  border-radius: ${rem(10)};
+  transition: background-color 0.2s ease-in-out;
+  gap: ${rem(6)};
 `;

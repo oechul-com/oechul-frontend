@@ -1,12 +1,7 @@
-import eslintConfig from '@oechul/eslint-config/react-internal.js';
-import { Linter } from 'eslint';
-
-/**
- * @type {Linter.Config}
- */
-export default {
+/** @type {import("eslint").Linter.Config} */
+module.exports = {
   root: true,
-  extends: [eslintConfig],
+  extends: ['@oechul/eslint-config/react-internal.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
