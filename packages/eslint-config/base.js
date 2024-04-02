@@ -53,12 +53,8 @@ module.exports = {
       },
     ],
     'prettier/prettier': 'warn',
-    'no-console': [
-      'error',
-      {
-        allow: ['error', 'warn'],
-      },
-    ],
+    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'import/no-named-as-default': 'off',
   },
   ignorePatterns: ['.*.js', 'node_modules/'],
   overrides: [{ files: ['*.js?(x)', '*.ts?(x)'] }],

@@ -1,31 +1,7 @@
-import { theme } from '@oechul/styles';
-import {
-  forwardRef,
-  ReactNode,
-  ComponentPropsWithRef,
-  ElementType,
-} from 'react';
-import styled from 'styled-components';
+import { forwardRef } from 'react';
 
-import { BaseButton } from './Button.styles';
-
-interface ButtonProps extends ComponentPropsWithRef<'button'> {
-  as?: ElementType;
-  bgColor?: string;
-  hoverBgColor?: string;
-  textColor?: string;
-  children: ReactNode;
-}
-
-const StyledButton = styled(BaseButton)<ButtonProps>`
-  color: ${({ textColor }) => textColor || theme.colors.white};
-  background-color: ${({ bgColor }) => bgColor || theme.colors.black};
-
-  &:hover {
-    background-color: ${({ hoverBgColor }) =>
-      hoverBgColor || theme.colors.gray750};
-  }
-`;
+import { StyledButton } from './Button.styles';
+import { ButtonProps } from './type';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
