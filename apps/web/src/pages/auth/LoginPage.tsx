@@ -1,17 +1,21 @@
-import { Button } from '@oechul/ui';
-import { styled } from 'styled-components';
+import { rem } from '@oechul/styles';
+import { Button, Input } from '@oechul/ui';
 
 import Layout from '@/components/layout/Layout.tsx';
-
-const Test = styled.p`
-  color: ${props => props.theme.colors.gray500};
-`;
 
 const LoginPage = () => {
   return (
     <Layout>
-      <Test>asdf</Test>
-      <Button>버튼 ㅇㅇ</Button>
+      <Button>가입 완료하기</Button>
+      <Input
+        style={{ marginTop: rem(16) }}
+        label={
+          <>
+            <span>span</span>outer
+          </>
+        }
+        isValid={true}
+      />
     </Layout>
   );
 };

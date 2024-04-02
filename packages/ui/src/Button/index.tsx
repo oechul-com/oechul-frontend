@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import { StyledButton } from './Button.styles';
+import { BaseButton } from './Button.styles';
 import { ButtonProps } from './type';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -15,7 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => (
-    <StyledButton
+    <BaseButton
       as={Component}
       ref={ref}
       bgColor={bgColor}
@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       {...props}
     >
       {children}
-    </StyledButton>
+    </BaseButton>
   ),
 );
 
