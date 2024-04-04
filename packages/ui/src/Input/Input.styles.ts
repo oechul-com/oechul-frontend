@@ -36,10 +36,10 @@ export const InputBlock = styled.input`
   outline: none;
   border: none;
   background: none;
-  z-index: 2;
 
   &:focus ~ label,
-  &:valid ~ label {
+  &:valid ~ label,
+  &:read-only ~ label {
     top: ${rem(18)};
     font-size: ${theme.fontSizes['2xs']};
     transform: translateY(0);

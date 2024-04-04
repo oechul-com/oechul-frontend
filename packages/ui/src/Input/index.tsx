@@ -32,4 +32,6 @@ const Input = ({ id: propId, isValid, style, label, ...props }: InputProps) => {
   );
 };
 
+Input.displayName = 'Input';
+
 export default Input;
