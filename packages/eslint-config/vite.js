@@ -29,5 +29,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-  ignorePatterns: ['dist', '.eslintrc.mjs'],
+  ignorePatterns: ['dist', '.eslintrc.js', '.eslintrc.cjs'],
 };
