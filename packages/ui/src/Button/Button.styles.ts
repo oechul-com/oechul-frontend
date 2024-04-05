@@ -1,26 +1,99 @@
-import { rem } from '@oechul/styles';
+import { rem, theme } from '@oechul/styles';
 import styled from 'styled-components';
 
-import { ButtonProps } from './type';
+interface ButtonStylesProps {
+  $variant: 'normal' | 'alert' | 'blue' | 'accent';
+  $bgColor?: string;
+  $hoverBgColor?: string;
+  $invalidBgColor?: string;
+  $textColor?: string;
+  $hoverTextColor?: string;
+  $invalidTextColor?: string;
+}
 
-export const BaseButton = styled.button<ButtonProps>`
-  ${({ theme }) => theme.layout.center};
+const variantStyles = {
+  normal: {
+    textColor: theme.colors.white,
+    hoverTextColor: theme.colors.white,
+    invalidTextColor: theme.colors.white,
+    bgColor: theme.colors.black,
+    hoverBgColor: theme.colors.gray750,
+    invalidBgColor: theme.colors.gray300,
+  },
+  alert: {
+    textColor: theme.colors.red.alert,
+    hoverTextColor: theme.colors.red.alert,
+    invalidTextColor: theme.colors.red.alert,
+    bgColor: theme.colors.red.alertBg,
+    hoverBgColor: theme.colors.red.alertHover,
+    invalidBgColor: theme.colors.red.alertBg,
+  },
+  blue: {
+    textColor: theme.colors.blue.main,
+    hoverTextColor: theme.colors.blue.main,
+    invalidTextColor: theme.colors.blue.main,
+    bgColor: theme.colors.blue.bg,
+    hoverBgColor: theme.colors.blue.hoverBg,
+    invalidBgColor: theme.colors.blue.bg,
+  },
+  accent: {
+    textColor: theme.colors.white,
+    hoverTextColor: theme.colors.white,
+    invalidTextColor: theme.colors.white,
+    bgColor: theme.colors.red.accent,
+    hoverBgColor: theme.colors.red.accentHover,
+    invalidBgColor: theme.colors.red.accent,
+  },
+};
 
-  padding-block: ${rem(25)};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: ${({ theme }) => theme.fontWeights.semibold};
-  outline: none;
-  cursor: pointer;
-  border: none;
-  border-radius: ${rem(10)};
-  transition: background-color 0.2s ease-in-out;
-  gap: ${rem(6)};
+export const BaseButton = styled.button<ButtonStylesProps>`
+  ${({
+    $variant,
+    $textColor,
+    $hoverTextColor,
+    $invalidTextColor,
+    $bgColor,
+    $hoverBgColor,
+    $invalidBgColor,
+  }) => {
+    const {
+      textColor: defaultTextColor,
+      hoverTextColor: defaultHoverTextColor,
+      invalidTextColor: defaultInvalidTextColor,
+      bgColor: defaultBgColor,
+      hoverBgColor: defaultHoverBgColor,
+      invalidBgColor: defaultInvalidBgColor,
+    } = variantStyles[$variant] || {};
 
-  color: ${({ theme, textColor }) => textColor || theme.colors.white};
-  background-color: ${({ theme, bgColor }) => bgColor || theme.colors.black};
+    const finalTextColor = $textColor || defaultTextColor;
+    const finalHoverTextColor = $hoverTextColor || defaultHoverTextColor;
+    const finalInvalidTextColor = $invalidTextColor || defaultInvalidTextColor;
+    const finalBgColor = $bgColor || defaultBgColor;
+    const finalHoverBgColor = $hoverBgColor || defaultHoverBgColor;
+    const finalInvalidBgColor = $invalidBgColor || defaultInvalidBgColor;
 
-  &:hover {
-    background-color: ${({ theme, hoverBgColor }) =>
-      hoverBgColor || theme.colors.gray750};
-  }
+    return `
+      padding-block: ${rem(25)};
+      color: ${finalTextColor};
+      font-size: ${theme.fontSizes.lg};
+      font-weight: ${theme.fontWeights.semibold};
+      outline: none;
+      cursor: pointer;
+      border: none;
+      border-radius: ${rem(10)};
+      transition: background-color 0.2s ease-in-out;
+      background-color: ${finalBgColor};
+      gap: ${rem(6)};
+      
+      &:hover {
+        color:${finalHoverTextColor};
+        background-color: ${finalHoverBgColor};
+      }
+      
+      &[aria-invalid='true'] {
+        color:${finalInvalidTextColor};
+        background-color: ${finalInvalidBgColor};
+      }
+    `;
+  }}
 `;

@@ -29,17 +29,20 @@ const colors = {
   red: {
     main: '#F56565',
     alert: '#DA4040',
-    accent: '#FF4B4B',
     alertBg: '#FBECEC',
+    alertHover: '#F8DBDB',
+    accent: '#FF4B4B',
+    accentHover: '#FF6666',
     warningBg: '#FBF2EC',
   },
   green: {
     main: '#1CC54B',
-    background: '#E8F9ED',
+    bg: '#E8F9ED',
   },
   blue: {
     main: '#0085FF',
-    style: '#F2F9FF',
+    bg: '#F2F9FF',
+    hoverBg: '#DCEFFF',
   },
 
   white: '#FFFFFF',

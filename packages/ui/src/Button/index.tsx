@@ -1,15 +1,35 @@
-import { forwardRef } from 'react';
+import {
+  ComponentPropsWithRef,
+  ElementType,
+  forwardRef,
+  ReactNode,
+} from 'react';
 
 import { BaseButton } from './Button.styles';
-import { ButtonProps } from './type';
+
+interface ButtonProps extends ComponentPropsWithRef<'button'> {
+  as?: ElementType;
+  variant?: 'normal' | 'alert' | 'blue' | 'accent';
+  bgColor?: string;
+  hoverBgColor?: string;
+  invalidBgColor?: string;
+  textColor?: string;
+  hoverTextColor?: string;
+  invalidTextColor?: string;
+  children: ReactNode;
+}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       as: Component = 'button',
+      variant = 'normal',
       bgColor,
       hoverBgColor,
+      invalidBgColor,
       textColor,
+      hoverTextColor,
+      invalidTextColor,
       children,
       ...props
     },
@@ -18,9 +38,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <BaseButton
       as={Component}
       ref={ref}
-      bgColor={bgColor}
-      hoverBgColor={hoverBgColor}
-      textColor={textColor}
+      $variant={variant}
+      $bgColor={bgColor}
+      $hoverBgColor={hoverBgColor}
+      $textColor={textColor}
+      $invalidBgColor={invalidBgColor}
+      $hoverTextColor={hoverTextColor}
+      $invalidTextColor={invalidTextColor}
       {...props}
     >
       {children}
