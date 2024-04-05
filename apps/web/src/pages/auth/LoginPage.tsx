@@ -10,6 +10,9 @@ const LoginPage = () => {
   return (
     <Layout>
       <Button>가입 완료하기</Button>
+      <Button variant="accent">가입 완료하기</Button>
+      <Button variant="blue">가입 완료하기</Button>
+      <Button variant="alert">가입 완료하기</Button>
       <Button aria-invalid={true}>가입 완료하기</Button>
       <Input style={{ marginTop: rem(16) }} label="이메일" />
       <Checkbox

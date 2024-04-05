@@ -33,7 +33,7 @@ const variantStyles = {
     hoverTextColor: theme.colors.blue.main,
     invalidTextColor: theme.colors.blue.main,
     bgColor: theme.colors.blue.bg,
-    hoverBgColor: theme.colors.blue.hoverBg,
+    hoverBgColor: theme.colors.blue.bgHover,
     invalidBgColor: theme.colors.blue.bg,
   },
   accent: {

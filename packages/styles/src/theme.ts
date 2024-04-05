@@ -42,7 +42,7 @@ const colors = {
   blue: {
     main: '#0085FF',
     bg: '#F2F9FF',
-    hoverBg: '#DCEFFF',
+    bgHover: '#DCEFFF',
   },
 
   white: '#FFFFFF',
