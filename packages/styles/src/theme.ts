@@ -1,16 +1,16 @@
 const fontSizes = {
-  '5xl': '4.5rem',
-  '4xl': '4.0rem',
-  '3xl': '3.375rem',
-  '2xl': '2.0rem',
-  xl: '1.25rem',
-  lg: '1.125rem',
-  md: '1.0rem',
-  sm: '0.9375rem',
-  xs: '0.875rem',
-  '2xs': '0.75rem',
-  '3xs': '0.6875rem',
-  '4xs': '0.625rem',
+  '5xl': '4.5rem', // 72px
+  '4xl': '4.0rem', // 64px
+  '3xl': '3.375rem', // 54px
+  '2xl': '2.0rem', // 32px
+  xl: '1.25rem', // 20px
+  lg: '1.125rem', // 18px
+  md: '1.0rem', // 16px
+  sm: '0.9375rem', // 15px
+  xs: '0.875rem', // 14px
+  '2xs': '0.75rem', // 12px
+  '3xs': '0.6875rem', // 11px
+  '4xs': '0.625rem', // 10px
 };
 
 const fontWeights = {
@@ -106,7 +106,7 @@ const responsive = {
 };
 
 const sizes = {
-  app: '540px',
+  app: '33.75rem', // 540px
 };
 
 export const theme = {
