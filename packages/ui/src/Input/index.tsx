@@ -9,12 +9,12 @@ import {
 
 import { InputContainer, InputBlock, InputLabel } from './Input.styles';
 
-interface InputProps extends ComponentPropsWithoutRef<'input'> {
+type InputProps = {
   id?: string;
   isValid?: boolean;
   style?: CSSProperties;
   label: string | ReactNode;
-}
+} & ComponentPropsWithoutRef<'input'>;
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ id: propId, isValid, style, label, ...props }, ref) => {

@@ -73,6 +73,9 @@ export const BaseButton = styled.button<ButtonStylesProps>`
     const finalInvalidBgColor = $invalidBgColor || defaultInvalidBgColor;
 
     return `
+      display:flex;
+      align-items:center;
+      justify-content:center;
       padding-block: ${rem(25)};
       color: ${finalTextColor};
       font-size: ${theme.fontSizes.lg};

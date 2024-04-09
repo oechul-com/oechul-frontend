@@ -1,14 +1,8 @@
-import {
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ReactNode,
-} from 'react';
+import React, { ElementType, ReactNode, forwardRef } from 'react';
 
 import { BaseButton } from './Button.styles';
 
-interface ButtonProps extends ComponentPropsWithRef<'button'> {
-  as?: ElementType;
+type BaseButtonProps = {
   variant?: 'normal' | 'alert' | 'blue' | 'accent';
   bgColor?: string;
   hoverBgColor?: string;
@@ -17,9 +11,13 @@ interface ButtonProps extends ComponentPropsWithRef<'button'> {
   hoverTextColor?: string;
   invalidTextColor?: string;
   children: ReactNode;
-}
+};
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+type ButtonProps<C extends ElementType> = BaseButtonProps & {
+  as?: C;
+} & Omit<React.ComponentPropsWithoutRef<C>, keyof BaseButtonProps>;
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps<ElementType>>(
   (
     {
       as: Component = 'button',

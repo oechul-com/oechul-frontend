@@ -7,9 +7,9 @@ import {
   StyledCheckbox,
 } from './Checkbox.styles';
 
-interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {
+type CheckboxProps = {
   label: string | ReactNode;
-}
+} & ComponentPropsWithoutRef<'input'>;
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, ...rest }, ref) => {
