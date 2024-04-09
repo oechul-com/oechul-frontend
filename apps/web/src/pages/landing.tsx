@@ -1,8 +1,10 @@
+import Layout from '@/components/layout/Layout';
+
 const LandingPage = () => {
   return (
-    <div>
+    <Layout visibleHeader={false}>
       <p>LandingPage</p>
-    </div>
+    </Layout>
   );
 };
 

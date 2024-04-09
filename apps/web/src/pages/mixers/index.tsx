@@ -1,8 +1,8 @@
-import Layout from '@/components/layout/Layout.tsx';
+import Layout from '@/components/layout/Layout';
 
 const MixersPage = () => {
   return (
-    <Layout>
+    <Layout visibleHeader={true} arrow={true} title="과팅매칭">
       <p>MixersPage</p>
     </Layout>
   );

@@ -105,4 +105,15 @@ const responsive = {
   desktop: '(min-width: 1025px)',
 };
 
-export const theme = { fontSizes, fontWeights, colors, layout, responsive };
+const sizes = {
+  app: '540px',
+};
+
+export const theme = {
+  fontSizes,
+  fontWeights,
+  colors,
+  layout,
+  responsive,
+  sizes,
+};
