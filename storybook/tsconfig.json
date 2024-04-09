@@ -2,8 +2,14 @@
   "extends": "@oechul/typescript-config/base.json",
   "compilerOptions": {
     "incremental": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
-  "include": ["."],
-  "exclude": ["build", "node_modules"]
+  "include": [
+    "**/*.tsx",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "build",
+    "node_modules"
+  ]
 }
