@@ -1,0 +1,9 @@
+{
+  "extends": "@oechul/typescript-config/base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["."],
+  "exclude": ["build", "node_modules"]
+}

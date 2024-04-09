@@ -1,8 +1,8 @@
-/** @type {import("eslint").Linter.Config} */
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
-  ignorePatterns: ["apps/**", "packages/**"],
-  extends: ["@oechul/eslint-config/library.js"],
-  parser: "@typescript-eslint/parser",
+  ignorePatterns: ['apps/**', 'packages/**'],
+  extends: ['@oechul/eslint-config/library.js'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
   },
