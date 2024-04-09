@@ -1,12 +1,15 @@
 import { ResetStyle, theme } from '@oechul/styles';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import LoginPage from '@/pages/auth/LoginPage.tsx';
+import AppRouter from '@/routers/AppRouter.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <ThemeProvider theme={theme}>
     <ResetStyle />
-    <LoginPage />
+    <Router>
+      <AppRouter />
+    </Router>
   </ThemeProvider>,
 );

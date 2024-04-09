@@ -1,0 +1,30 @@
+import { Suspense } from 'react';
+import { useRoutes } from 'react-router-dom';
+
+import LoginPage from '@/pages/auth/login.tsx';
+import Register from '@/pages/auth/register.tsx';
+import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
+import MixersPrivateRouter from '@/routers/MixersPrivateRouter.tsx';
+import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
+
+const pages = [
+  { path: '/', component: MainPrivateRouter },
+  { path: '/login', component: LoginPage },
+  { path: '/register', component: Register },
+  { path: '/mixers/*', component: MixersPrivateRouter },
+  { path: '/profile/*', component: ProfilePrivateRouter },
+];
+
+const AppRouter = () => {
+  const element = useRoutes(
+    pages.map((page, index) => ({
+      path: page.path,
+      element: <page.component />,
+      key: index,
+    })),
+  );
+
+  return <Suspense fallback={<></>}>{element}</Suspense>;
+};
+
+export default AppRouter;
