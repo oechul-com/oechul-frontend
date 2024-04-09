@@ -1,5 +1,6 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 
+import ModalClose from './Close';
 import ModalContent from './Content';
 import { ModalContext } from './Modal.context';
 import ModalTrigger from './Trigger';
@@ -14,6 +15,15 @@ const Modal = ({ defaultState = false, children }: ModalProps) => {
   const setOpen = useCallback((open: boolean) => setIsOpen(open), []);
   const toggle = useCallback(() => setIsOpen(prev => !prev), []);
 
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   return (
     <ModalContext.Provider value={{ isOpen, setOpen, toggle }}>
       {children}
@@ -24,5 +34,6 @@ const Modal = ({ defaultState = false, children }: ModalProps) => {
 Modal.displayName = 'Modal';
 Modal.Content = ModalContent;
 Modal.Trigger = ModalTrigger;
+Modal.Close = ModalClose;
 
 export default Modal;

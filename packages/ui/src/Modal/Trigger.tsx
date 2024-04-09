@@ -2,13 +2,9 @@ import React, { ElementType, forwardRef, ReactNode } from 'react';
 
 import { useModal } from './Modal.context';
 
-type BaseModalTriggerProps = {
-  children: ReactNode;
-};
-
-type ModalTriggerProps<C extends ElementType> = BaseModalTriggerProps & {
+type ModalTriggerProps<C extends ElementType> = { children: ReactNode } & {
   as?: C;
-} & Omit<React.ComponentPropsWithoutRef<C>, keyof BaseModalTriggerProps>;
+} & Omit<React.ComponentPropsWithoutRef<C>, keyof { children: ReactNode }>;
 
 const ModalTrigger = forwardRef<
   HTMLButtonElement,

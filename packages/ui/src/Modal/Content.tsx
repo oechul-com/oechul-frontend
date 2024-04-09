@@ -2,6 +2,7 @@ import { AnimatePresence, AnimationProps, motion } from 'framer-motion';
 import { forwardRef, ReactNode, useEffect } from 'react';
 
 import { useModal } from './Modal.context';
+import { MotionBackdrop } from './Modal.styles';
 
 const backdropVariants = {
   visible: { opacity: 1 },
@@ -50,7 +51,7 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
     return (
       <AnimatePresence mode="wait">
         {isOpen && (
-          <motion.div
+          <MotionBackdrop
             variants={backdropVariants}
             initial="hidden"
             animate="visible"
@@ -69,7 +70,7 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
             >
               {children}
             </motion.div>
-          </motion.div>
+          </MotionBackdrop>
         )}
       </AnimatePresence>
     );
