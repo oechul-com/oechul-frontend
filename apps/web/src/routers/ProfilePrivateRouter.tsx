@@ -8,8 +8,9 @@ import VerificationPage from '@/pages/profile/verification.tsx';
 
 const ProfilePrivateRouter = (): ReactElement => {
   const { pathname } = useLocation();
+  const _pathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 
-  switch (pathname) {
+  switch (_pathname) {
     case '/profile':
       return <ProfilePage />;
     case '/profile/settings':

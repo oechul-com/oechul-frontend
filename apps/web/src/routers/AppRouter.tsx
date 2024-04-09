@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 
 import LoginPage from '@/pages/auth/login.tsx';
 import Register from '@/pages/auth/register.tsx';
+import ErrorPage from '@/pages/error.tsx';
 import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
 import MixersPrivateRouter from '@/routers/MixersPrivateRouter.tsx';
 import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
@@ -13,13 +14,14 @@ const pages = [
   { path: '/register', component: Register },
   { path: '/mixers/*', component: MixersPrivateRouter },
   { path: '/profile/*', component: ProfilePrivateRouter },
+  { path: '*', component: ErrorPage },
 ];
 
 const AppRouter = () => {
   const element = useRoutes(
     pages.map((page, index) => ({
       path: page.path,
-      element: <page.component />,
+      element: <page.component key={index} />,
       key: index,
     })),
   );

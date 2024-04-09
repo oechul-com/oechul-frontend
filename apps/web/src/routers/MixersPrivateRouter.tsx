@@ -9,8 +9,9 @@ import NewMixersPage from '@/pages/mixers/new.tsx';
 
 const MixersPrivateRouter = (): ReactElement => {
   const { pathname } = useLocation();
+  const _pathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 
-  switch (pathname) {
+  switch (_pathname) {
     case '/mixers':
       return <MixersPage />;
     case '/mixers/create':
