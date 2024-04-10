@@ -10,8 +10,8 @@
     "**/*.ts"
   ],
   "exclude": [
-    "dist",
-    "build",
+    "storybook-static",
+    "scripts",
     "node_modules"
   ]
 }
