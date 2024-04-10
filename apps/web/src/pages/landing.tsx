@@ -2,7 +2,6 @@ import { rem, theme } from '@oechul/styles';
 import { Text, Button } from '@oechul/ui';
 import { styled } from 'styled-components';
 
-import Layout from '@/components/layout/Layout';
 // import ImageLogo from 'public/static/assets/common/image-logo.svg';
 
 type DescriptionItemType = {
@@ -38,32 +37,32 @@ const DESCRIPTION_LIST: DescriptionItemType[] = [
 
 const LandingPage = () => {
   return (
-    <Layout visibleHeader={true}>
-      <LandingCol>
-        <LandingBox gap={`${rem(27)}`}>
-          <ImageLogo src="/static/assets/common/image-logo.svg" />
-          <Text textAlign="center" lineHeight="140%">
-            {'대학생 블라인드 매칭 서비스\n외출:밖으로 나가다'}
-          </Text>
-        </LandingBox>
-        <LandingBox gap={`${rem(16)}`}>
-          <LandingDescriptionsBox>
-            {DESCRIPTION_LIST.map(
-              ({ icon, description }: DescriptionItemType, index) => {
-                return (
-                  <LandingDescriptionBox
-                    key={index}
-                    marginLeft={index === 3 ? `${rem(112)}` : '0'}
-                  >
-                    {icon}
-                    <Text fontWeight={theme.fontWeights['semibold']}>
-                      {description}
-                    </Text>
-                  </LandingDescriptionBox>
-                );
-              },
-            )}
-          </LandingDescriptionsBox>
+    <LandingLayout>
+      <LandingBox gap={`${rem(27)}`}>
+        <ImageLogo src="/static/assets/common/image-logo.svg" />
+        <Text textAlign="center" lineHeight="140%">
+          {'대학생 블라인드 매칭 서비스\n외출:밖으로 나가다'}
+        </Text>
+      </LandingBox>
+      <LandingBox gap={`${rem(34)}`}>
+        <LandingDescriptionsBox>
+          {DESCRIPTION_LIST.map(
+            ({ icon, description }: DescriptionItemType, index) => {
+              return (
+                <LandingDescriptionBox
+                  key={index}
+                  marginLeft={index === 3 ? `${rem(112)}` : '0'}
+                >
+                  {icon}
+                  <Text fontWeight={theme.fontWeights['semibold']}>
+                    {description}
+                  </Text>
+                </LandingDescriptionBox>
+              );
+            },
+          )}
+        </LandingDescriptionsBox>
+        <ButtonBox>
           <Button width={'100%'}>
             <Text
               fontSize={theme.fontSizes['lg']}
@@ -79,32 +78,36 @@ const LandingPage = () => {
           >
             {'외출 개인정보수집 및 이용약관 ‧ 소통창구'}
           </Text>
-        </LandingBox>
-      </LandingCol>
-    </Layout>
+        </ButtonBox>
+      </LandingBox>
+    </LandingLayout>
   );
 };
 
 export default LandingPage;
 
+const LandingLayout = styled.main`
+  ${props => props.theme.layout.columnCenterY};
+  flex: 1;
+  width: 100%;
+  height: calc(100vh);
+  max-width: ${theme.sizes.app};
+  padding: ${rem(117)} ${rem(16)} ${rem(20)};
+  margin-inline: auto;
+
+  justify-content: space-between;
+`;
+
 const ImageLogo = styled.img`
   height: ${rem(46)};
 `;
 
-const LandingCol = styled.div`
-  ${props => props.theme.layout.columnCenterY};
-  justify-content: space-between;
-
-  height: calc(100vh - ${rem(117)});
-  padding: ${rem(47)} ${rem(16)} 0;
-`;
-
 const LandingBox = styled.div<{ gap: string }>`
   ${props => props.theme.layout.columnCenterY};
-
-  width: 100%;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
   gap: ${props => props.gap || `0`};
-
   overflow: hidden;
 `;
 
@@ -113,6 +116,8 @@ const LandingDescriptionsBox = styled.div`
   width: ${rem(843)};
   flex-wrap: wrap;
   gap: ${rem(23)} ${rem(16)};
+
+  margin-left: ${rem(296)};
 `;
 
 const LandingDescriptionBox = styled.div<{ marginLeft?: string }>`
@@ -122,4 +127,10 @@ const LandingDescriptionBox = styled.div<{ marginLeft?: string }>`
   padding: ${rem(10)};
   gap: ${rem(7)};
   margin-left: ${props => props.marginLeft};
+`;
+
+const ButtonBox = styled.div`
+  ${props => props.theme.layout.columnCenterY};
+  gap: ${rem(16)};
+  width: calc(100% - 32px);
 `;
