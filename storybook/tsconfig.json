@@ -5,10 +5,12 @@
     "jsx": "preserve"
   },
   "include": [
+    ".",
     "**/*.tsx",
     "**/*.ts"
   ],
   "exclude": [
+    "dist",
     "build",
     "node_modules"
   ]
