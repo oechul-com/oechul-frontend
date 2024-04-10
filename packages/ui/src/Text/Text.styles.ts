@@ -4,7 +4,8 @@ import styled from 'styled-components';
 interface TextProps {
   variant?: 'normal' | 'title';
   textColor?: string;
-  textWeight?: number;
+  fontWeight?: number;
+  fontSize?: string;
   lineHeight?: string;
   textAlign?: string;
 }
@@ -23,15 +24,26 @@ const variantStyles = {
 };
 
 const BaseText = styled.span<TextProps>`
-  ${({ variant = 'normal', textColor, textWeight, lineHeight, textAlign }) => {
-    const { fontSize, fontWeight } = variantStyles[variant];
+  ${({
+    variant = 'normal',
+    textColor,
+    fontWeight,
+    fontSize,
+    lineHeight,
+    textAlign,
+  }) => {
+    const { fontWeight: defaultFontWeight, fontSize: defaultFontSize } =
+      variantStyles[variant] || {};
+
+    const finalFontWeight = fontWeight || defaultFontWeight;
+    const finalFontSize = fontSize || defaultFontSize;
 
     return `
       display: block;
       white-space: pre-wrap;
       color: ${textColor || 'inherit'};
-      font-size: ${fontSize};
-      font-weight: ${textWeight || fontWeight};
+      font-size: ${finalFontSize};
+      font-weight: ${finalFontWeight};
       text-wrap: wrap;
       line-height: ${lineHeight};
       word-break: keep-all;
