@@ -5,11 +5,13 @@
     "jsx": "preserve"
   },
   "include": [
+    ".",
     "**/*.tsx",
     "**/*.ts"
   ],
   "exclude": [
-    "build",
+    "storybook-static",
+    "scripts",
     "node_modules"
   ]
 }
