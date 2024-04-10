@@ -1,15 +1,31 @@
+import {
+  IconProps,
+  InstagramIcon,
+  KakaoTalkIcon,
+  MailIcon,
+} from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Text, Button } from '@oechul/ui';
-import { useState } from 'react';
-import { BottomSheet } from 'react-spring-bottom-sheet';
+import { useState, Fragment, NamedExoticComponent, ElementType } from 'react';
+import 'react-spring-bottom-sheet/dist/style.css';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-// import ImageLogo from 'public/static/assets/common/image-logo.svg';
+import Modal from '@/components/layout/Modal';
 
 type DescriptionItemType = {
   icon: string;
   description: string;
 };
+
+type SocialItemType = {
+  Icon: NamedExoticComponent<IconProps> | ElementType;
+  description: string;
+  bgColor: string;
+  color: string;
+  link: string;
+};
+
 const DESCRIPTION_LIST: DescriptionItemType[] = [
   {
     icon: '👫🏻',
@@ -37,30 +53,90 @@ const DESCRIPTION_LIST: DescriptionItemType[] = [
   },
 ];
 
-const LandingPage = () => {
-  const [open, setOpen] = useState(false);
+const SOCIAL_LIST: SocialItemType[] = [
+  {
+    Icon: MailIcon,
+    description: '이메일로 문의하기',
+    bgColor: `${theme.colors.black}`,
+    color: `${theme.colors.white}`,
+    link: 'mailto:manage@oechul.com',
+  },
+  {
+    Icon: KakaoTalkIcon,
+    description: '공식 카카오 채널',
+    bgColor: '#F3E24E',
+    color: `${theme.colors.black}`,
+    link: 'https://www.naver.com/',
+  },
+  {
+    Icon: InstagramIcon,
+    description: '공식 인스타그램',
+    bgColor: `${theme.colors.gray200}`,
+    color: `${theme.colors.black}`,
+    link: '',
+  },
+  {
+    Icon: Fragment,
+    description: '외출에 대해 알아보기',
+    bgColor: `${theme.colors.gray200}`,
+    color: `${theme.colors.black}`,
+    link: '',
+  },
+];
 
-  const onClickCommunicationButton = () => {
+const LandingPage = () => {
+  const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const onHandleCommunicationModal = () => {
     setOpen(open => !open);
+  };
+
+  const onClickCommunicationButton = (link: string) => {
+    window.open(link);
+  };
+
+  const onClickStartButton = () => {
+    navigate('/login');
   };
 
   return (
     <LandingLayout>
-      <BottomSheet open={open}>
-        <ModalContainer>
-          <ModalHeader>
-            <IconClose />
-          </ModalHeader>
-          <ModalLayout>
-            <Text
-              fontSize={theme.fontSizes['xl']}
-              fontWeight={theme.fontWeights['medium']}
-            >
-              {'소통창구'}
-            </Text>
-          </ModalLayout>
-        </ModalContainer>
-      </BottomSheet>
+      <Modal open={open} setOpen={setOpen}>
+        <Text
+          fontSize={theme.fontSizes['xl']}
+          fontWeight={theme.fontWeights['medium']}
+        >
+          {'소통창구'}
+        </Text>
+        <LandingSocialsBox>
+          {SOCIAL_LIST.map(
+            (
+              { Icon, description, bgColor, color, link }: SocialItemType,
+              index,
+            ) => {
+              return (
+                <Button
+                  key={index}
+                  bgColor={bgColor}
+                  width={'100%'}
+                  onClick={() => onClickCommunicationButton(link)}
+                >
+                  <Icon />
+                  <Text
+                    fontWeight={theme.fontWeights['semibold']}
+                    fontSize={theme.fontSizes.md}
+                    textColor={color}
+                    lineHeight={`${rem(16)}`}
+                  >
+                    {description}
+                  </Text>
+                </Button>
+              );
+            },
+          )}
+        </LandingSocialsBox>
+      </Modal>
       <LandingBox gap={`${rem(27)}`}>
         <ImageLogo src="/static/assets/common/image-logo.svg" />
         <Text textAlign="center" lineHeight="140%">
@@ -86,7 +162,7 @@ const LandingPage = () => {
           )}
         </LandingDescriptionsBox>
         <ButtonBox>
-          <Button width={'100%'}>
+          <Button width={'100%'} onClick={onClickStartButton}>
             <Text
               fontSize={theme.fontSizes['lg']}
               fontWeight={theme.fontWeights['semibold']}
@@ -99,6 +175,7 @@ const LandingPage = () => {
               textColor={theme.colors.gray500}
               fontSize={theme.fontSizes['xs']}
               fontWeight={theme.fontWeights['semibold']}
+              style={{ cursor: 'pointer' }}
             >
               {'외출 개인정보수집 및 이용약관'}
             </Text>
@@ -106,7 +183,8 @@ const LandingPage = () => {
               textColor={theme.colors.gray500}
               fontSize={theme.fontSizes['xs']}
               fontWeight={theme.fontWeights['semibold']}
-              onClick={onClickCommunicationButton}
+              onClick={onHandleCommunicationModal}
+              style={{ cursor: 'pointer' }}
             >
               {' ‧ 소통창구'}
             </Text>
@@ -137,9 +215,9 @@ const ImageLogo = styled.img`
 
 const LandingBox = styled.div<{ gap: string }>`
   ${props => props.theme.layout.columnCenterY};
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  margin-right: -16px;
+  width: calc(100% + ${rem(32)});
+  margin-left: ${rem(-16)};
+  margin-right: ${rem(-16)};
   gap: ${props => props.gap || `0`};
   overflow: hidden;
 `;
@@ -165,33 +243,15 @@ const LandingDescriptionBox = styled.div<{ marginLeft?: string }>`
 const ButtonBox = styled.div`
   ${props => props.theme.layout.columnCenterY};
   gap: ${rem(16)};
-  width: calc(100% - 32px);
+  width: calc(100% - ${rem(32)});
 `;
 
 const TextSpan = styled.span`
   ${props => props.theme.layout.centerX};
 `;
 
-const ModalContainer = styled.div`
-  width: 100%;
-  max-width: ${theme.sizes.app};
-`;
-
-const ModalHeader = styled.div`
-  height: ${rem(47)};
-  padding-inline: ${rem(16)};
-
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const ModalLayout = styled.div`
+const LandingSocialsBox = styled.div`
   ${props => props.theme.layout.columnCenterY};
   width: 100%;
-  max-width: ${theme.sizes.app};
-
-  padding-inline: ${rem(30)};
-  height: ${rem(393)};
+  gap: ${rem(16)};
 `;
-
-const IconClose = styled.img``;
