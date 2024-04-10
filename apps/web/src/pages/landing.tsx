@@ -1,5 +1,7 @@
 import { rem, theme } from '@oechul/styles';
 import { Text, Button } from '@oechul/ui';
+import { useState } from 'react';
+import { BottomSheet } from 'react-spring-bottom-sheet';
 import { styled } from 'styled-components';
 
 // import ImageLogo from 'public/static/assets/common/image-logo.svg';
@@ -36,8 +38,29 @@ const DESCRIPTION_LIST: DescriptionItemType[] = [
 ];
 
 const LandingPage = () => {
+  const [open, setOpen] = useState(false);
+
+  const onClickCommunicationButton = () => {
+    setOpen(open => !open);
+  };
+
   return (
     <LandingLayout>
+      <BottomSheet open={open}>
+        <ModalContainer>
+          <ModalHeader>
+            <IconClose />
+          </ModalHeader>
+          <ModalLayout>
+            <Text
+              fontSize={theme.fontSizes['xl']}
+              fontWeight={theme.fontWeights['medium']}
+            >
+              {'소통창구'}
+            </Text>
+          </ModalLayout>
+        </ModalContainer>
+      </BottomSheet>
       <LandingBox gap={`${rem(27)}`}>
         <ImageLogo src="/static/assets/common/image-logo.svg" />
         <Text textAlign="center" lineHeight="140%">
@@ -71,13 +94,23 @@ const LandingPage = () => {
               {'시작하기'}
             </Text>
           </Button>
-          <Text
-            textColor={theme.colors.gray500}
-            fontSize={theme.fontSizes['xs']}
-            fontWeight={theme.fontWeights['semibold']}
-          >
-            {'외출 개인정보수집 및 이용약관 ‧ 소통창구'}
-          </Text>
+          <TextSpan>
+            <Text
+              textColor={theme.colors.gray500}
+              fontSize={theme.fontSizes['xs']}
+              fontWeight={theme.fontWeights['semibold']}
+            >
+              {'외출 개인정보수집 및 이용약관'}
+            </Text>
+            <Text
+              textColor={theme.colors.gray500}
+              fontSize={theme.fontSizes['xs']}
+              fontWeight={theme.fontWeights['semibold']}
+              onClick={onClickCommunicationButton}
+            >
+              {' ‧ 소통창구'}
+            </Text>
+          </TextSpan>
         </ButtonBox>
       </LandingBox>
     </LandingLayout>
@@ -134,3 +167,31 @@ const ButtonBox = styled.div`
   gap: ${rem(16)};
   width: calc(100% - 32px);
 `;
+
+const TextSpan = styled.span`
+  ${props => props.theme.layout.centerX};
+`;
+
+const ModalContainer = styled.div`
+  width: 100%;
+  max-width: ${theme.sizes.app};
+`;
+
+const ModalHeader = styled.div`
+  height: ${rem(47)};
+  padding-inline: ${rem(16)};
+
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ModalLayout = styled.div`
+  ${props => props.theme.layout.columnCenterY};
+  width: 100%;
+  max-width: ${theme.sizes.app};
+
+  padding-inline: ${rem(30)};
+  height: ${rem(393)};
+`;
+
+const IconClose = styled.img``;
