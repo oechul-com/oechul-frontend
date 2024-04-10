@@ -29,3 +29,14 @@ export const HeaderTitle = styled.h1`
   left: 50%;
   transform: translateX(-50%);
 `;
+
+export const HeaderIconButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ${rem(8)};
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+`;

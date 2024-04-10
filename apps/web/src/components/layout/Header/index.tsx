@@ -1,9 +1,13 @@
+import { ArrowLeftIcon } from '@oechul/icons';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Branding,
+  HeaderIconButton,
   HeaderInner,
   HeaderRoot,
   HeaderTitle,
-} from '@/components/layout/Header/Header.styles.ts';
+} from './Header.styles.ts';
 
 interface HeaderProps {
   arrow?: boolean;
@@ -13,10 +17,15 @@ interface HeaderProps {
 }
 
 const Header = ({ arrow, close, branding, title }: HeaderProps) => {
+  const navigate = useNavigate();
   return (
     <HeaderRoot>
       <HeaderInner>
-        {!!arrow && <p>left arrow</p>}
+        {!!arrow && (
+          <HeaderIconButton onClick={() => navigate(-1)}>
+            <ArrowLeftIcon width={16} height={16} stroke="black" />
+          </HeaderIconButton>
+        )}
         {!!close && <p>close</p>}
         {!!branding && <Branding src="/static/assets/image-logo-header.svg" />}
         {title && <HeaderTitle>{title}</HeaderTitle>}

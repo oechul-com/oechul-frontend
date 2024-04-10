@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 
 const LoginPage = (): ReactElement => {
   return (
-    <Layout>
+    <Layout arrow={true}>
       <p>Login Page</p>
     </Layout>
   );
