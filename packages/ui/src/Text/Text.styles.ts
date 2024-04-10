@@ -6,6 +6,7 @@ interface TextProps {
   textColor?: string;
   textWeight?: number;
   lineHeight?: string;
+  textAlign?: string;
 }
 
 const variantStyles = {
@@ -22,7 +23,7 @@ const variantStyles = {
 };
 
 const BaseText = styled.span<TextProps>`
-  ${({ variant = 'normal', textColor, textWeight, lineHeight }) => {
+  ${({ variant = 'normal', textColor, textWeight, lineHeight, textAlign }) => {
     const { fontSize, fontWeight } = variantStyles[variant];
 
     return `
@@ -32,8 +33,9 @@ const BaseText = styled.span<TextProps>`
       font-size: ${fontSize};
       font-weight: ${textWeight || fontWeight};
       text-wrap: wrap;
-      lineHeight: ${lineHeight};
+      line-height: ${lineHeight};
       word-break: keep-all;
+      text-align: ${textAlign};
     `;
   }}
 `;

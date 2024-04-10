@@ -7,6 +7,7 @@ interface TextStylesProps {
   textColor?: string;
   textWeight?: number;
   lineHeight?: string;
+  textAlign?: string;
 }
 
 type TextProps<C extends ElementType> = TextStylesProps & {
@@ -21,6 +22,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
       textColor,
       textWeight,
       lineHeight,
+      textAlign,
       children,
       ...props
     },
@@ -32,6 +34,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
       textColor={textColor}
       textWeight={textWeight}
       lineHeight={lineHeight}
+      textAlign={textAlign}
       {...props}
     >
       {children}
