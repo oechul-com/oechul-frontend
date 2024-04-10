@@ -11,11 +11,11 @@ export const ModalHeader = styled.div<{ visibleHeader: boolean }>`
   cursor: pointer;
 `;
 
-export const ModalLayout = styled.div`
+export const ModalLayout = styled.div<{ height?: string }>`
   ${props => props.theme.layout.columnCenterY};
   width: 100%;
 
   padding-inline: ${rem(30)};
-  height: ${rem(393)};
+  height: ${props => props.height || `${rem(393)}`};
   gap: ${rem(26)};
 `;
