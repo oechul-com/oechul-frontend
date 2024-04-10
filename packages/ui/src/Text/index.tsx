@@ -5,7 +5,8 @@ import BaseText from './Text.styles';
 
 interface TextStylesProps {
   textColor?: string;
-  textWeight?: number;
+  fontWeight?: number;
+  fontSize?: string;
   lineHeight?: string;
   textAlign?: string;
 }
@@ -20,7 +21,8 @@ const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
     {
       as: Component = 'span',
       textColor,
-      textWeight,
+      fontWeight,
+      fontSize,
       lineHeight,
       textAlign,
       children,
@@ -32,7 +34,8 @@ const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
       as={Component}
       ref={ref}
       textColor={textColor}
-      textWeight={textWeight}
+      fontWeight={fontWeight}
+      fontSize={fontSize}
       lineHeight={lineHeight}
       textAlign={textAlign}
       {...props}
