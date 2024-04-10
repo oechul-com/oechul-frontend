@@ -1,11 +1,11 @@
 import Layout from '@/components/layout/Layout';
 
-const MixersPage = () => {
+const MeetupPage = () => {
   return (
     <Layout visibleHeader={true} arrow={true} title="과팅매칭">
-      <p>MixersPage</p>
+      <p>MeetupPage</p>
     </Layout>
   );
 };
 
-export default MixersPage;
+export default MeetupPage;

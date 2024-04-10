@@ -5,14 +5,14 @@ import LoginPage from '@/pages/auth/login.tsx';
 import Register from '@/pages/auth/register.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
-import MixersPrivateRouter from '@/routers/MixersPrivateRouter.tsx';
+import MeetupPrivateRouter from '@/routers/MeetupPrivateRouter.tsx';
 import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
 
 const pages = [
   { path: '/', component: MainPrivateRouter },
   { path: '/login', component: LoginPage },
   { path: '/register', component: Register },
-  { path: '/mixers/*', component: MixersPrivateRouter },
+  { path: '/meetup/*', component: MeetupPrivateRouter },
   { path: '/profile/*', component: ProfilePrivateRouter },
   { path: '*', component: ErrorPage },
 ];

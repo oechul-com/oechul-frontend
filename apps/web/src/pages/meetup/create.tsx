@@ -1,11 +1,11 @@
 import Layout from '@/components/layout/Layout';
 
-const MixersCreatePage = () => {
+const MeetupCreatePage = () => {
   return (
     <Layout>
-      <p>MixersCreatePage</p>
+      <p>MeetupCreatePage</p>
     </Layout>
   );
 };
 
-export default MixersCreatePage;
+export default MeetupCreatePage;
