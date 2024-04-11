@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import LoginPage from '@/pages/auth/login.tsx';
+import LoginPage from '@/pages/auth/login';
 import Register from '@/pages/auth/register.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
