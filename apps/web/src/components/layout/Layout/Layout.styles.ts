@@ -14,7 +14,7 @@ export const Main = styled.main<{ $visibleHeader: boolean }>`
   flex-direction: column;
   width: 100%;
   max-width: ${theme.sizes.app};
-  padding-top: ${({ $visibleHeader }) => ($visibleHeader ? rem(70) : '0')};
+  padding-top: ${({ $visibleHeader }) => ($visibleHeader ? rem(68) : '0')};
   padding-inline: ${rem(30)};
   margin-inline: auto;
 `;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const HeaderRoot = styled.header`
   position: fixed;
   width: 100%;
-  height: ${rem(70)};
+  height: ${rem(68)};
 `;
 
 export const HeaderInner = styled.div`
