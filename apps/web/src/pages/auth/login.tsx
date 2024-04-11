@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
+import { Header } from '@/pages/auth/auth.styles.ts';
 
 const LoginPage = (): ReactElement => {
   return (
     <Layout arrow={true}>
-      <p>Login Page</p>
+      <Header>로그인</Header>
     </Layout>
   );
 };

@@ -10,8 +10,8 @@ import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
 
 const pages = [
   { path: '/', component: MainPrivateRouter },
-  { path: '/login', component: LoginPage },
-  { path: '/register', component: Register },
+  { path: '/auth/login', component: LoginPage },
+  { path: '/auth/register', component: Register },
   { path: '/meetup/*', component: MeetupPrivateRouter },
   { path: '/profile/*', component: ProfilePrivateRouter },
   { path: '*', component: ErrorPage },
