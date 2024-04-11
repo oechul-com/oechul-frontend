@@ -27,7 +27,7 @@ const Header = ({ arrow, close, branding, title }: HeaderProps) => {
           </HeaderIconButton>
         )}
         {!!close && <p>close</p>}
-        {!!branding && <Branding src="/static/assets/image-logo-header.svg" />}
+        {!!branding && <Branding src="/static/assets/common/image-logo.svg" />}
         {title && <HeaderTitle>{title}</HeaderTitle>}
       </HeaderInner>
     </HeaderRoot>

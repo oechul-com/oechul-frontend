@@ -10,6 +10,7 @@ type BaseButtonProps = {
   textColor?: string;
   hoverTextColor?: string;
   invalidTextColor?: string;
+  width?: string;
   children: ReactNode;
 };
 
@@ -28,6 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps<ElementType>>(
       textColor,
       hoverTextColor,
       invalidTextColor,
+      width,
       children,
       ...props
     },
@@ -43,6 +45,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps<ElementType>>(
       $invalidBgColor={invalidBgColor}
       $hoverTextColor={hoverTextColor}
       $invalidTextColor={invalidTextColor}
+      $width={width}
       {...props}
     >
       {children}

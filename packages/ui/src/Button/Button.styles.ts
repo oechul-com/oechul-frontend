@@ -9,6 +9,7 @@ interface ButtonStylesProps {
   $textColor?: string;
   $hoverTextColor?: string;
   $invalidTextColor?: string;
+  $width?: string;
 }
 
 const variantStyles = {
@@ -55,6 +56,7 @@ export const BaseButton = styled.button<ButtonStylesProps>`
     $bgColor,
     $hoverBgColor,
     $invalidBgColor,
+    $width,
   }) => {
     const {
       textColor: defaultTextColor,
@@ -87,6 +89,7 @@ export const BaseButton = styled.button<ButtonStylesProps>`
       transition: background-color 0.2s ease-in-out;
       background-color: ${finalBgColor};
       gap: ${rem(6)};
+      width: ${$width || 'auto'};
       
       &:hover {
         color:${finalHoverTextColor};
