@@ -27,7 +27,7 @@ export const InputBlock = styled.input`
   width: 100%;
   height: 100%;
   padding-inline: ${rem(24)};
-  padding-top: ${rem(24)};
+  padding-top: ${rem(16)};
 
   color: ${theme.colors.black};
   font-size: ${theme.fontSizes.md};
@@ -40,7 +40,7 @@ export const InputBlock = styled.input`
   &:focus ~ label,
   &:valid ~ label,
   &:read-only ~ label {
-    top: ${rem(18)};
+    top: ${rem(16)};
     font-size: ${theme.fontSizes['2xs']};
     transform: translateY(0);
   }

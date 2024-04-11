@@ -1,5 +1,9 @@
-// Text.styled.tsx
-import React, { ElementType, ReactNode, forwardRef } from 'react';
+import React, {
+  ElementType,
+  ReactNode,
+  forwardRef,
+  ComponentPropsWithoutRef,
+} from 'react';
 
 import BaseText from './Text.styles';
 
@@ -14,7 +18,7 @@ interface TextStylesProps {
 type TextProps<C extends ElementType> = TextStylesProps & {
   as?: C;
   children: ReactNode;
-} & Omit<React.ComponentPropsWithoutRef<C>, keyof TextStylesProps>;
+} & Omit<ComponentPropsWithoutRef<C>, keyof TextStylesProps>;
 
 const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
   (
