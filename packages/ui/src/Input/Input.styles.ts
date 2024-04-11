@@ -27,7 +27,7 @@ export const InputBlock = styled.input`
   width: 100%;
   height: 100%;
   padding-inline: ${rem(24)};
-  padding-top: ${rem(18)};
+  padding-top: ${rem(24)};
 
   color: ${theme.colors.black};
   font-size: ${theme.fontSizes.md};
