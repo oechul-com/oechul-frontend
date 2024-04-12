@@ -1,9 +1,9 @@
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
-import { Header, NavigationText } from '@/pages/auth/auth.styles.ts';
+import { Header, LoginNavigationText } from '@/pages/auth/auth.styles.ts';
 
 import EmailStep from './_steps/EmailStep.tsx';
 import PasswordStep from './_steps/PasswordStep.tsx';
@@ -17,6 +17,7 @@ const LoginPage = (): ReactElement => {
   const { Funnel, Step, goToStep } = useFunnel(['email', 'password'], {
     stepQueryKey: 'step',
   });
+
   const [loginForm, setLoginForm] = useState<LoginForm>({
     email: '',
     password: '',
@@ -47,10 +48,10 @@ const LoginPage = (): ReactElement => {
           <PasswordStep formData={loginForm} handleLogin={handleLogin} />
         </Step>
       </Funnel>
-      <NavigationText>
+      <LoginNavigationText>
         <Link to="/auth/register">가입하기</Link> 또는{' '}
         <Link to="/auth/recover">계정찾기</Link>
-      </NavigationText>
+      </LoginNavigationText>
     </Layout>
   );
 };

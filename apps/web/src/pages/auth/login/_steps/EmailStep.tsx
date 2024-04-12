@@ -2,7 +2,7 @@ import { rem } from '@oechul/styles';
 import { Button, Input } from '@oechul/ui';
 import { ReactElement, useMemo, useState, FormEvent } from 'react';
 
-import { Content } from '@/pages/auth/auth.styles.ts';
+import { LoginContent } from '@/pages/auth/auth.styles.ts';
 import { LoginForm } from '@/pages/auth/login';
 
 interface EmailStepProps {
@@ -17,10 +17,10 @@ const EmailStep = ({
 }: EmailStepProps): ReactElement => {
   const [email, setEmail] = useState<string>(formData.email);
 
-  const isEmailValid = useMemo(
-    () => email.length > 0 && emailRegex.test(email),
-    [email],
-  );
+  const isEmailValid = useMemo(() => {
+    if (email.length === 0) return undefined;
+    return emailRegex.test(email);
+  }, [email]);
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -28,13 +28,17 @@ const EmailStep = ({
   };
 
   return (
-    <Content as="form" onSubmit={handleFormSubmit}>
+    <LoginContent as="form" onSubmit={handleFormSubmit}>
       <Input
-        label={isEmailValid ? '이메일' : '⚠ 올바르지 않은 이메일 형식입니다.'}
+        label={
+          isEmailValid === false
+            ? '⚠ 올바르지 않은 이메일 형식입니다.'
+            : '이메일'
+        }
         type="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
-        isValid={isEmailValid ? undefined : false}
+        isValid={isEmailValid === false ? false : undefined}
       />
       <Button
         type="submit"
@@ -45,7 +49,7 @@ const EmailStep = ({
       >
         다음
       </Button>
-    </Content>
+    </LoginContent>
   );
 };
 

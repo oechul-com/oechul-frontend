@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
 import LoginPage from '@/pages/auth/login';
-import Register from '@/pages/auth/register.tsx';
+import Register from '@/pages/auth/register';
 import ErrorPage from '@/pages/error.tsx';
 import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
 import MeetupPrivateRouter from '@/routers/MeetupPrivateRouter.tsx';

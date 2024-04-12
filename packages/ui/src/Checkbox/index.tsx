@@ -9,12 +9,13 @@ import {
 
 type CheckboxProps = {
   label: string | ReactNode;
+  margin?: string;
 } & ComponentPropsWithoutRef<'input'>;
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, ...rest }, ref) => {
+  ({ label, margin, ...rest }, ref) => {
     return (
-      <CheckboxContainer>
+      <CheckboxContainer style={{ margin: margin }}>
         <HiddenCheckbox ref={ref} {...rest} />
         <StyledCheckbox $checked={!!rest.checked} />
         <CheckboxLabel $checked={!!rest.checked}>{label}</CheckboxLabel>

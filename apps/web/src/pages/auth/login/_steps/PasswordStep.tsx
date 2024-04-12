@@ -3,7 +3,7 @@ import { Button, Input } from '@oechul/ui';
 import { ReactElement, useEffect, useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Content } from '@/pages/auth/auth.styles.ts';
+import { LoginContent } from '@/pages/auth/auth.styles.ts';
 import { LoginForm } from '@/pages/auth/login';
 
 interface PasswordStepProps {
@@ -30,17 +30,23 @@ const PasswordStep = ({
   };
 
   return (
-    <Content as="form" onSubmit={handleFormSubmit}>
+    <LoginContent as="form" onSubmit={handleFormSubmit}>
       <Input
         label="비밀번호"
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-      <Button type="submit" width="100%" style={{ marginTop: rem(23) }}>
+      <Button
+        type="submit"
+        width="100%"
+        style={{ marginTop: rem(23) }}
+        disabled={password.length < 6}
+        aria-invalid={password.length < 6}
+      >
         로그인
       </Button>
-    </Content>
+    </LoginContent>
   );
 };
 
