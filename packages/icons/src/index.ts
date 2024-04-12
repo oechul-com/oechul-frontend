@@ -14,6 +14,12 @@ export { default as PolicyIcon } from './components/action/PolicyIcon';
 export { default as SearchIcon } from './components/action/SearchIcon';
 export { default as UploadIcon } from './components/action/UploadIcon';
 export { default as VerificationIcon } from './components/action/VerificationIcon';
+export {
+  CaratUpIcon,
+  CaratDownIcon,
+  CaratLeftIcon,
+  CaratRightIcon,
+} from './components/action/CaratIcon';
 
 export { default as InstagramIcon } from './components/social/InstagramIcon';
 export { default as KakaoTalkIcon } from './components/social/KakaoTalkIcon';

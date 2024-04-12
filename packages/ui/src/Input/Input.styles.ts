@@ -32,7 +32,7 @@ export const InputBlock = styled.input`
 
   color: ${theme.colors.black};
   font-size: ${theme.fontSizes.md};
-  font-weight: ${theme.fontWeights.medium};
+  font-weight: ${theme.fontWeights.semibold};
 
   outline: none;
   border: none;

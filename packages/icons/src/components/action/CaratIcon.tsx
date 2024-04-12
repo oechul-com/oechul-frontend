@@ -3,50 +3,44 @@ import React, { memo } from 'react';
 import Icon from '../../icon';
 import { IconProps } from '../../types';
 
-const ArrowIcon = memo<IconProps>(props => (
+const CaratIcon = memo<IconProps>(props => (
   <Icon type="stroke" {...props}>
     <svg
-      width="13"
-      height="14"
-      viewBox="0 0 13 14"
+      width="14"
+      height="8"
+      viewBox="0 0 14 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M12.0001 7H2.78357"
-        stroke={props.stroke || '#454545'}
+        d="M2 1.5L7 6.5L12 1.5"
+        stroke={props.stroke || '#8C8C8C'}
         strokeWidth="2"
         strokeLinecap="square"
         strokeLinejoin="round"
-      />
-      <path
-        d="M7 12L2 7L7 2"
-        stroke={props.stroke || '#454545'}
-        strokeWidth="2"
-        strokeLinecap="square"
       />
     </svg>
   </Icon>
 ));
 
-ArrowIcon.displayName = 'ArrowIcon';
+CaratIcon.displayName = 'CaratIcon';
 
-export const ArrowDownIcon = memo<IconProps>(props => (
-  <ArrowIcon style={{ transform: 'rotate(-90deg)' }} {...props} />
+export const CaratUpIcon = memo<IconProps>(props => (
+  <CaratIcon style={{ transform: 'rotate(180deg)' }} {...props} />
 ));
-ArrowDownIcon.displayName = 'ArrowDownIcon';
+CaratUpIcon.displayName = 'CaratUpIcon';
 
-export const ArrowUpIcon = memo<IconProps>(props => (
-  <ArrowIcon style={{ transform: 'rotate(90deg)' }} {...props} />
+export const CaratDownIcon = memo<IconProps>(props => (
+  <CaratIcon style={{ transform: 'rotate(0deg)' }} {...props} />
 ));
-ArrowUpIcon.displayName = 'ArrowUpIcon';
+CaratDownIcon.displayName = 'CaratDownIcon';
 
-export const ArrowLeftIcon = memo<IconProps>(props => (
-  <ArrowIcon style={{ transform: 'rotate(0deg)' }} {...props} />
+export const CaratLeftIcon = memo<IconProps>(props => (
+  <CaratIcon style={{ transform: 'rotate(90deg)' }} {...props} />
 ));
-ArrowLeftIcon.displayName = 'ArrowLeftIcon';
+CaratLeftIcon.displayName = 'CaratLeftIcon';
 
-export const ArrowRightIcon = memo<IconProps>(props => (
-  <ArrowIcon style={{ transform: 'rotate(180deg)' }} {...props} />
+export const CaratRightIcon = memo<IconProps>(props => (
+  <CaratIcon style={{ transform: 'rotate(-90deg)' }} {...props} />
 ));
-ArrowRightIcon.displayName = 'ArrowRightIcon';
+CaratRightIcon.displayName = 'CaratRightIcon';

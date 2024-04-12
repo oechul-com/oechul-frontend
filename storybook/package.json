@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "storybook dev -p 6006 -c .storybook",
     "build": "storybook build -c .storybook",
-    "chromatic": "bash ./scripts/publish.sh"
+    "chromatic": "pnpm build && bash ./scripts/publish.sh"
   },
   "lint-staged": {
     "stories/*.{js,jsx,ts,tsx,json,css,md}": "prettier --write",

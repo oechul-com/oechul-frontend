@@ -18,6 +18,10 @@ import {
   MailIcon,
   CrownIcon,
   MemberIcon,
+  CaratUpIcon,
+  CaratDownIcon,
+  CaratLeftIcon,
+  CaratRightIcon,
 } from '@oechul/icons';
 import type { IconProps } from '@oechul/icons';
 import { StoryFn, Meta } from '@storybook/react';
@@ -43,6 +47,10 @@ const icons: IconCategories = {
     SearchIcon,
     UploadIcon,
     VerificationIcon,
+    CaratUpIcon,
+    CaratDownIcon,
+    CaratLeftIcon,
+    CaratRightIcon,
   },
   social: {
     InstagramIcon,
