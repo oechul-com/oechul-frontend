@@ -6,6 +6,7 @@ import {
   forwardRef,
   ComponentPropsWithoutRef,
 } from 'react';
+import { v4 } from 'uuid';
 
 import { InputContainer, InputBlock, InputLabel } from './Input.styles';
 
@@ -18,7 +19,7 @@ type InputProps = {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ id: propId, isValid, style, label, ...props }, ref) => {
-    const [id, setId] = useState(propId || crypto.randomUUID());
+    const [id, setId] = useState(propId || v4());
 
     useEffect(() => {
       if (propId) setId(propId);

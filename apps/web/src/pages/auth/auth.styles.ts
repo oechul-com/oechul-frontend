@@ -44,6 +44,5 @@ export const RegisterCenterContent = styled.div`
 export const PrivacyCheckboxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-inline: ${rem(24)};
   gap: ${rem(16)};
 `;

@@ -1,5 +1,5 @@
 import { rem } from '@oechul/styles';
-import { Input, Select } from '@oechul/ui';
+import { Button, Input, Select } from '@oechul/ui';
 import { useState } from 'react';
 
 import Tip from '@/components/Tip';
@@ -10,7 +10,7 @@ const schoolOptions = [
   { label: '한국외국어대학교 글로벌캠퍼스', value: 'hufs-global' },
 ];
 
-const SchoolStep = ({ formData }: RegisterStepProps) => {
+const SchoolStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
   const [school, setSchool] = useState<string>(formData.school);
   const [major, setMajor] = useState<string>(formData.major);
   const [studentId, setStudentId] = useState<string>(formData.studentId);
@@ -42,9 +42,9 @@ const SchoolStep = ({ formData }: RegisterStepProps) => {
           onChange={e => setStudentId(e.target.value)}
         />
       </div>
-      {/*<Button onClick={() => proceedToNextStep({ school, major, studentId })}>*/}
-      {/*  다음*/}
-      {/*</Button>*/}
+      <Button onClick={() => proceedToNextStep({ school, major, studentId })}>
+        다음
+      </Button>
     </RegisterContent>
   );
 };
