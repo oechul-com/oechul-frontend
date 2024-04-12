@@ -1,23 +1,52 @@
-import { rem } from '@oechul/styles';
-import { Button, Input } from '@oechul/ui';
-import { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
-import { Content, Header, NavigationText } from '@/pages/auth/auth.styles.ts';
-import LoginFunnel from '@/pages/auth/login/LoginFunnel.tsx';
+import { Header, NavigationText } from '@/pages/auth/auth.styles.ts';
+
+import EmailStep from './_steps/EmailStep.tsx';
+import PasswordStep from './_steps/PasswordStep.tsx';
+
+export type LoginForm = {
+  email: string;
+  password: string;
+};
 
 const LoginPage = (): ReactElement => {
+  const { Funnel, Step, goToStep } = useFunnel(['email', 'password'], {
+    stepQueryKey: 'step',
+  });
+  const [loginForm, setLoginForm] = useState<LoginForm>({
+    email: '',
+    password: '',
+  });
+
+  const handleEmailNextStep = (email: string) => {
+    setLoginForm(prevForm => ({ ...prevForm, email }));
+    goToStep('password');
+  };
+
+  const handleLogin = (password: string) => {
+    setLoginForm(prevForm => ({ ...prevForm, password }));
+
+    // todo - login logic
+  };
+
   return (
     <Layout arrow={true}>
       <Header>로그인</Header>
-      <LoginFunnel />
-      <Content>
-        <Input label="이메일" />
-        <Button width="100%" style={{ marginTop: rem(23) }}>
-          다음
-        </Button>
-      </Content>
+      <Funnel>
+        <Step name="email">
+          <EmailStep
+            formData={loginForm}
+            proceedToNextStep={handleEmailNextStep}
+          />
+        </Step>
+        <Step name="password">
+          <PasswordStep formData={loginForm} handleLogin={handleLogin} />
+        </Step>
+      </Funnel>
       <NavigationText>
         <Link to="/auth/register">가입하기</Link> 또는{' '}
         <Link to="/auth/recover">계정찾기</Link>
