@@ -20,6 +20,7 @@ export const InputContainer = styled.div<{ $isValid?: boolean }>`
   border: ${rem(1)} solid ${({ $isValid }) => getBorderColor($isValid)};
   border-radius: ${rem(10)};
   background-color: ${theme.colors.white};
+  transition: all 0.2s ease;
 `;
 
 export const InputBlock = styled.input`
@@ -36,6 +37,7 @@ export const InputBlock = styled.input`
   outline: none;
   border: none;
   background: none;
+  transition: all 0.2s ease;
 
   &:focus ~ label,
   &:valid ~ label,

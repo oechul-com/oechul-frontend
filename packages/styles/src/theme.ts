@@ -106,7 +106,7 @@ const responsive = {
 };
 
 const sizes = {
-  app: '33.75rem', // 540px
+  app: '30rem', // 480px
 };
 
 export const theme = {

@@ -75,9 +75,11 @@ export const BaseButton = styled.button<ButtonStylesProps>`
     const finalInvalidBgColor = $invalidBgColor || defaultInvalidBgColor;
 
     return `
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: ${$width || 'auto'};
+      height: ${rem(68)};
       padding-block: ${rem(25)};
       color: ${finalTextColor};
       font-size: ${theme.fontSizes.lg};
@@ -89,7 +91,6 @@ export const BaseButton = styled.button<ButtonStylesProps>`
       transition: background-color 0.2s ease-in-out;
       background-color: ${finalBgColor};
       gap: ${rem(6)};
-      width: ${$width || 'auto'};
       
       &:hover {
         color:${finalHoverTextColor};
