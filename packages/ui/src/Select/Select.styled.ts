@@ -51,4 +51,5 @@ export const SelectIcon = styled.span`
   right: ${rem(24)};
   top: 50%;
   transform: translateY(-50%);
+  pointer-events: none;
 `;

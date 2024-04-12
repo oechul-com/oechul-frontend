@@ -8,10 +8,10 @@ import {
   SelectLabel,
 } from './Select.styled';
 
-interface SelectProps extends ComponentPropsWithoutRef<'select'> {
+type SelectProps = {
   label: string;
   options: { value: string; label: string }[];
-}
+} & ComponentPropsWithoutRef<'select'>;
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, style, options, ...props }, ref) => {
