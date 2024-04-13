@@ -18,12 +18,9 @@ const useFunnel = (
   const currentStep = searchParams.get(stepQueryKey) ?? initialStep;
 
   useEffect(() => {
-    const step = searchParams.get(stepQueryKey);
+    const step = searchParams.get(stepQueryKey) || initialStep;
     if (step && steps.includes(step)) {
       options?.onStepChange?.(step);
-    } else {
-      setSearchParams({ [stepQueryKey]: initialStep });
-      options?.onStepChange?.(initialStep);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

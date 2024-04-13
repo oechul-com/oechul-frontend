@@ -31,9 +31,7 @@ export const HeaderTitle = styled.h1`
 `;
 
 export const HeaderIconButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${theme.layout.center};
   padding: ${rem(8)};
   cursor: pointer;
   outline: none;
