@@ -28,7 +28,7 @@ export const CheckboxLabel = styled.span<{ $checked: boolean }>`
   margin-left: ${rem(8)};
   color: ${({ $checked }) =>
     $checked ? theme.colors.black : theme.colors.gray500};
-  font-size: ${theme.fontSizes.sm};
+  font-size: ${theme.fontSizes.xs};
   font-weight: ${theme.fontWeights.medium};
 
   a {
