@@ -35,6 +35,10 @@ const colors = {
     accentHover: '#FF6666',
     warningBg: '#FBF2EC',
   },
+  warning: {
+    main: '#DA8140',
+    bg: '#FBF2EC',
+  },
   green: {
     main: '#1CC54B',
     bg: '#E8F9ED',
