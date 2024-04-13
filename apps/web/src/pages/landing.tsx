@@ -97,7 +97,7 @@ const LandingPage = () => {
   };
 
   const onClickStartButton = () => {
-    navigate('/login');
+    navigate('/auth/login');
   };
 
   return (
