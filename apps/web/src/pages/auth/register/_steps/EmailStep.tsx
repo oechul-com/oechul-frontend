@@ -32,9 +32,7 @@ const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
   return (
     <RegisterContent as="form" onSubmit={handleFormSubmit}>
       <div>
-        <Tip margin={`0 0 ${rem(28)} 0`}>
-          학교 메일은 학생증 인증이 면제돼요.
-        </Tip>
+        <Tip margin={`0 0 ${rem(28)} 0`}>정확한 학교 메일을 입력해주세요.</Tip>
         <Input
           label={
             isEmailValid === false

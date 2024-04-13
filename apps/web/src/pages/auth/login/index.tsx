@@ -49,7 +49,7 @@ const LoginPage = (): ReactElement => {
         </Step>
       </Funnel>
       <LoginNavigationText>
-        <Link to="/auth/register">가입하기</Link> 또는{' '}
+        <Link to="/auth/register">가입하기</Link>또는
         <Link to="/auth/recover">계정찾기</Link>
       </LoginNavigationText>
     </Layout>

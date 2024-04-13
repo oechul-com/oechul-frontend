@@ -14,11 +14,13 @@ export const LoginContent = styled.div`
 `;
 
 export const LoginNavigationText = styled(Text)`
+  ${theme.layout.centerX};
   margin-top: ${rem(15)};
   color: ${theme.colors.gray600};
   font-size: ${theme.fontSizes.xs};
   font-weight: ${theme.fontWeights.medium};
   text-align: center;
+  gap: ${rem(8)};
 
   & a {
     color: ${theme.colors.black};

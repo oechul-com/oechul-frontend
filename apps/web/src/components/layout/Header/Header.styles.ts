@@ -33,6 +33,7 @@ export const HeaderTitle = styled.h1`
 export const HeaderIconButton = styled.button`
   ${theme.layout.center};
   padding: ${rem(8)};
+  margin-left: ${rem(-8)};
   cursor: pointer;
   outline: none;
   border: none;

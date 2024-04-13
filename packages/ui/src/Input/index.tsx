@@ -27,7 +27,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <InputContainer style={style} $isValid={isValid}>
-        <InputBlock id={id} ref={ref} required {...props} />
+        <InputBlock id={id} ref={ref} placeholder={id} required {...props} />
         <InputLabel htmlFor={id} $isValid={isValid}>
           {label}
         </InputLabel>

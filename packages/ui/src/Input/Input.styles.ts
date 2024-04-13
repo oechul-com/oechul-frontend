@@ -40,11 +40,14 @@ export const InputBlock = styled.input`
   transition: all 0.2s ease;
 
   &:focus ~ label,
-  &:valid ~ label,
-  &:read-only ~ label {
+  &:not(:placeholder-shown) ~ label {
     top: ${rem(16)};
     font-size: ${theme.fontSizes['2xs']};
     transform: translateY(0);
+  }
+
+  &::placeholder {
+    color: transparent;
   }
 `;
 
@@ -59,6 +62,7 @@ export const InputLabel = styled.label<{ $isValid?: boolean }>`
   font-size: ${theme.fontSizes.md};
   font-weight: ${theme.fontWeights.medium};
 
+  pointer-events: none;
   user-select: none;
   transition: all 0.2s ease;
   transform: translateY(-50%);

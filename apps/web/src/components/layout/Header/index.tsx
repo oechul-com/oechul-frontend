@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@oechul/icons';
+import { ArrowLeftIcon, CloseIcon } from '@oechul/icons';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -26,7 +26,11 @@ const Header = ({ arrow, close, branding, title }: HeaderProps) => {
             <ArrowLeftIcon width={16} height={16} stroke="black" />
           </HeaderIconButton>
         )}
-        {!!close && <p>close</p>}
+        {!!close && (
+          <HeaderIconButton onClick={() => navigate(-1)}>
+            <CloseIcon width={16} height={16} stroke="black" />
+          </HeaderIconButton>
+        )}
         {!!branding && <Branding src="/static/assets/common/image-logo.svg" />}
         {title && <HeaderTitle>{title}</HeaderTitle>}
       </HeaderInner>
