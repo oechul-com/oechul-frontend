@@ -1,10 +1,12 @@
 import { rem, theme } from '@oechul/styles';
 import styled from 'styled-components';
 
-export const HeaderRoot = styled.header`
+export const HeaderRoot = styled.header<{ $borderline: boolean }>`
   position: fixed;
   width: 100%;
   height: ${rem(68)};
+  border-bottom: ${({ $borderline }) =>
+    $borderline ? `${rem(1)} solid ${theme.colors.gray200}` : 'none'};
 `;
 
 export const HeaderInner = styled.div`

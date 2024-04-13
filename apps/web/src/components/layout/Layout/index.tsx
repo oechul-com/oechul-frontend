@@ -8,6 +8,7 @@ interface LayoutProps {
   arrow?: boolean;
   close?: boolean;
   branding?: boolean;
+  borderline?: boolean;
   title?: string;
   children: ReactNode;
 }
@@ -17,13 +18,20 @@ const Layout = ({
   arrow,
   close,
   branding,
+  borderline = false,
   title,
   children,
 }: LayoutProps) => {
   return (
     <LayoutRoot>
       {visibleHeader && (
-        <Header arrow={arrow} close={close} branding={branding} title={title} />
+        <Header
+          arrow={arrow}
+          close={close}
+          branding={branding}
+          borderline={borderline}
+          title={title}
+        />
       )}
       <Main $visibleHeader={visibleHeader}>{children}</Main>
     </LayoutRoot>

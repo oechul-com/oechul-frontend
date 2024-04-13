@@ -13,13 +13,15 @@ interface HeaderProps {
   arrow?: boolean;
   close?: boolean;
   branding?: boolean;
+  borderline: boolean;
   title?: string;
 }
 
-const Header = ({ arrow, close, branding, title }: HeaderProps) => {
+const Header = ({ arrow, close, branding, borderline, title }: HeaderProps) => {
   const navigate = useNavigate();
+
   return (
-    <HeaderRoot>
+    <HeaderRoot $borderline={borderline}>
       <HeaderInner>
         {!!arrow && (
           <HeaderIconButton onClick={() => navigate(-1)}>
