@@ -1,10 +1,10 @@
 import { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
 import { Header } from '@/pages/auth/auth.styles.ts';
 
-import CompleteStep from './_steps/CompleteStep.tsx';
 import EmailStep from './_steps/EmailStep.tsx';
 import PasswordStep from './_steps/PasswordStep.tsx';
 import PersonalStep from './_steps/PersonalStep.tsx';
@@ -27,8 +27,10 @@ export interface RegisterStepProps {
 }
 
 const RegisterPage = (): ReactElement => {
+  const navigate = useNavigate();
+
   const { currentStep, Funnel, Step, goToStep } = useFunnel(
-    ['school', 'personal', 'email', 'password', 'complete'],
+    ['school', 'personal', 'email', 'password'],
     {
       stepQueryKey: 'step',
     },
@@ -48,13 +50,16 @@ const RegisterPage = (): ReactElement => {
   const handleNextStep = (data: Partial<RegisterForm>) => {
     setRegisterForm(prevForm => ({ ...prevForm, ...data }));
     const nextStepIndex =
-      ['school', 'personal', 'email', 'password', 'complete'].indexOf(
-        currentStep,
-      ) + 1;
-    const nextStep = ['school', 'personal', 'email', 'password', 'complete'][
-      nextStepIndex
-    ];
+      ['school', 'personal', 'email'].indexOf(currentStep) + 1;
+    const nextStep = ['school', 'personal', 'email', 'password'][nextStepIndex];
     goToStep(nextStep);
+  };
+
+  const handleRegister = (password: string) => {
+    setRegisterForm(prevForm => ({ ...prevForm, password }));
+
+    // todo - register logic
+    navigate('/auth/register/complete', { replace: true });
   };
 
   return (
@@ -82,11 +87,8 @@ const RegisterPage = (): ReactElement => {
         <Step name="password">
           <PasswordStep
             formData={registerForm}
-            proceedToNextStep={handleNextStep}
+            handleRegister={handleRegister}
           />
-        </Step>
-        <Step name="complete">
-          <CompleteStep />
         </Step>
       </Funnel>
     </Layout>

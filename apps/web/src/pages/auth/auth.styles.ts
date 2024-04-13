@@ -35,14 +35,14 @@ export const RegisterContent = styled.div`
   padding-bottom: ${rem(30)};
 `;
 
-export const RegisterCenterContent = styled.div`
-  ${theme.layout.center};
-  flex-direction: column;
-  flex: 1;
-`;
-
 export const PrivacyCheckboxContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${rem(16)};
+`;
+
+export const RegisterCompleteContent = styled.div`
+  ${theme.layout.center};
+  flex-direction: column;
+  flex: 1;
 `;

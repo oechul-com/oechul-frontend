@@ -2,6 +2,7 @@ import { rem } from '@oechul/styles';
 import { Button, Input } from '@oechul/ui';
 import { ReactElement, useMemo, useState, FormEvent } from 'react';
 
+import { emailRegex } from '@/constants.ts';
 import { LoginContent } from '@/pages/auth/auth.styles.ts';
 import { LoginForm } from '@/pages/auth/login';
 
@@ -10,7 +11,6 @@ interface EmailStepProps {
   proceedToNextStep: (email: string) => void;
 }
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const EmailStep = ({
   formData,
   proceedToNextStep,
@@ -44,7 +44,6 @@ const EmailStep = ({
         type="submit"
         width="100%"
         style={{ marginTop: rem(23) }}
-        disabled={!isEmailValid}
         aria-invalid={!isEmailValid}
       >
         다음
