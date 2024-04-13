@@ -1,14 +1,8 @@
 import { ReactElement, ReactNode } from 'react';
 
-import { BadgeRoot } from './Badge.styles.ts';
+import { BadgeRoot, NewBadgeRoot } from './Badge.styles.ts';
 
-export type colorVariant =
-  | 'normal'
-  | 'red'
-  | 'warning'
-  | 'green'
-  | 'blue'
-  | 'default';
+export type colorVariant = 'normal' | 'warning' | 'red' | 'green' | 'blue';
 
 interface BadgeProps {
   variant?: colorVariant;
@@ -19,3 +13,7 @@ const Badge = ({ variant = 'normal', children }: BadgeProps): ReactElement => {
   return <BadgeRoot $variant={variant}>{children}</BadgeRoot>;
 };
 export default Badge;
+
+export const NewBadge = () => {
+  return <NewBadgeRoot>NEW</NewBadgeRoot>;
+};

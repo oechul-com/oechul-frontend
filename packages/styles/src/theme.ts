@@ -39,6 +39,9 @@ const colors = {
     main: '#DA8140',
     bg: '#FBF2EC',
   },
+  orange: {
+    bg: '#FFB527',
+  },
   green: {
     main: '#1CC54B',
     bg: '#E8F9ED',
