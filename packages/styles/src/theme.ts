@@ -86,23 +86,23 @@ const layout = {
   },
   column: {
     display: 'flex',
-    flexDirection: 'column',
+    'flex-direction': 'column',
   },
   columnCenter: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    'flex-direction': 'column',
   },
   columnCenterX: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    alignItems: 'center',
+    'flex-direction': 'column',
   },
   columnCenterY: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: 'center',
+    'flex-direction': 'column',
   },
 };
 

@@ -137,20 +137,20 @@ const LandingPage = () => {
           )}
         </LandingSocialsBox>
       </Modal>
-      <LandingBox gap={`${rem(27)}`}>
+      <LandingBox $gap={`${rem(27)}`}>
         <ImageLogo src="/static/assets/common/image-logo.svg" />
         <Text textAlign="center" lineHeight="140%">
           {'대학생 블라인드 매칭 서비스\n외출:밖으로 나가다'}
         </Text>
       </LandingBox>
-      <LandingBox gap={`${rem(34)}`}>
+      <LandingBox $gap={`${rem(34)}`}>
         <LandingDescriptionsBox>
           {DESCRIPTION_LIST.map(
             ({ icon, description }: DescriptionItemType, index) => {
               return (
                 <LandingDescriptionBox
                   key={index}
-                  marginLeft={index === 3 ? `${rem(112)}` : '0'}
+                  $marginLeft={index === 3 ? `${rem(112)}` : '0'}
                 >
                   {icon}
                   <Text fontWeight={theme.fontWeights['semibold']}>
@@ -213,12 +213,12 @@ const ImageLogo = styled.img`
   height: ${rem(46)};
 `;
 
-const LandingBox = styled.div<{ gap: string }>`
+const LandingBox = styled.div<{ $gap: string }>`
   ${props => props.theme.layout.columnCenterY};
   width: calc(100% + ${rem(32)});
   margin-left: ${rem(-16)};
   margin-right: ${rem(-16)};
-  gap: ${props => props.gap || `0`};
+  gap: ${({ $gap }) => $gap || `0`};
   overflow: hidden;
 `;
 
@@ -231,13 +231,13 @@ const LandingDescriptionsBox = styled.div`
   margin-left: ${rem(296)};
 `;
 
-const LandingDescriptionBox = styled.div<{ marginLeft?: string }>`
+const LandingDescriptionBox = styled.div<{ $marginLeft?: string }>`
   ${props => props.theme.layout.center};
   border-radius: ${rem(10)};
   background-color: ${props => props.theme.colors.gray200};
   padding: ${rem(10)};
   gap: ${rem(7)};
-  margin-left: ${props => props.marginLeft};
+  margin-left: ${({ $marginLeft }) => $marginLeft};
 `;
 
 const ButtonBox = styled.div`

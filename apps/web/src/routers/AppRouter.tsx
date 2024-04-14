@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+import useScreenSize from '@/hooks/useScreenSize.ts';
 import LoginPage from '@/pages/auth/login';
 import Register from '@/pages/auth/register';
 import RegisterCompletePage from '@/pages/auth/register/complete.tsx';
@@ -20,6 +21,8 @@ const pages = [
 ];
 
 const AppRouter = () => {
+  useScreenSize();
+
   const element = useRoutes(
     pages.map((page, index) => ({
       path: page.path,

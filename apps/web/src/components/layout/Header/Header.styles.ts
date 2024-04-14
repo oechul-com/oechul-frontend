@@ -7,6 +7,7 @@ export const HeaderRoot = styled.header<{ $borderline: boolean }>`
   height: ${rem(68)};
   border-bottom: ${({ $borderline }) =>
     $borderline ? `${rem(1)} solid ${theme.colors.gray200}` : 'none'};
+  background-color: ${theme.colors.white};
 `;
 
 export const HeaderInner = styled.div`

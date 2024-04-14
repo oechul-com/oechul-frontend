@@ -20,6 +20,7 @@ export {
   CaratLeftIcon,
   CaratRightIcon,
 } from './components/action/CaratIcon';
+export { default as ImageAddIcon } from './components/action/ImageAddIcon';
 
 export { default as InstagramIcon } from './components/social/InstagramIcon';
 export { default as KakaoTalkIcon } from './components/social/KakaoTalkIcon';

@@ -6,7 +6,7 @@ import {
 } from '@oechul/icons';
 import React, { ReactElement } from 'react';
 
-import Badge, { NewBadge } from '@/components/Badge';
+import Badge from '@/components/Badge';
 
 import PreferenceItem from './Item.tsx';
 import { ListRoot } from './Preference.styles';
@@ -23,12 +23,6 @@ const preferenceItems = [
     title: '프로필 작성',
     href: '/profile/settings',
     badge: <Badge variant="red">⚑ 작성을 진행해 주세요</Badge>,
-  },
-  {
-    icon: <VerificationIcon />,
-    title: '요청 받은 매칭 팀',
-    href: '/profile/settings',
-    badge: <NewBadge />,
   },
   {
     icon: <PassIcon />,

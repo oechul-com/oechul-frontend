@@ -37,11 +37,11 @@ const Text = forwardRef<HTMLSpanElement, TextProps<ElementType>>(
     <BaseText
       as={Component}
       ref={ref}
-      textColor={textColor}
-      fontWeight={fontWeight}
-      fontSize={fontSize}
-      lineHeight={lineHeight}
-      textAlign={textAlign}
+      $textColor={textColor}
+      $fontWeight={fontWeight}
+      $fontSize={fontSize}
+      $lineHeight={lineHeight}
+      $textAlign={textAlign}
       {...props}
     >
       {children}

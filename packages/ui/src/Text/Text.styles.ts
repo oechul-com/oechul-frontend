@@ -2,12 +2,12 @@ import { theme } from '@oechul/styles';
 import styled from 'styled-components';
 
 interface TextProps {
-  variant?: 'normal' | 'title';
-  textColor?: string;
-  fontWeight?: number;
-  fontSize?: string;
-  lineHeight?: string;
-  textAlign?: string;
+  $variant?: 'normal' | 'title';
+  $textColor?: string;
+  $fontWeight?: number;
+  $fontSize?: string;
+  $lineHeight?: string;
+  $textAlign?: string;
 }
 
 const variantStyles = {
@@ -25,29 +25,29 @@ const variantStyles = {
 
 const BaseText = styled.span<TextProps>`
   ${({
-    variant = 'normal',
-    textColor,
-    fontWeight,
-    fontSize,
-    lineHeight,
-    textAlign,
+    $variant = 'normal',
+    $textColor,
+    $fontWeight,
+    $fontSize,
+    $lineHeight,
+    $textAlign,
   }) => {
     const { fontWeight: defaultFontWeight, fontSize: defaultFontSize } =
-      variantStyles[variant] || {};
+      variantStyles[$variant] || {};
 
-    const finalFontWeight = fontWeight || defaultFontWeight;
-    const finalFontSize = fontSize || defaultFontSize;
+    const finalFontWeight = $fontWeight || defaultFontWeight;
+    const finalFontSize = $fontSize || defaultFontSize;
 
     return `
       display: block;
       white-space: pre-wrap;
-      color: ${textColor || 'inherit'};
+      color: ${$textColor || 'inherit'};
       font-size: ${finalFontSize};
       font-weight: ${finalFontWeight};
       text-wrap: wrap;
-      line-height: ${lineHeight};
+      line-height: ${$lineHeight};
       word-break: keep-all;
-      text-align: ${textAlign};
+      text-align: ${$textAlign};
     `;
   }}
 `;
