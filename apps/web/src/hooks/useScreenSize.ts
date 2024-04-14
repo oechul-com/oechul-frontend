@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const setScreenSize = () => {
   const vw = document.documentElement.clientWidth / 100;
@@ -8,12 +9,14 @@ const setScreenSize = () => {
 };
 
 const useScreenSize = () => {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     setScreenSize();
     window.addEventListener('resize', setScreenSize);
 
     return () => window.removeEventListener('resize', setScreenSize);
-  }, []);
+  }, [pathname]);
 };
 
 export default useScreenSize;
