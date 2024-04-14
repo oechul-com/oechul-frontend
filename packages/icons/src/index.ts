@@ -29,4 +29,7 @@ export { default as MailIcon } from './components/social/MailIcon';
 export { default as CrownIcon } from './components/tag/CrownIcon';
 export { default as MemberIcon } from './components/tag/MemberIcon';
 
+export { default as Logo } from './components/assets/Logo';
+export { default as IDCard } from './components/assets/IDCard';
+
 export type { IconProps } from './types';

@@ -22,6 +22,9 @@ import {
   CaratDownIcon,
   CaratLeftIcon,
   CaratRightIcon,
+  ImageAddIcon,
+  Logo,
+  IDCard,
 } from '@oechul/icons';
 import type { IconProps } from '@oechul/icons';
 import { StoryFn, Meta } from '@storybook/react';
@@ -51,6 +54,7 @@ const icons: IconCategories = {
     CaratDownIcon,
     CaratLeftIcon,
     CaratRightIcon,
+    ImageAddIcon,
   },
   social: {
     InstagramIcon,
@@ -60,6 +64,10 @@ const icons: IconCategories = {
   tag: {
     CrownIcon,
     MemberIcon,
+  },
+  assets: {
+    Logo,
+    IDCard,
   },
 };
 
