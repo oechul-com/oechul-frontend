@@ -2,7 +2,7 @@ import { Modal } from '@oechul/ui';
 import { StoryFn, Meta } from '@storybook/react';
 
 export default {
-  title: 'ui/BottomSheetDialog',
+  title: 'ui/Modal',
   component: Modal,
 } as Meta;
 
