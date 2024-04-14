@@ -38,12 +38,12 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
           <CloseDialogButtonContainer>
             <Button
               variant="gray"
-              style={{ flex: 1 }}
+              style={{ width: '50%' }}
               onClick={() => navigate(-1)}
             >
               나중에 제출
             </Button>
-            <Modal.Close as="span" style={{ flex: 1 }}>
+            <Modal.Close as="span" style={{ width: '50%' }}>
               <Button variant="blue" width="100%">
                 계속하기
               </Button>

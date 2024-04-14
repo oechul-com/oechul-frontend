@@ -1,7 +1,7 @@
 import { IDCard, UploadIcon } from '@oechul/icons';
 import { theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
@@ -12,8 +12,8 @@ import {
   VerificationGuideContainer,
 } from './verification.styles.ts';
 
-const VerificationPage = () => {
-  const [isCloseDialogOpen, setIsCloseDialogOpen] = useState(false);
+const VerificationPage = (): ReactElement => {
+  const [isCloseDialogOpen, setIsCloseDialogOpen] = useState<boolean>(false);
 
   return (
     <>

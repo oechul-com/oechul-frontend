@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, CloseIcon } from '@oechul/icons';
+import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -25,7 +26,7 @@ const Header = ({
   branding,
   borderline,
   title,
-}: HeaderProps) => {
+}: HeaderProps): ReactElement => {
   const navigate = useNavigate();
 
   const handleClose = () => {

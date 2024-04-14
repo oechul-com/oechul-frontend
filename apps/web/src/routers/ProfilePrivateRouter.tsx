@@ -5,6 +5,7 @@ import ErrorPage from '@/pages/error.tsx';
 import ProfilePage from '@/pages/profile';
 import ProfileSettingsPage from '@/pages/profile/settings';
 import VerificationPage from '@/pages/profile/verification';
+import VerificationCompletePage from '@/pages/profile/verification/complete';
 
 const ProfilePrivateRouter = (): ReactElement => {
   const { pathname } = useLocation();
@@ -17,6 +18,8 @@ const ProfilePrivateRouter = (): ReactElement => {
       return <ProfileSettingsPage />;
     case '/profile/verification':
       return <VerificationPage />;
+    case '/profile/verification/complete':
+      return <VerificationCompletePage />;
     default:
       return <ErrorPage />;
   }

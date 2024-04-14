@@ -21,3 +21,19 @@ export const VerificationButtonContainer = styled.div`
   ${theme.layout.columnCenterX};
   gap: ${rem(9)};
 `;
+
+export const CompleteContent = styled.div`
+  ${theme.layout.columnCenter};
+  height: 100%;
+`;
+
+export const CompleteAnimation = styled.span<{ $size: number }>`
+  width: ${({ $size }) => rem($size)};
+  height: ${({ $size }) => rem($size)};
+`;
+
+export const CompleteButtonContainer = styled.div`
+  width: 100%;
+  padding: ${rem(12)} ${rem(30)};
+  margin-top: ${rem(52)};
+`;

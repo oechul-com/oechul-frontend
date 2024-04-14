@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import Header from '@/components/layout/Header';
 import { LayoutRoot, Main } from '@/components/layout/Layout/Layout.styles.ts';
@@ -23,7 +23,7 @@ const Layout = ({
   borderline = false,
   title,
   children,
-}: LayoutProps) => {
+}: LayoutProps): ReactElement => {
   return (
     <LayoutRoot>
       {visibleHeader && (

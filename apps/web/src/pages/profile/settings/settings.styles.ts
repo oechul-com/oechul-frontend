@@ -25,6 +25,7 @@ export const ProfileSaveButtonContainer = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
+  padding-inline: ${rem(30)};
   border-top: ${`${rem(1)} solid ${theme.colors.gray200}`};
   background-color: ${theme.colors.white};
 `;

@@ -1,5 +1,5 @@
 import { CloseIcon } from '@oechul/icons';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactElement, ReactNode, SetStateAction } from 'react';
 import Sheet from 'react-modal-sheet';
 
 import { CloseButton, ModalContent } from './BottomSheetDialog.styles.ts';
@@ -16,7 +16,7 @@ const BottomSheetDialog = ({
   open = false,
   setOpen,
   children,
-}: BottomSheetDialogProps) => {
+}: BottomSheetDialogProps): ReactElement => {
   const handleDialogClose = () => {
     setOpen(false);
   };

@@ -1,6 +1,7 @@
 import { ImageAddIcon } from '@oechul/icons';
 import { theme } from '@oechul/styles';
 import { Text } from '@oechul/ui';
+import { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
@@ -13,7 +14,7 @@ import {
   SelfIntroduction,
 } from './profile.styles.ts';
 
-const ProfilePage = () => {
+const ProfilePage = (): ReactElement => {
   return (
     <Layout title="마이프로필" arrow={true} borderline={true}>
       <ProfileContainer>
