@@ -14,7 +14,7 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
   return (
     <Modal isOpen={isOpen} onStateChange={onToggle}>
       <Modal.Content>
-        <ModalContent>
+        <DialogContent>
           <Text textAlign="center" fontSize={theme.fontSizes['5xl']}>
             ✋🏻
           </Text>
@@ -35,7 +35,7 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
           >
             재학생 인증 없이는 외출의 매칭 서비스를 이용할 수 없어요.
           </Text>
-          <CloseModalButtonContainer>
+          <CloseDialogButtonContainer>
             <Button
               variant="gray"
               style={{ flex: 1 }}
@@ -48,8 +48,8 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
                 계속하기
               </Button>
             </Modal.Close>
-          </CloseModalButtonContainer>
-        </ModalContent>
+          </CloseDialogButtonContainer>
+        </DialogContent>
       </Modal.Content>
     </Modal>
   );
@@ -57,7 +57,7 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
 
 export default CloseDialog;
 
-const ModalContent = styled.div`
+const DialogContent = styled.div`
   ${theme.layout.columnCenterX};
   width: 100%;
   max-width: ${theme.sizes.app};
@@ -68,7 +68,7 @@ const ModalContent = styled.div`
   gap: ${rem(26)};
 `;
 
-const CloseModalButtonContainer = styled.div`
+const CloseDialogButtonContainer = styled.div`
   ${theme.layout.centerX};
   width: 100%;
   margin-top: ${rem(30)};

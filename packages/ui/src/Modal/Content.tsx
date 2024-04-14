@@ -58,12 +58,16 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
             animate="visible"
             exit="hidden"
             onClick={handleBackdropClick}
-            style={{ backgroundColor: backdropColor }}
+            style={{
+              backgroundColor: backdropColor,
+            }}
           >
             <motion.div
               ref={ref}
               style={{
-                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 paddingInline: rem(30),
               }}
               variants={modalVariants}
