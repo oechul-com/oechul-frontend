@@ -12,13 +12,26 @@ import {
 interface HeaderProps {
   arrow?: boolean;
   close?: boolean;
+  closeAction?: () => void;
   branding?: boolean;
   borderline: boolean;
   title?: string;
 }
 
-const Header = ({ arrow, close, branding, borderline, title }: HeaderProps) => {
+const Header = ({
+  arrow,
+  close,
+  closeAction,
+  branding,
+  borderline,
+  title,
+}: HeaderProps) => {
   const navigate = useNavigate();
+
+  const handleClose = () => {
+    if (closeAction) closeAction();
+    else navigate(-1);
+  };
 
   return (
     <HeaderRoot $borderline={borderline}>
@@ -29,7 +42,7 @@ const Header = ({ arrow, close, branding, borderline, title }: HeaderProps) => {
           </HeaderIconButton>
         )}
         {!!close && (
-          <HeaderIconButton onClick={() => navigate(-1)}>
+          <HeaderIconButton onClick={handleClose}>
             <CloseIcon width={16} height={16} stroke="black" />
           </HeaderIconButton>
         )}

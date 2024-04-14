@@ -7,6 +7,7 @@ interface LayoutProps {
   visibleHeader?: boolean;
   arrow?: boolean;
   close?: boolean;
+  closeAction?: () => void;
   branding?: boolean;
   borderline?: boolean;
   title?: string;
@@ -17,6 +18,7 @@ const Layout = ({
   visibleHeader = true,
   arrow,
   close,
+  closeAction,
   branding,
   borderline = false,
   title,
@@ -28,6 +30,7 @@ const Layout = ({
         <Header
           arrow={arrow}
           close={close}
+          closeAction={closeAction}
           branding={branding}
           borderline={borderline}
           title={title}

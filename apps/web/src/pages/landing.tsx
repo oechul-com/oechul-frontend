@@ -7,11 +7,10 @@ import {
 import { rem, theme } from '@oechul/styles';
 import { Text, Button } from '@oechul/ui';
 import { useState, Fragment, NamedExoticComponent, ElementType } from 'react';
-import 'react-spring-bottom-sheet/dist/style.css';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import Modal from '@/components/layout/Modal';
+import BottomSheetDialog from 'src/components/Modal/BottomSheetDialog';
 
 type DescriptionItemType = {
   icon: string;
@@ -101,11 +100,69 @@ const LandingPage = () => {
   };
 
   return (
-    <LandingLayout>
-      <Modal open={open} setOpen={setOpen}>
+    <>
+      <LandingLayout>
+        <LandingBox $gap={`${rem(27)}`}>
+          <ImageLogo src="/static/assets/common/image-logo.svg" />
+          <Text textAlign="center" lineHeight="140%">
+            {'대학생 블라인드 매칭 서비스\n외출:밖으로 나가다'}
+          </Text>
+        </LandingBox>
+        <LandingBox $gap={`${rem(34)}`}>
+          <LandingDescriptionsBox>
+            {DESCRIPTION_LIST.map(
+              ({ icon, description }: DescriptionItemType, index) => {
+                return (
+                  <LandingDescriptionBox
+                    key={index}
+                    $marginLeft={index === 3 ? `${rem(112)}` : '0'}
+                  >
+                    {icon}
+                    <Text fontWeight={theme.fontWeights['semibold']}>
+                      {description}
+                    </Text>
+                  </LandingDescriptionBox>
+                );
+              },
+            )}
+          </LandingDescriptionsBox>
+          <ButtonBox>
+            <Button width={'100%'} onClick={onClickStartButton}>
+              <Text
+                fontSize={theme.fontSizes['lg']}
+                fontWeight={theme.fontWeights['semibold']}
+              >
+                {'시작하기'}
+              </Text>
+            </Button>
+            <TextSpan>
+              <Text
+                textColor={theme.colors.gray500}
+                fontSize={theme.fontSizes['xs']}
+                fontWeight={theme.fontWeights['semibold']}
+                style={{ cursor: 'pointer' }}
+              >
+                {'외출 개인정보수집 및 이용약관'}
+              </Text>
+              <Text
+                textColor={theme.colors.gray500}
+                fontSize={theme.fontSizes['xs']}
+                fontWeight={theme.fontWeights['semibold']}
+                onClick={onHandleCommunicationModal}
+                style={{ cursor: 'pointer' }}
+              >
+                {' ‧ 소통창구'}
+              </Text>
+            </TextSpan>
+          </ButtonBox>
+        </LandingBox>
+      </LandingLayout>
+
+      <BottomSheetDialog open={open} setOpen={setOpen}>
         <Text
           fontSize={theme.fontSizes['xl']}
           fontWeight={theme.fontWeights['medium']}
+          textAlign="center"
         >
           {'소통창구'}
         </Text>
@@ -136,62 +193,8 @@ const LandingPage = () => {
             },
           )}
         </LandingSocialsBox>
-      </Modal>
-      <LandingBox $gap={`${rem(27)}`}>
-        <ImageLogo src="/static/assets/common/image-logo.svg" />
-        <Text textAlign="center" lineHeight="140%">
-          {'대학생 블라인드 매칭 서비스\n외출:밖으로 나가다'}
-        </Text>
-      </LandingBox>
-      <LandingBox $gap={`${rem(34)}`}>
-        <LandingDescriptionsBox>
-          {DESCRIPTION_LIST.map(
-            ({ icon, description }: DescriptionItemType, index) => {
-              return (
-                <LandingDescriptionBox
-                  key={index}
-                  $marginLeft={index === 3 ? `${rem(112)}` : '0'}
-                >
-                  {icon}
-                  <Text fontWeight={theme.fontWeights['semibold']}>
-                    {description}
-                  </Text>
-                </LandingDescriptionBox>
-              );
-            },
-          )}
-        </LandingDescriptionsBox>
-        <ButtonBox>
-          <Button width={'100%'} onClick={onClickStartButton}>
-            <Text
-              fontSize={theme.fontSizes['lg']}
-              fontWeight={theme.fontWeights['semibold']}
-            >
-              {'시작하기'}
-            </Text>
-          </Button>
-          <TextSpan>
-            <Text
-              textColor={theme.colors.gray500}
-              fontSize={theme.fontSizes['xs']}
-              fontWeight={theme.fontWeights['semibold']}
-              style={{ cursor: 'pointer' }}
-            >
-              {'외출 개인정보수집 및 이용약관'}
-            </Text>
-            <Text
-              textColor={theme.colors.gray500}
-              fontSize={theme.fontSizes['xs']}
-              fontWeight={theme.fontWeights['semibold']}
-              onClick={onHandleCommunicationModal}
-              style={{ cursor: 'pointer' }}
-            >
-              {' ‧ 소통창구'}
-            </Text>
-          </TextSpan>
-        </ButtonBox>
-      </LandingBox>
-    </LandingLayout>
+      </BottomSheetDialog>
+    </>
   );
 };
 

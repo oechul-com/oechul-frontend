@@ -3,7 +3,7 @@ import React, { ElementType, ReactNode, forwardRef } from 'react';
 import { BaseButton } from './Button.styles';
 
 type BaseButtonProps = {
-  variant?: 'normal' | 'alert' | 'blue' | 'accent';
+  variant?: 'normal' | 'gray' | 'alert' | 'blue' | 'accent';
   bgColor?: string;
   hoverBgColor?: string;
   invalidBgColor?: string;

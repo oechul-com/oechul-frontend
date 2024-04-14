@@ -7,13 +7,37 @@ import ModalTrigger from './Trigger';
 
 type ModalProps = {
   defaultState?: boolean;
+  isOpen?: boolean;
+  onStateChange?: (isOpen: boolean) => void;
   children: ReactNode;
 };
 
-const Modal = ({ defaultState = false, children }: ModalProps) => {
+const Modal = ({
+  defaultState = false,
+  isOpen: controlledIsOpen,
+  onStateChange,
+  children,
+}: ModalProps) => {
   const [isOpen, setIsOpen] = useState(!!defaultState);
-  const setOpen = useCallback((open: boolean) => setIsOpen(open), []);
-  const toggle = useCallback(() => setIsOpen(prev => !prev), []);
+
+  const setOpen = useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      onStateChange?.(open);
+    },
+    [onStateChange],
+  );
+
+  const toggle = useCallback(() => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    onStateChange?.(newState);
+  }, [isOpen, onStateChange]);
+
+  useEffect(() => {
+    if (controlledIsOpen !== undefined && controlledIsOpen !== isOpen)
+      setIsOpen(controlledIsOpen);
+  }, [controlledIsOpen]);
 
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';

@@ -12,8 +12,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
     "@oechul/eslint-config": "workspace:*",
     "@oechul/typescript-config": "workspace:*",
     "husky": "^8.0.3",

@@ -1,3 +1,4 @@
+import { rem } from '@oechul/styles';
 import { AnimatePresence, AnimationProps, motion } from 'framer-motion';
 import { forwardRef, ReactNode, useEffect } from 'react';
 
@@ -61,6 +62,10 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
           >
             <motion.div
               ref={ref}
+              style={{
+                width: '100%',
+                paddingInline: rem(30),
+              }}
               variants={modalVariants}
               initial="hidden"
               animate="visible"

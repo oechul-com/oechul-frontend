@@ -6,21 +6,21 @@ import { IconProps } from '../../types';
 const CloseIcon = memo<IconProps>(props => (
   <Icon type="stroke" {...props}>
     <svg
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M21.3332 10.6667L10.6665 21.3334"
+        d="M1.66699 1.66675L12.3337 12.3334"
         stroke={props.stroke || '#454545'}
         strokeWidth="2"
         strokeLinecap="square"
         strokeLinejoin="round"
       />
       <path
-        d="M10.6665 10.6667L21.3332 21.3334"
+        d="M12.3337 1.66675L1.66699 12.3334"
         stroke={props.stroke || '#454545'}
         strokeWidth="2"
         strokeLinecap="square"
