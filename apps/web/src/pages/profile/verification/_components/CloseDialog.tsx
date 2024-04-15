@@ -1,9 +1,9 @@
-import { rem, theme } from '@oechul/styles';
+import { theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 import Dialog from '@/components/Modal/Dialog';
+import { BetweenButtonContainer } from '@/components/Modal/Dialog/Dialog.styles.ts';
 
 interface CloseDialogProps {
   isOpen: boolean;
@@ -35,7 +35,7 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
       >
         재학생 인증 없이는 외출의 매칭 서비스를 이용할 수 없어요.
       </Text>
-      <CloseDialogButtonContainer>
+      <BetweenButtonContainer>
         <Button
           variant="gray"
           style={{ width: '50%' }}
@@ -48,16 +48,9 @@ const CloseDialog = ({ isOpen, onToggle }: CloseDialogProps) => {
             계속하기
           </Button>
         </Modal.Close>
-      </CloseDialogButtonContainer>
+      </BetweenButtonContainer>
     </Dialog>
   );
 };
 
 export default CloseDialog;
-
-const CloseDialogButtonContainer = styled.div`
-  ${theme.layout.centerX};
-  width: 100%;
-  margin-top: ${rem(30)};
-  gap: ${rem(16)};
-`;

@@ -6,6 +6,7 @@ import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import Layout from '@/components/layout/Layout';
 
 import CloseDialog from './_components/CloseDialog.tsx';
+import ConfirmDialog from './_components/ConfirmDialog.tsx';
 import {
   VerificationButtonContainer,
   VerificationContent,
@@ -16,10 +17,16 @@ const VerificationPage = (): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isCloseDialogOpen, setIsCloseDialogOpen] = useState<boolean>(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] =
+    useState<boolean>(false);
+  const [image, setImage] = useState<File | null>(null);
 
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    alert(file?.name);
+    if (file) {
+      setImage(file);
+      setIsConfirmDialogOpen(true);
+    }
   };
 
   return (
@@ -79,6 +86,12 @@ const VerificationPage = (): ReactElement => {
       <CloseDialog
         isOpen={isCloseDialogOpen}
         onToggle={() => setIsCloseDialogOpen(false)}
+      />
+
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        onToggle={() => setIsConfirmDialogOpen(false)}
+        image={image}
       />
     </>
   );

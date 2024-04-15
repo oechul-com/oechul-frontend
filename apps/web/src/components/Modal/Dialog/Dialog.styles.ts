@@ -11,3 +11,10 @@ export const DialogContent = styled.div`
   background-color: ${theme.colors.white};
   gap: ${rem(26)};
 `;
+
+export const BetweenButtonContainer = styled.div`
+  ${theme.layout.centerX};
+  width: 100%;
+  margin-top: ${rem(30)};
+  gap: ${rem(16)};
+`;
