@@ -25,6 +25,7 @@ import {
   ImageAddIcon,
   Logo,
   IDCard,
+  DefaultProfileIcon,
 } from '@oechul/icons';
 import type { IconProps } from '@oechul/icons';
 import { StoryFn, Meta } from '@storybook/react';
@@ -68,6 +69,9 @@ const icons: IconCategories = {
   assets: {
     Logo,
     IDCard,
+  },
+  profile: {
+    DefaultProfileIcon,
   },
 };
 

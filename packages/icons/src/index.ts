@@ -31,5 +31,6 @@ export { default as MemberIcon } from './components/tag/MemberIcon';
 
 export { default as Logo } from './components/assets/Logo';
 export { default as IDCard } from './components/assets/IDCard';
+export { default as DefaultProfileIcon } from './components/profile/DefaultProfileIcon';
 
 export type { IconProps } from './types';
