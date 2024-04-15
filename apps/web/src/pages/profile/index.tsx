@@ -11,7 +11,7 @@ import {
   HorizontalRule,
   ProfileContainer,
   ProfileImageWrapper,
-  SelfIntroduction,
+  Bio,
 } from './profile.styles.ts';
 
 const ProfilePage = (): ReactElement => {
@@ -28,7 +28,7 @@ const ProfilePage = (): ReactElement => {
         >
           김찬호
         </Text>
-        <SelfIntroduction>한줄소개를 입력해주세요</SelfIntroduction>
+        <Bio>한줄소개를 입력해주세요</Bio>
         <MatchingStatus requested={1} waiting={2} completed={3} />
       </ProfileContainer>
 

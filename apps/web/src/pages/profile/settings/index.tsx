@@ -14,7 +14,7 @@ import {
 
 const ProfileSettingsPage = (): ReactElement => {
   const [nickname, setNickname] = useState<string>('');
-  const [introduction, setIntroduction] = useState<string>('');
+  const [bio, setBio] = useState<string>('');
 
   const isFormValid = nickname.length > 2;
 
@@ -49,9 +49,18 @@ const ProfileSettingsPage = (): ReactElement => {
         <Input
           style={{ marginTop: rem(18) }}
           label="한줄소개"
-          value={introduction}
-          onChange={e => setIntroduction(e.target.value)}
+          value={bio}
+          maxLength={30}
+          onChange={e => setBio(e.target.value)}
         />
+        <Text
+          textColor={theme.colors.gray400}
+          textAlign="end"
+          fontSize={theme.fontSizes['2xs']}
+          style={{ marginTop: rem(7) }}
+        >
+          {bio.length}/30
+        </Text>
       </ProfileSettingsContent>
 
       <ProfileSaveButtonContainer>

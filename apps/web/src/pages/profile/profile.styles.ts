@@ -17,7 +17,7 @@ export const ProfileImageWrapper = styled.span<{ $size: number }>`
   background-color: ${theme.colors.gray200};
 `;
 
-export const SelfIntroduction = styled.p`
+export const Bio = styled.p`
   align-self: center;
   width: fit-content;
   padding: ${rem(10)};

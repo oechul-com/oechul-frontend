@@ -1,7 +1,7 @@
 import { IDCard, UploadIcon } from '@oechul/icons';
 import { theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
-import { ReactElement, useState } from 'react';
+import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
@@ -13,7 +13,14 @@ import {
 } from './verification.styles.ts';
 
 const VerificationPage = (): ReactElement => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [isCloseDialogOpen, setIsCloseDialogOpen] = useState<boolean>(false);
+
+  const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    alert(file?.name);
+  };
 
   return (
     <>
@@ -30,7 +37,7 @@ const VerificationPage = (): ReactElement => {
             >
               ✅ 확인해 주세요
             </Text>
-            <IDCard width="100%" height="100%" />
+            {<IDCard width="100%" height="100%" />}
             <Text
               textColor={theme.colors.gray500}
               fontSize={theme.fontSizes.xs}
@@ -45,7 +52,18 @@ const VerificationPage = (): ReactElement => {
             </Text>
           </VerificationGuideContainer>
           <VerificationButtonContainer>
-            <Button variant="blue" width="100%">
+            <input
+              ref={inputRef}
+              type="file"
+              onChange={handleUpload}
+              accept="image/jpeg, image/png"
+              style={{ display: 'none' }}
+            />
+            <Button
+              variant="blue"
+              width="100%"
+              onClick={() => inputRef.current?.click()}
+            >
               <UploadIcon fill="#0085FF" /> 이미지 파일 업로드
             </Button>
             <Text
