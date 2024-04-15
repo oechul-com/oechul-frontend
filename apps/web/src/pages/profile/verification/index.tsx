@@ -23,6 +23,7 @@ const VerificationPage = (): ReactElement => {
 
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
+
     if (file) {
       setImage(file);
       setIsConfirmDialogOpen(true);
