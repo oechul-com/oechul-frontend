@@ -1,4 +1,5 @@
 const fontSizes = {
+  '6xl': '6rem', // 96px
   '5xl': '4.5rem', // 72px
   '4xl': '4.0rem', // 64px
   '3xl': '3.375rem', // 54px

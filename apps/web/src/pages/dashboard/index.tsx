@@ -1,11 +1,17 @@
 import { CrownIcon, DefaultProfileIcon, MemberIcon } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
-import { Button, Text } from '@oechul/ui';
+import { Button, Modal, Text } from '@oechul/ui';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
+
+type MatchingModalOpenType = {
+  matchingModalOpen: boolean;
+  serviceWaitingModalOpen: boolean;
+  matchingStartModalOpen: boolean;
+};
 
 type StudentInfoType = {
   name: string;
@@ -76,9 +82,21 @@ const DashboardPage = () => {
   const [selectMeetingType, setSelectMeetingType] = useState<string>('과팅');
   const [isProfile, setIsProfile] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [open, setOpen] = useState<MatchingModalOpenType>({
+    matchingModalOpen: false,
+    serviceWaitingModalOpen: false,
+    matchingStartModalOpen: false,
+  });
 
   const onClickLogo = () => {
     navigate('/dashboard');
+  };
+
+  const onHandleModal = (key: keyof MatchingModalOpenType) => {
+    setOpen(prevState => ({
+      ...prevState,
+      [key]: !prevState[key],
+    }));
   };
 
   const onClickParticipateMeetingType = (type: string) => {
@@ -91,6 +109,49 @@ const DashboardPage = () => {
 
   return (
     <Layout visibleHeader={false}>
+      {open.matchingStartModalOpen && (
+        <Modal>
+          <Layout>
+            <Text
+              fontSize={theme.fontSizes['2xl']}
+              fontWeight={theme.fontWeights.semibold}
+            >
+              {'매칭 시작하기'}
+            </Text>
+            <ButtonBox>
+              <Button width={'100%'}>
+                <Text
+                  fontSize={theme.fontSizes['lg']}
+                  fontWeight={theme.fontWeights.semibold}
+                >
+                  {'📢'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes['lg']}
+                  fontWeight={theme.fontWeights.semibold}
+                >
+                  {'나의 팀 만들기'}
+                </Text>
+              </Button>
+              <Button bgColor={theme.colors.gray200} width={'100%'}>
+                <Text
+                  fontSize={theme.fontSizes['lg']}
+                  fontWeight={theme.fontWeights.semibold}
+                >
+                  {'💌'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes['lg']}
+                  textColor={theme.colors.black}
+                  fontWeight={theme.fontWeights.semibold}
+                >
+                  {'초대 코드로 참가하기'}
+                </Text>
+              </Button>
+            </ButtonBox>
+          </Layout>
+        </Modal>
+      )}
       <DashboardHeader>
         <ImageLogo
           src="/static/assets/common/image-logo.svg"
@@ -248,7 +309,11 @@ const DashboardPage = () => {
             </DefaultMatchingTeamBox>
           )}
         </MatchingTeamItemsBox>
-        <Button width="100%" style={{ marginTop: `${rem(33)}` }}>
+        <Button
+          width="100%"
+          style={{ marginTop: `${rem(33)}` }}
+          onClick={() => onHandleModal('matchingStartModalOpen')}
+        >
           <Text
             textColor={theme.colors.white}
             fontSize={theme.fontSizes['lg']}
@@ -311,14 +376,17 @@ const ParticipateMatchingItemsBox = styled.div`
   margin-bottom: ${rem(24)};
 `;
 
-const ParticipateMatchingItemBox = styled.div<{
+type ParticipateMatchingItemBoxType = {
   $selected: boolean;
   $bgColor: string;
-}>`
+};
+
+const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxType>`
   ${props => props.theme.layout.columnCenterY};
   position: relative;
+  flex: 1;
 
-  width: ${rem(104)};
+  /* width: ${rem(104)}; */
   height: ${rem(107)};
   padding-top: ${rem(18)};
 
@@ -388,10 +456,12 @@ const MatchingMemberProfilesBox = styled.div`
   flex-direction: row-reverse;
 `;
 
-const MatchingMemberProfileBox = styled.div<{
+type MatchingMemberProfileBoxType = {
   $zIndex: number;
   $image: string;
-}>`
+};
+
+const MatchingMemberProfileBox = styled.div<MatchingMemberProfileBoxType>`
   width: ${rem(28)};
   height: ${rem(28)};
   border-radius: 50%;
@@ -421,4 +491,10 @@ const MatchingTypeTag = styled.div<{ $isHost?: boolean }>`
 const DefaultMatchingTeamBox = styled.div`
   ${props => props.theme.layout.columnCenter};
   padding: ${rem(26)} 0 ${rem(4)};
+`;
+
+const ButtonBox = styled.div`
+  ${props => props.theme.layout.columnCenter};
+  width: 100%;
+  gap: ${rem(16)};
 `;
