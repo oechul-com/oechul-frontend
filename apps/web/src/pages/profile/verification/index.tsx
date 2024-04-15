@@ -91,6 +91,7 @@ const VerificationPage = (): ReactElement => {
       <ConfirmDialog
         isOpen={isConfirmDialogOpen}
         onToggle={() => setIsConfirmDialogOpen(false)}
+        onConfirm={() => alert('confirm')}
         image={image}
       />
     </>

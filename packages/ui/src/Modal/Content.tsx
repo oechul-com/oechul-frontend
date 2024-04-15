@@ -19,6 +19,7 @@ type ModalContentProps = {
   disableBackdropClick?: boolean;
   disableEscapeKeyDown?: boolean;
   backdropColor?: string;
+  maxWidth?: number | string;
   children: ReactNode;
 } & AnimationProps;
 
@@ -28,6 +29,7 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
       disableBackdropClick,
       disableEscapeKeyDown,
       backdropColor = 'rgba(0, 0, 0, 0.5)',
+      maxWidth = '100%',
       children,
       ...props
     },
@@ -69,6 +71,7 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingInline: rem(30),
+                maxWidth: maxWidth,
               }}
               variants={modalVariants}
               initial="hidden"

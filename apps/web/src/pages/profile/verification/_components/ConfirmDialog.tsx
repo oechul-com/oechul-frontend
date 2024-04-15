@@ -7,10 +7,16 @@ import { BetweenButtonContainer } from '@/components/Modal/Dialog/Dialog.styles.
 interface ConfirmDialogProps {
   isOpen: boolean;
   onToggle: () => void;
+  onConfirm: () => void;
   image: File | null;
 }
 
-const ConfirmDialog = ({ isOpen, onToggle, image }: ConfirmDialogProps) => {
+const ConfirmDialog = ({
+  isOpen,
+  onToggle,
+  onConfirm,
+  image,
+}: ConfirmDialogProps) => {
   return (
     <Dialog isOpen={isOpen} onToggle={onToggle}>
       <Text
@@ -23,7 +29,7 @@ const ConfirmDialog = ({ isOpen, onToggle, image }: ConfirmDialogProps) => {
       </Text>
       {image && (
         <img
-          style={{ width: rem(280) }}
+          style={{ width: rem(300) }}
           src={URL.createObjectURL(image)}
           alt={image.name}
         />
@@ -34,11 +40,9 @@ const ConfirmDialog = ({ isOpen, onToggle, image }: ConfirmDialogProps) => {
             다시 선택
           </Button>
         </Modal.Close>
-        <Modal.Close as="span" style={{ width: '50%' }}>
-          <Button variant="blue" width="100%">
-            계속하기
-          </Button>
-        </Modal.Close>
+        <Button variant="blue" width="50%" onClick={onConfirm}>
+          계속하기
+        </Button>
       </BetweenButtonContainer>
     </Dialog>
   );

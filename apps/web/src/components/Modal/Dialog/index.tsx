@@ -1,3 +1,4 @@
+import { theme } from '@oechul/styles';
 import { Modal } from '@oechul/ui';
 import { ReactNode } from 'react';
 
@@ -12,7 +13,7 @@ interface DialogProps {
 const Dialog = ({ isOpen, onToggle, children }: DialogProps) => {
   return (
     <Modal isOpen={isOpen} onStateChange={onToggle}>
-      <Modal.Content>
+      <Modal.Content maxWidth={theme.sizes.app}>
         <DialogContent>{children}</DialogContent>
       </Modal.Content>
     </Modal>
