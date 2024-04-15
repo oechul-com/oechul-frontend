@@ -37,7 +37,7 @@ const VerificationPage = (): ReactElement => {
             >
               ✅ 확인해 주세요
             </Text>
-            {<IDCard width="100%" height="100%" />}
+            <IDCard width="100%" height="100%" />
             <Text
               textColor={theme.colors.gray500}
               fontSize={theme.fontSizes.xs}
