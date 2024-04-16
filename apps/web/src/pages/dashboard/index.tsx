@@ -11,7 +11,6 @@ import { rem, theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
 import { ElementType, NamedExoticComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
 
@@ -34,6 +33,11 @@ import {
   MatchingTypeTag,
   MatchingTeamItemBottom,
   DefaultMatchingTeamBox,
+  ModalLayout,
+  ModalButtonsBox,
+  ModalHeader,
+  ProfileModalItemBox,
+  ProfileModalItemsBox,
 } from './dasyboard.styles';
 
 type ProfileModalItemType = {
@@ -74,21 +78,21 @@ const PARTICIPATE_MATCHING_LIST: ParticipateMatchingItemType[] = [
     icon: '🍻',
     title: '과팅',
     iconFontSize: theme.fontSizes['5xl'],
-    iconLineHeight: '60px',
+    iconLineHeight: `${rem(60)}`,
     bgColor: 'rgba(202, 199, 195, 0.10)',
   },
   {
     icon: '❤️‍🔥',
     title: '연인',
     iconFontSize: theme.fontSizes['4xl'],
-    iconLineHeight: '64px',
+    iconLineHeight: `${rem(64)}`,
     bgColor: '#FEF0ED',
   },
   {
     icon: '👋🏻',
     title: '친구',
     iconFontSize: theme.fontSizes['4xl'],
-    iconLineHeight: '64px',
+    iconLineHeight: `${rem(64)}`,
     bgColor: 'rgba(255, 181, 99, 0.10)',
   },
 ];
@@ -536,76 +540,3 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-
-const ModalLayout = styled.div`
-  ${props => props.theme.layout.columnCenter};
-  width: 100%;
-  padding: ${rem(48)} ${rem(30)} ${rem(30)};
-
-  background-color: #fff;
-
-  border-radius: ${rem(10)};
-
-  position: relative;
-`;
-
-const ModalHeader = styled.div`
-  width: 100%;
-  top: ${rem(30)};
-  right: ${rem(30)};
-  display: flex;
-  justify-content: flex-end;
-
-  position: absolute;
-`;
-
-const ModalButtonsBox = styled.div`
-  display: flex;
-  width: 100%;
-  gap: ${rem(10)};
-
-  margin-top: ${rem(40)};
-
-  & > button {
-    flex: 1;
-  }
-`;
-
-const ProfileModalItemsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  position: absolute;
-  right: 0px;
-  top: 38px;
-
-  border-radius: 10px;
-  border: 0.5px solid var(--gray-gray250, #f0f0f0);
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow:
-    0px 149px 42px 0px rgba(0, 0, 0, 0),
-    0px 95px 38px 0px rgba(0, 0, 0, 0.01),
-    0px 53px 32px 0px rgba(0, 0, 0, 0.05),
-    0px 24px 24px 0px rgba(0, 0, 0, 0.09);
-  backdrop-filter: blur(30px);
-`;
-
-const ProfileModalItemBox = styled.div<{ $isLast: boolean }>`
-  display: flex;
-  width: 250px;
-  padding: 16px 18px;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: ${props =>
-      props.$isLast ? '0px 0px 10px 10px' : '10px 10px 0 0'};
-  }
-
-  border-bottom: ${props => (props.$isLast ? 'none' : '0.5px solid #d9d9d9')};
-
-  cursor: pointer;
-`;

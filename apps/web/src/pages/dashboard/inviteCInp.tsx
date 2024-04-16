@@ -2,9 +2,14 @@ import { MinusIcon, PlusIcon } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Button, Input, Text } from '@oechul/ui';
 import { Fragment, useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
+
+import {
+  MatchingSuccessDescriptionBoxTop,
+  MatchingSuccessDescriptionBoxBottom,
+  DescriptionBox,
+} from './dasyboard.styles';
 
 const DashboardInviteCodeInputPage = () => {
   const [inviteCode, setInviteCode] = useState<string>('');
@@ -142,37 +147,3 @@ const DashboardInviteCodeInputPage = () => {
 };
 
 export default DashboardInviteCodeInputPage;
-
-const DescriptionBox = styled.div`
-  ${props => props.theme.layout.centerY};
-  padding: ${rem(10)};
-  gap: ${rem(8)};
-  border-radius: ${rem(10)};
-  background: ${props => props.theme.colors.gray150};
-
-  margin: ${rem(19)} 0 ${rem(28)};
-`;
-
-const MatchingSuccessDescriptionBoxTop = styled.div<{ $isExpanded: boolean }>`
-  ${props => props.theme.layout.centerY}
-  width: 100%;
-  padding: ${rem(16)};
-
-  border-radius: ${props =>
-    props.$isExpanded ? `${rem(10)} ${rem(10)} 0 0` : `${rem(10)}`};
-  border-bottom: ${props =>
-    props.$isExpanded ? `${rem(1)} solid ${theme.colors.gray200}` : 'none'};
-  background: ${theme.colors.gray100};
-
-  margin-top: ${rem(48)};
-`;
-
-const MatchingSuccessDescriptionBoxBottom = styled.div`
-  ${props => props.theme.layout.center}
-  width: 100%;
-  padding: ${rem(10)} ${rem(16)} ${rem(10)} ${rem(36)};
-  gap: ${rem(10)};
-
-  border-radius: 0 0 ${rem(10)} ${rem(10)};
-  background: ${theme.colors.gray100};
-`;

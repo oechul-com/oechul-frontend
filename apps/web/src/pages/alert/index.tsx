@@ -97,7 +97,9 @@ const AlertMessagesBox = styled.div`
   ${props => props.theme.layout.columnCenter};
   padding-top: ${rem(28)};
 `;
-const AlertMessageBox = styled.div``;
+const AlertMessageBox = styled.div`
+  width: 100%;
+`;
 
 const AlertMessageDateBox = styled.div`
   ${props => props.theme.layout.centerY};
