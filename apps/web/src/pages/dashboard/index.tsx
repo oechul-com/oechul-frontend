@@ -3,10 +3,13 @@ import {
   DefaultProfileIcon,
   MemberIcon,
   CloseIcon,
+  AlertIcon,
+  AccountIcon,
+  IconProps,
 } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
-import { useEffect, useState } from 'react';
+import { ElementType, NamedExoticComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -32,6 +35,12 @@ import {
   MatchingTeamItemBottom,
   DefaultMatchingTeamBox,
 } from './dasyboard.styles';
+
+type ProfileModalItemType = {
+  type: string;
+  Icon: NamedExoticComponent<IconProps> | ElementType;
+  locate: string;
+};
 
 type MatchingModalOpenType = {
   [key: string]: boolean;
@@ -105,6 +114,19 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
   },
 ];
 
+const PROFILE_MODAL_LIST: ProfileModalItemType[] = [
+  {
+    type: '프로필 및 더보기',
+    Icon: AccountIcon,
+    locate: '/profile',
+  },
+  {
+    type: '알림',
+    Icon: AlertIcon,
+    locate: '/alert',
+  },
+];
+
 const DashboardPage = () => {
   const [selectMeetingType, setSelectMeetingType] = useState<string>('');
 
@@ -121,6 +143,9 @@ const DashboardPage = () => {
     serviceWaitingModalOpen: false,
     matchingStartModalOpen: false,
   });
+
+  //
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
 
   const onClickLogo = () => {
     navigate('/dashboard');
@@ -304,14 +329,43 @@ const DashboardPage = () => {
         </Modal>
       )}
       <DashboardHeader>
+        {isProfileModalOpen && (
+          <ProfileModalItemsBox>
+            {PROFILE_MODAL_LIST.map(
+              ({ type, Icon, locate }: ProfileModalItemType, index) => {
+                return (
+                  <ProfileModalItemBox
+                    $isLast={index === PROFILE_MODAL_LIST.length - 1}
+                    onClick={() => navigate(locate)}
+                  >
+                    <Text>{type}</Text>
+                    <Icon />
+                  </ProfileModalItemBox>
+                );
+              },
+            )}
+          </ProfileModalItemsBox>
+        )}
         <ImageLogo
           src="/static/assets/common/image-logo.svg"
           onClick={onClickLogo}
         />
         {isProfile ? (
-          <ProfileImage $image={'/static/assets/common/image-logo.svg'} />
+          <ProfileImage
+            $image={'/static/assets/common/image-logo.svg'}
+            onClick={() =>
+              setIsProfileModalOpen(isProfileModalOpen => !isProfileModalOpen)
+            }
+          />
         ) : (
-          <DefaultProfileIcon width={40} height={40} />
+          <DefaultProfileIcon
+            width={40}
+            height={40}
+            onClick={() =>
+              setIsProfileModalOpen(isProfileModalOpen => !isProfileModalOpen)
+            }
+            style={{ cursor: 'pointer' }}
+          />
         )}
       </DashboardHeader>
       <AdvertisementBox />
@@ -515,4 +569,43 @@ const ModalButtonsBox = styled.div`
   & > button {
     flex: 1;
   }
+`;
+
+const ProfileModalItemsBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  position: absolute;
+  right: 0px;
+  top: 38px;
+
+  border-radius: 10px;
+  border: 0.5px solid var(--gray-gray250, #f0f0f0);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0px 149px 42px 0px rgba(0, 0, 0, 0),
+    0px 95px 38px 0px rgba(0, 0, 0, 0.01),
+    0px 53px 32px 0px rgba(0, 0, 0, 0.05),
+    0px 24px 24px 0px rgba(0, 0, 0, 0.09);
+  backdrop-filter: blur(30px);
+`;
+
+const ProfileModalItemBox = styled.div<{ $isLast: boolean }>`
+  display: flex;
+  width: 250px;
+  padding: 16px 18px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: ${props =>
+      props.$isLast ? '0px 0px 10px 10px' : '10px 10px 0 0'};
+  }
+
+  border-bottom: ${props => (props.$isLast ? 'none' : '0.5px solid #d9d9d9')};
+
+  cursor: pointer;
 `;

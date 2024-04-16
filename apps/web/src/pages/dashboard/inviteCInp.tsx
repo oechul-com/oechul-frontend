@@ -26,7 +26,7 @@ const DashboardInviteCodeInputPage = () => {
   }, [inviteCode]);
 
   return (
-    <Layout visibleHeader>
+    <Layout arrow>
       {isSuccess ? (
         <Fragment>
           <Text

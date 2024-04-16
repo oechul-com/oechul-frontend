@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
 import useScreenSize from '@/hooks/useScreenSize.ts';
+import AlertPage from '@/pages/alert';
 import LoginPage from '@/pages/auth/login';
 import Register from '@/pages/auth/register';
 import RegisterCompletePage from '@/pages/auth/register/complete.tsx';
@@ -20,6 +21,7 @@ const pages = [
   { path: '/dashboard/*', component: DashboardPrivateRouter },
   { path: '/meetup/*', component: MeetupPrivateRouter },
   { path: '/profile/*', component: ProfilePrivateRouter },
+  { path: '/alert', component: AlertPage },
   { path: '*', component: ErrorPage },
 ];
 

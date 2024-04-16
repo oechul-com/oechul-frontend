@@ -26,6 +26,8 @@ import {
   Logo,
   IDCard,
   DefaultProfileIcon,
+  AlertIcon,
+  AccountIcon,
 } from '@oechul/icons';
 import type { IconProps } from '@oechul/icons';
 import { StoryFn, Meta } from '@storybook/react';
@@ -56,6 +58,8 @@ const icons: IconCategories = {
     CaratLeftIcon,
     CaratRightIcon,
     ImageAddIcon,
+    AlertIcon,
+    AccountIcon,
   },
   social: {
     InstagramIcon,

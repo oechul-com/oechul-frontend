@@ -33,4 +33,7 @@ export { default as Logo } from './components/assets/Logo';
 export { default as IDCard } from './components/assets/IDCard';
 export { default as DefaultProfileIcon } from './components/profile/DefaultProfileIcon';
 
+export { default as AlertIcon } from './components/action/AlertIcon';
+export { default as AccountIcon } from './components/action/AccountIcon';
+
 export type { IconProps } from './types';

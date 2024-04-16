@@ -17,6 +17,7 @@ export const DashboardHeader = styled.div`
   justify-content: space-between;
   height: ${rem(70)};
   padding: ${rem(30)} 0;
+  position: relative;
 `;
 
 export const ImageLogo = styled.img`
