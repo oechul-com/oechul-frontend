@@ -438,6 +438,7 @@ const DashboardPage = () => {
               fontWeight={theme.fontWeights.medium}
               textColor={theme.colors.gray500}
               style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/meetup/matched')}
             >
               {'전체 보기'}
             </Text>
@@ -460,7 +461,7 @@ const DashboardPage = () => {
                             );
                           })}
                         </MatchingMemberProfilesBox>
-                        <MatchingTypeTag $isHost={type === 'HOST'}>
+                        <MatchingTypeTag $type={'HOST'}>
                           {type === 'HOST' ? (
                             <CrownIcon width={10} fill="white" />
                           ) : (

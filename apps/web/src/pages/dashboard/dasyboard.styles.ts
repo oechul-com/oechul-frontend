@@ -104,10 +104,10 @@ export const MatchingTeamItemsBox = styled.div`
   gap: ${rem(8)};
 `;
 
-export const MatchingTeamItemBox = styled.div`
+export const MatchingTeamItemBox = styled.div<{ $isTop?: boolean }>`
   ${props => props.theme.layout.columnCenterX};
   width: 100%;
-  padding: ${rem(16)};
+  padding: ${props => (props.$isTop ? `${rem(16)}` : `${rem(20)} ${rem(16)}`)};
   gap: ${rem(10)};
   border-radius: ${rem(10)};
   background: ${props => props.theme.colors.gray100};
@@ -121,8 +121,9 @@ export const MatchingTeamItemTop = styled.div`
   width: 100%;
 `;
 
-export const MatchingTeamItemBottom = styled.div`
-  ${props => props.theme.layout.columnCenterY};
+export const MatchingTeamItemBottom = styled.div<{ $isTop?: boolean }>`
+  ${props => props.theme.layout.centerY};
+  justify-content: space-between;
 
   width: 100%;
   gap: ${rem(4)};
@@ -150,8 +151,13 @@ export const MatchingMemberProfileBox = styled.div<MatchingMemberProfileBoxType>
   z-index: ${props => props.$zIndex};
 `;
 
-export const MatchingTypeTag = styled.div<{ $isHost?: boolean }>`
-  background: ${props => (props.$isHost ? '#9747FF' : '#4B88FF')};
+export const MatchingTypeTag = styled.div<{ $type?: string }>`
+  background: ${props =>
+    props.$type === 'HOST'
+      ? '#9747FF'
+      : props.$type === 'MEMBER'
+        ? '#4B88FF'
+        : `${theme.colors.orange.bg}`};
 
   ${props => props.theme.layout.center};
 
