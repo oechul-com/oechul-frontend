@@ -4,7 +4,7 @@ import { ReactElement, useEffect, useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LoginContent } from '@/pages/auth/auth.styles.ts';
-import { LoginForm } from '@/pages/auth/login';
+import { LoginForm } from '@/pages/auth/login/types.ts';
 
 interface PasswordStepProps {
   formData: LoginForm;

@@ -4,7 +4,7 @@ import { ReactElement, useMemo, useState, FormEvent } from 'react';
 
 import { emailRegex } from '@/constants.ts';
 import { LoginContent } from '@/pages/auth/auth.styles.ts';
-import { LoginForm } from '@/pages/auth/login';
+import { LoginForm } from '@/pages/auth/login/types.ts';
 
 interface EmailStepProps {
   formData: LoginForm;

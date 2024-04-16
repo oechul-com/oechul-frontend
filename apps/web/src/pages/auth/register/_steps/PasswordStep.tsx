@@ -9,7 +9,7 @@ import {
   PrivacyCheckboxContainer,
   RegisterContent,
 } from '@/pages/auth/auth.styles.ts';
-import { RegisterForm } from '@/pages/auth/register';
+import { RegisterForm } from '@/pages/auth/register/types.ts';
 
 interface PasswordStepProps {
   formData: RegisterForm;

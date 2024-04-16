@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import ErrorPage from '@/pages/error.tsx';
 import MeetupPage from '@/pages/meetup';
-import MeetupCreatePage from '@/pages/meetup/create.tsx';
+import MeetupCreatePage from '@/pages/meetup/create';
 import MatchedMeetupPage from '@/pages/meetup/matched.tsx';
 import NewMeetupPage from '@/pages/meetup/new.tsx';
 

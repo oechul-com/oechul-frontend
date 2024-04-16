@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Tip from '@/components/Tip';
 import { emailRegex } from '@/constants.ts';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
-import { RegisterStepProps } from '@/pages/auth/register';
+import { RegisterStepProps } from '@/pages/auth/register/types.ts';
 
 const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
   const navigate = useNavigate();

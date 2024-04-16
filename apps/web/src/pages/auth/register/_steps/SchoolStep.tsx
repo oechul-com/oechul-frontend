@@ -4,7 +4,7 @@ import { FormEvent, useState, useMemo } from 'react';
 
 import Tip from '@/components/Tip';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
-import { RegisterStepProps } from '@/pages/auth/register';
+import { RegisterStepProps } from '@/pages/auth/register/types.ts';
 
 const schoolOptions = [
   { label: '한국외국어대학교 글로벌캠퍼스', value: 'hufs-global' },

@@ -2,14 +2,13 @@ import { rem, theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
 import { useNavigate } from 'react-router-dom';
 
-import Layout from '@/components/layout/Layout';
 import { RegisterCompleteContent } from '@/pages/auth/auth.styles.ts';
 
-const RegisterCompletePage = () => {
+const CompleteStep = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout visibleHeader={false}>
+    <>
       <RegisterCompleteContent>
         <Text fontSize={rem(96)}>🎊</Text>
         <Text
@@ -29,8 +28,8 @@ const RegisterCompletePage = () => {
       >
         시작하기
       </Button>
-    </Layout>
+    </>
   );
 };
 
-export default RegisterCompletePage;
+export default CompleteStep;
