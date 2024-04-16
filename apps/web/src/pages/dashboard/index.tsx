@@ -1,4 +1,9 @@
-import { CrownIcon, DefaultProfileIcon, MemberIcon } from '@oechul/icons';
+import {
+  CrownIcon,
+  DefaultProfileIcon,
+  MemberIcon,
+  CloseIcon,
+} from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
 import { useEffect, useState } from 'react';
@@ -7,7 +12,29 @@ import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
 
+import {
+  ButtonBox,
+  DashboardHeader,
+  ImageLogo,
+  ProfileImage,
+  AdvertisementBox,
+  DashboardCol,
+  ParticipateMatchingItemsBox,
+  ParticipateMatchingItemBox,
+  ParticipateMatchingTitleBox,
+  MatchingTeamHeader,
+  MatchingTeamItemsBox,
+  MatchingTeamItemBox,
+  MatchingTeamItemTop,
+  MatchingMemberProfilesBox,
+  MatchingMemberProfileBox,
+  MatchingTypeTag,
+  MatchingTeamItemBottom,
+  DefaultMatchingTeamBox,
+} from './dasyboard.styles';
+
 type MatchingModalOpenType = {
+  [key: string]: boolean;
   matchingModalOpen: boolean;
   serviceWaitingModalOpen: boolean;
   matchingStartModalOpen: boolean;
@@ -79,10 +106,17 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
 ];
 
 const DashboardPage = () => {
-  const [selectMeetingType, setSelectMeetingType] = useState<string>('과팅');
+  const [selectMeetingType, setSelectMeetingType] = useState<string>('');
+
+  // 유저 정보 한 번에 받으면 데이터 구조 따라 변경
   const [isProfile, setIsProfile] = useState<boolean>(false);
+  const [isStudent, setIsStudent] = useState<boolean>(false);
+
+  //
   const navigate = useNavigate();
-  const [open, setOpen] = useState<MatchingModalOpenType>({
+  const [open, setOpen] = useState<boolean>(false);
+
+  const [modalState, setModalState] = useState<MatchingModalOpenType>({
     matchingModalOpen: false,
     serviceWaitingModalOpen: false,
     matchingStartModalOpen: false,
@@ -93,63 +127,180 @@ const DashboardPage = () => {
   };
 
   const onHandleModal = (key: keyof MatchingModalOpenType) => {
-    setOpen(prevState => ({
+    setOpen(open => !open);
+    setModalState(prevState => ({
       ...prevState,
       [key]: !prevState[key],
     }));
   };
 
   const onClickParticipateMeetingType = (type: string) => {
+    if (type === '과팅' && !isStudent) {
+      onHandleModal('matchingModalOpen');
+    } else if (type === '연인' || type === '친구') {
+      onHandleModal('serviceWaitingModalOpen');
+      return;
+    }
     setSelectMeetingType(type);
   };
 
   useEffect(() => {
     setIsProfile(false); // 추후 로직
+    setIsStudent(true);
   }, []);
+
+  useEffect(() => {
+    if (!open) {
+      setModalState(prevState =>
+        Object.keys(prevState).reduce((newState, key) => {
+          newState[key] = false;
+          return newState;
+        }, {} as MatchingModalOpenType),
+      );
+    }
+  }, [open]);
 
   return (
     <Layout visibleHeader={false}>
-      {open.matchingStartModalOpen && (
-        <Modal>
-          <Layout>
-            <Text
-              fontSize={theme.fontSizes['2xl']}
-              fontWeight={theme.fontWeights.semibold}
-            >
-              {'매칭 시작하기'}
-            </Text>
-            <ButtonBox>
-              <Button width={'100%'}>
+      {open && (
+        <Modal isOpen={open} onStateChange={() => setOpen(open => !open)}>
+          <Modal.Content>
+            {modalState.serviceWaitingModalOpen && (
+              <ModalLayout>
                 <Text
-                  fontSize={theme.fontSizes['lg']}
-                  fontWeight={theme.fontWeights.semibold}
+                  fontSize={theme.fontSizes['5xl']}
+                  fontWeight={theme.fontWeights['semibold']}
+                  style={{ marginBottom: `${rem(16)}` }}
                 >
-                  {'📢'}
+                  {'🛠️'}
                 </Text>
                 <Text
-                  fontSize={theme.fontSizes['lg']}
-                  fontWeight={theme.fontWeights.semibold}
+                  $variant="title"
+                  lineHeight={`${rem(46)}`}
+                  style={{ marginBottom: `${rem(8)}` }}
                 >
-                  {'나의 팀 만들기'}
-                </Text>
-              </Button>
-              <Button bgColor={theme.colors.gray200} width={'100%'}>
-                <Text
-                  fontSize={theme.fontSizes['lg']}
-                  fontWeight={theme.fontWeights.semibold}
-                >
-                  {'💌'}
+                  {'서비스 준비 중'}
                 </Text>
                 <Text
-                  fontSize={theme.fontSizes['lg']}
-                  textColor={theme.colors.black}
-                  fontWeight={theme.fontWeights.semibold}
+                  textColor={theme.colors.gray500}
+                  lineHeight={`${rem(22)}`}
+                  textAlign={'center'}
+                  style={{ marginBottom: `${rem(40)}` }}
                 >
-                  {'초대 코드로 참가하기'}
+                  {
+                    '이곳에 안내메세지 두줄이상 입력을 권장하고 줄바꿈 영역은 이곳까지'
+                  }
                 </Text>
-              </Button>
-            </ButtonBox>
-          </Layout>
+                <Button onClick={() => setOpen(open => !open)} width={'100%'}>
+                  <Text
+                    fontSize={theme.fontSizes['lg']}
+                    fontWeight={theme.fontWeights['semibold']}
+                  >
+                    {'닫기'}
+                  </Text>
+                </Button>
+              </ModalLayout>
+            )}
+            {modalState.matchingModalOpen && (
+              <ModalLayout>
+                <Text
+                  fontSize={theme.fontSizes['5xl']}
+                  fontWeight={theme.fontWeights['semibold']}
+                  style={{ marginBottom: `${rem(16)}` }}
+                >
+                  {'✋🏻'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes['xl']}
+                  fontWeight={theme.fontWeights['medium']}
+                  textAlign={'center'}
+                  lineHeight={`${rem(28)}`}
+                  style={{ padding: `0 ${rem(24)}` }}
+                >
+                  {'매칭을 시작하려면\n먼저 재학생 인증이 필요해요'}
+                </Text>
+                <ModalButtonsBox>
+                  <Button
+                    onClick={() => setOpen(open => !open)}
+                    bgColor={`${theme.colors.gray200}`}
+                  >
+                    <Text
+                      fontSize={theme.fontSizes['lg']}
+                      fontWeight={theme.fontWeights['semibold']}
+                      textColor={theme.colors.black}
+                    >
+                      {'닫기'}
+                    </Text>
+                  </Button>
+                  <Button bgColor={`${theme.colors.black}`}>
+                    <Text
+                      textColor={`${theme.colors.white}`}
+                      fontSize={theme.fontSizes['lg']}
+                      fontWeight={theme.fontWeights['semibold']}
+                    >
+                      {'인증하기'}
+                    </Text>
+                  </Button>
+                </ModalButtonsBox>
+              </ModalLayout>
+            )}
+            {modalState.matchingStartModalOpen && (
+              <ModalLayout>
+                <ModalHeader>
+                  <Modal.Close as="span">
+                    <CloseIcon />
+                  </Modal.Close>
+                </ModalHeader>
+                <Text
+                  fontSize={theme.fontSizes['2xl']}
+                  fontWeight={theme.fontWeights.semibold}
+                  lineHeight={`${rem(46)}`}
+                  textAlign={'center'}
+                  style={{
+                    marginBottom: `${rem(26)}`,
+                    padding: `0 ${rem(50)}`,
+                  }}
+                >
+                  {'매칭 시작하기'}
+                </Text>
+                <ButtonBox>
+                  <Button width={'100%'}>
+                    <Text
+                      fontSize={theme.fontSizes['lg']}
+                      fontWeight={theme.fontWeights.semibold}
+                    >
+                      {'📢'}
+                    </Text>
+                    <Text
+                      fontSize={theme.fontSizes['lg']}
+                      fontWeight={theme.fontWeights.semibold}
+                    >
+                      {'나의 팀 만들기'}
+                    </Text>
+                  </Button>
+                  <Button
+                    bgColor={theme.colors.gray200}
+                    width={'100%'}
+                    onClick={() => navigate('/dashboard/inviteCInp')}
+                  >
+                    <Text
+                      fontSize={theme.fontSizes['lg']}
+                      fontWeight={theme.fontWeights.semibold}
+                    >
+                      {'💌'}
+                    </Text>
+                    <Text
+                      fontSize={theme.fontSizes['lg']}
+                      textColor={theme.colors.black}
+                      fontWeight={theme.fontWeights.semibold}
+                    >
+                      {'초대 코드로 참가하기'}
+                    </Text>
+                  </Button>
+                </ButtonBox>
+              </ModalLayout>
+            )}
+          </Modal.Content>
         </Modal>
       )}
       <DashboardHeader>
@@ -186,7 +337,7 @@ const DashboardPage = () => {
             ) => {
               return (
                 <ParticipateMatchingItemBox
-                  $selected={title === selectMeetingType}
+                  $selected={title === '과팅'}
                   $bgColor={bgColor}
                   onClick={() => onClickParticipateMeetingType(title)}
                   key={index}
@@ -196,6 +347,7 @@ const DashboardPage = () => {
                     fontColor={theme.colors.gray200}
                     fontWeight={theme.fontWeights.semibold}
                     lineHeight={iconLineHeight}
+                    textAlign={'center'}
                   >
                     {icon}
                   </Text>
@@ -214,287 +366,153 @@ const DashboardPage = () => {
           )}
         </ParticipateMatchingItemsBox>
       </DashboardCol>
-      <DashboardCol>
-        <MatchingTeamHeader>
-          <Text
-            fontSize={theme.fontSizes.xl}
-            fontWeight={theme.fontWeights.semibold}
-          >
-            {'내 과팅 팀'}
-          </Text>
-          <Text
-            fontSize={theme.fontSizes.xs}
-            fontWeight={theme.fontWeights.medium}
-            textColor={theme.colors.gray500}
-            style={{ cursor: 'pointer' }}
-          >
-            {'전체 보기'}
-          </Text>
-        </MatchingTeamHeader>
-        <MatchingTeamItemsBox>
-          {MATCHING_TEAM_LIST.length > 0 ? (
-            MATCHING_TEAM_LIST.map(
-              ({ type, member, title, school }: MatchingTeamType, index) => {
-                return (
-                  <MatchingTeamItemBox key={index}>
-                    <MatchingTeamItemTop>
-                      <MatchingMemberProfilesBox>
-                        {member.map(({ img }, index) => {
-                          return (
-                            <MatchingMemberProfileBox
-                              $zIndex={member.length}
-                              $image={img}
-                              key={index}
-                            />
-                          );
-                        })}
-                      </MatchingMemberProfilesBox>
-                      <MatchingTypeTag $isHost={type === 'HOST'}>
-                        {type === 'HOST' ? (
-                          <CrownIcon width={10} fill="white" />
-                        ) : (
-                          <MemberIcon width={10} fill="white" />
-                        )}
+      {isStudent && selectMeetingType === '과팅' && (
+        <DashboardCol>
+          <MatchingTeamHeader>
+            <Text
+              fontSize={theme.fontSizes.xl}
+              fontWeight={theme.fontWeights.semibold}
+            >
+              {'내 과팅 팀'}
+            </Text>
+            <Text
+              fontSize={theme.fontSizes.xs}
+              fontWeight={theme.fontWeights.medium}
+              textColor={theme.colors.gray500}
+              style={{ cursor: 'pointer' }}
+            >
+              {'전체 보기'}
+            </Text>
+          </MatchingTeamHeader>
+          <MatchingTeamItemsBox>
+            {MATCHING_TEAM_LIST.length > 0 ? (
+              MATCHING_TEAM_LIST.map(
+                ({ type, member, title, school }: MatchingTeamType, index) => {
+                  return (
+                    <MatchingTeamItemBox key={index}>
+                      <MatchingTeamItemTop>
+                        <MatchingMemberProfilesBox>
+                          {member.map(({ img }, index) => {
+                            return (
+                              <MatchingMemberProfileBox
+                                $zIndex={member.length}
+                                $image={img}
+                                key={index}
+                              />
+                            );
+                          })}
+                        </MatchingMemberProfilesBox>
+                        <MatchingTypeTag $isHost={type === 'HOST'}>
+                          {type === 'HOST' ? (
+                            <CrownIcon width={10} fill="white" />
+                          ) : (
+                            <MemberIcon width={10} fill="white" />
+                          )}
+                          <Text
+                            textColor={theme.colors.white}
+                            fontSize={theme.fontSizes['3xs']}
+                            fontWeight={theme.fontWeights.bold}
+                          >
+                            {type}
+                          </Text>
+                        </MatchingTypeTag>
+                      </MatchingTeamItemTop>
+                      <MatchingTeamItemBottom>
                         <Text
-                          textColor={theme.colors.white}
-                          fontSize={theme.fontSizes['3xs']}
-                          fontWeight={theme.fontWeights.bold}
+                          fontSize={theme.fontSizes.md}
+                          fontWeight={theme.fontWeights.semibold}
                         >
-                          {type}
+                          {title}
                         </Text>
-                      </MatchingTypeTag>
-                    </MatchingTeamItemTop>
-                    <MatchingTeamItemBottom>
-                      <Text
-                        fontSize={theme.fontSizes.md}
-                        fontWeight={theme.fontWeights.semibold}
-                      >
-                        {title}
-                      </Text>
-                      <Text
-                        fontSize={theme.fontSizes['2xs']}
-                        fontWeight={theme.fontWeights.normal}
-                        textColor={theme.colors.gray500}
-                      >
-                        {school}
-                      </Text>
-                    </MatchingTeamItemBottom>
-                  </MatchingTeamItemBox>
-                );
-              },
-            )
-          ) : (
-            <DefaultMatchingTeamBox>
-              <Text
-                fontSize={theme.fontSizes['2xl']}
-                fontWeight={theme.fontWeights.semibold}
-              >
-                {'😭'}
-              </Text>
-              <Text
-                fontSize={theme.fontSizes['md']}
-                fontWeight={theme.fontWeights.semibold}
-                style={{ marginTop: `${rem(12)}` }}
-              >
-                {'아직 매칭에 참여한 기록이 없어요'}
-              </Text>
-              <Text
-                fontSize={theme.fontSizes['2xs']}
-                fontWeight={theme.fontWeights.medium}
-                textColor={theme.colors.gray500}
-                style={{ marginTop: `${rem(6)}` }}
-              >
-                {'지금 매칭을 시작하고 소중한 인연을 만들어보세요!'}
-              </Text>
-            </DefaultMatchingTeamBox>
-          )}
-        </MatchingTeamItemsBox>
-        <Button
-          width="100%"
-          style={{ marginTop: `${rem(33)}` }}
-          onClick={() => onHandleModal('matchingStartModalOpen')}
-        >
-          <Text
-            textColor={theme.colors.white}
-            fontSize={theme.fontSizes['lg']}
-            fontWeigh={theme.fontWeights.semibold}
+                        <Text
+                          fontSize={theme.fontSizes['2xs']}
+                          fontWeight={theme.fontWeights.normal}
+                          textColor={theme.colors.gray500}
+                        >
+                          {school}
+                        </Text>
+                      </MatchingTeamItemBottom>
+                    </MatchingTeamItemBox>
+                  );
+                },
+              )
+            ) : (
+              <DefaultMatchingTeamBox>
+                <Text
+                  fontSize={theme.fontSizes['2xl']}
+                  fontWeight={theme.fontWeights.semibold}
+                >
+                  {'😭'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes['md']}
+                  fontWeight={theme.fontWeights.semibold}
+                  style={{ marginTop: `${rem(12)}` }}
+                >
+                  {'아직 매칭에 참여한 기록이 없어요'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes['2xs']}
+                  fontWeight={theme.fontWeights.medium}
+                  textColor={theme.colors.gray500}
+                  style={{ marginTop: `${rem(6)}` }}
+                >
+                  {'지금 매칭을 시작하고 소중한 인연을 만들어보세요!'}
+                </Text>
+              </DefaultMatchingTeamBox>
+            )}
+          </MatchingTeamItemsBox>
+          <Button
+            width="100%"
+            style={{ marginTop: `${rem(33)}` }}
+            onClick={() => onHandleModal('matchingStartModalOpen')}
           >
-            {'매칭 프로필 만들기'}
-          </Text>
-        </Button>
-      </DashboardCol>
+            <Text
+              textColor={theme.colors.white}
+              fontSize={theme.fontSizes['lg']}
+              fontWeigh={theme.fontWeights.semibold}
+            >
+              {'매칭 프로필 만들기'}
+            </Text>
+          </Button>
+        </DashboardCol>
+      )}
     </Layout>
   );
 };
 
 export default DashboardPage;
 
-const DashboardHeader = styled.div`
+const ModalLayout = styled.div`
+  ${props => props.theme.layout.columnCenter};
   width: 100%;
-  ${props => props.theme.layout.centerY};
-  justify-content: space-between;
-  height: ${rem(70)};
-  padding: ${rem(30)} 0;
-`;
+  padding: ${rem(48)} ${rem(30)} ${rem(30)};
 
-const ImageLogo = styled.img`
-  height: ${rem(23)};
-`;
+  background-color: #fff;
 
-const ProfileImage = styled.div<{ $image?: string }>`
-  width: ${rem(40)};
-  height: ${rem(40)};
-  border-radius: ${rem(40)};
-  background-image: url(${props => props.$image}),
-    linear-gradient(lightgray, lightgray);
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  border: ${rem(1)} solid ${theme.colors.gray200};
+  border-radius: ${rem(10)};
 
-  cursor: pointer;
-`;
-
-const AdvertisementBox = styled.div`
-  margin-top: ${rem(11)};
-  width: calc(100% + ${rem(60)});
-  margin-left: ${rem(-30)};
-  margin-right: ${rem(-30)};
-  height: ${rem(78)};
-
-  background-color: ${theme.colors.gray200};
-`;
-
-const DashboardCol = styled.div`
-  padding-bottom: ${rem(27)};
-`;
-
-const ParticipateMatchingItemsBox = styled.div`
-  ${props => props.theme.layout.centerY};
-  gap: ${rem(10)};
-  margin-top: ${rem(18)};
-  margin-bottom: ${rem(24)};
-`;
-
-type ParticipateMatchingItemBoxType = {
-  $selected: boolean;
-  $bgColor: string;
-};
-
-const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxType>`
-  ${props => props.theme.layout.columnCenterY};
   position: relative;
-  flex: 1;
-
-  /* width: ${rem(104)}; */
-  height: ${rem(107)};
-  padding-top: ${rem(18)};
-
-  border-radius: ${rem(10)};
-  border: ${rem(1)} solid rgba(0, 0, 0, 0.02);
-  background: ${props => props.$bgColor};
-  opacity: ${props => (props.$selected ? '1' : `0.5`)};
-
-  cursor: pointer;
-  color: ${props =>
-    props.$selected ? 'rgba(0, 0, 0, 1)' : `rgba(0, 0, 0, 0.5)`};
-
-  & > div > span {
-    color: ${props =>
-      props.$selected ? 'rgba(0, 0, 0, 1)' : `${theme.colors.gray300}`};
-  }
 `;
 
-const ParticipateMatchingTitleBox = styled.div`
-  ${props => props.theme.layout.center};
-  padding: ${rem(7)} ${rem(13)};
-  border-radius: ${rem(20)};
-  border: ${rem(1)} solid ${theme.colors.gray200};
-
-  background-color: ${theme.colors.white};
-  position: absolute;
-  bottom: ${rem(-16)};
-`;
-
-const MatchingTeamHeader = styled.div`
-  ${props => props.theme.layout.center};
-  justify-content: space-between;
-  height: ${rem(45)};
-`;
-
-const MatchingTeamItemsBox = styled.div`
-  ${props => props.theme.layout.columnCenterY};
-  gap: ${rem(8)};
-`;
-
-const MatchingTeamItemBox = styled.div`
-  ${props => props.theme.layout.columnCenterY};
+const ModalHeader = styled.div`
   width: 100%;
-  padding: ${rem(16)};
-  gap: ${rem(10)};
-  border-radius: ${rem(10)};
-  background: ${props => props.theme.colors.gray100};
-
-  cursor: pointer;
-`;
-
-const MatchingTeamItemTop = styled.div`
-  ${props => props.theme.layout.centerY};
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const MatchingTeamItemBottom = styled.div`
-  ${props => props.theme.layout.columnCenterX};
-
-  width: 100%;
-  gap: ${rem(4)};
-`;
-
-const MatchingMemberProfilesBox = styled.div`
+  top: ${rem(30)};
+  right: ${rem(30)};
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
+
+  position: absolute;
 `;
 
-type MatchingMemberProfileBoxType = {
-  $zIndex: number;
-  $image: string;
-};
-
-const MatchingMemberProfileBox = styled.div<MatchingMemberProfileBoxType>`
-  width: ${rem(28)};
-  height: ${rem(28)};
-  border-radius: 50%;
-  border: ${rem(1)} solid white;
-
-  background-image: url(${props => props.$image}),
-    linear-gradient(lightgray, lightgray);
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  margin-right: ${rem(-10)};
-
-  z-index: ${props => props.$zIndex};
-`;
-
-const MatchingTypeTag = styled.div<{ $isHost?: boolean }>`
-  background: ${props => (props.$isHost ? '#9747FF' : '#4B88FF')};
-
-  ${props => props.theme.layout.center};
-
-  padding: ${rem(3.5)} ${rem(4)};
-  gap: ${rem(3)};
-  border-radius: ${rem(4)};
-`;
-
-const DefaultMatchingTeamBox = styled.div`
-  ${props => props.theme.layout.columnCenter};
-  padding: ${rem(26)} 0 ${rem(4)};
-`;
-
-const ButtonBox = styled.div`
-  ${props => props.theme.layout.columnCenter};
+const ModalButtonsBox = styled.div`
+  display: flex;
   width: 100%;
-  gap: ${rem(16)};
+  gap: ${rem(10)};
+
+  margin-top: ${rem(40)};
+
+  & > button {
+    flex: 1;
+  }
 `;

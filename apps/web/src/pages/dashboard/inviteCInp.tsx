@@ -1,17 +1,29 @@
+import { MinusIcon, PlusIcon } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Button, Input, Text } from '@oechul/ui';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
 
 const DashboardInviteCodeInputPage = () => {
   const [inviteCode, setInviteCode] = useState<string>('');
+  const [isValid, setIsValid] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const onClickInviteCodeButton = () => {
-    setIsSuccess(isSuccess => !isSuccess);
+    // 추후 백엔드 api 연동 필요
+    if (inviteCode === 'hi') {
+      setIsSuccess(true);
+    } else {
+      setIsValid(false);
+    }
   };
+
+  useEffect(() => {
+    setIsValid(true);
+  }, [inviteCode]);
 
   return (
     <Layout visibleHeader>
@@ -26,7 +38,7 @@ const DashboardInviteCodeInputPage = () => {
             {'🍻'}
           </Text>
           <Text
-            variant="title"
+            $variant="title"
             textAlign={'center'}
             style={{ marginTop: `${rem(26)}` }}
           >
@@ -40,7 +52,7 @@ const DashboardInviteCodeInputPage = () => {
           >
             {'00 님이 생성하신 매칭 팀에 들어왔어요!'}
           </Text>
-          <MatchingSuccessDescriptionBoxTop>
+          <MatchingSuccessDescriptionBoxTop $isExpanded={isExpanded}>
             <Text
               fontSize={theme.fontSizes.md}
               fontWieght={theme.fontWeights.semibold}
@@ -54,30 +66,36 @@ const DashboardInviteCodeInputPage = () => {
             >
               {'매칭이 성공하면 어떻게 되나요?'}
             </Text>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="2"
-              viewBox="0 0 15 2"
-              fill="none"
-              style={{ marginLeft: 'auto' }}
-            >
-              <rect y="0.5" width="15" height="1" fill="black" />
-            </svg>
+            {isExpanded ? (
+              <MinusIcon
+                style={{ marginLeft: 'auto' }}
+                onClick={() => setIsExpanded(false)}
+              />
+            ) : (
+              <PlusIcon
+                style={{ marginLeft: 'auto' }}
+                onClick={() => setIsExpanded(true)}
+              />
+            )}
           </MatchingSuccessDescriptionBoxTop>
-          <MatchingSuccessDescriptionBoxBottom>
-            <Text
-              textColor={theme.colors.gray500}
-              fontWeight={theme.fontWeights.medium}
-              fontSize={theme.fontSizes.xs}
-              lineHeight={'170%'}
-            >
-              {
-                '매칭 성공 시 각 팀에게 해당 페이지가 전송됩니다. 대표 연락처를 통해 매칭 날짜와 장소를 정해주세요! 매칭 성공 시 팀 삭제 및 매칭 취소가 불가능해요.'
-              }
-            </Text>
-          </MatchingSuccessDescriptionBoxBottom>
-          <Button bgColor={theme.colors.black}>
+          {isExpanded && (
+            <MatchingSuccessDescriptionBoxBottom>
+              <Text
+                textColor={theme.colors.gray500}
+                fontWeight={theme.fontWeights.medium}
+                fontSize={theme.fontSizes.xs}
+                lineHeight={'170%'}
+              >
+                {
+                  '매칭 성공 시 각 팀에게 해당 페이지가 전송됩니다. 대표 연락처를 통해 매칭 날짜와 장소를 정해주세요! 매칭 성공 시 팀 삭제 및 매칭 취소가 불가능해요.'
+                }
+              </Text>
+            </MatchingSuccessDescriptionBoxBottom>
+          )}
+          <Button
+            bgColor={theme.colors.black}
+            style={{ marginTop: `${rem(48)}` }}
+          >
             <Text
               fontSize={theme.fontSizes['lg']}
               fontWeight={theme.fontWeights['semibold']}
@@ -88,7 +106,7 @@ const DashboardInviteCodeInputPage = () => {
         </Fragment>
       ) : (
         <Fragment>
-          <Text variant="title">{'초대 코드 입력'}</Text>
+          <Text $variant="title">{'초대 코드 입력'}</Text>
           <DescriptionBox>
             <Text>{'💡'}</Text>
             <Text
@@ -99,7 +117,8 @@ const DashboardInviteCodeInputPage = () => {
             </Text>
           </DescriptionBox>
           <Input
-            label="초대코드"
+            label={isValid ? '초대코드' : '⚠ 초대 코드를 다시 확인해주세요.'}
+            isValid={isValid === false ? false : undefined}
             value={inviteCode}
             onChange={e => setInviteCode(e.target.value)}
           />
@@ -134,13 +153,15 @@ const DescriptionBox = styled.div`
   margin: ${rem(19)} 0 ${rem(28)};
 `;
 
-const MatchingSuccessDescriptionBoxTop = styled.div`
+const MatchingSuccessDescriptionBoxTop = styled.div<{ $isExpanded: boolean }>`
   ${props => props.theme.layout.centerY}
   width: 100%;
   padding: ${rem(16)};
 
-  border-radius: ${rem(10)} ${rem(10)} 0 0;
-  border-bottom: ${rem(1)} solid ${theme.colors.gray200};
+  border-radius: ${props =>
+    props.$isExpanded ? `${rem(10)} ${rem(10)} 0 0` : `${rem(10)}`};
+  border-bottom: ${props =>
+    props.$isExpanded ? `${rem(1)} solid ${theme.colors.gray200}` : 'none'};
   background: ${theme.colors.gray100};
 
   margin-top: ${rem(48)};
@@ -154,5 +175,4 @@ const MatchingSuccessDescriptionBoxBottom = styled.div`
 
   border-radius: 0 0 ${rem(10)} ${rem(10)};
   background: ${theme.colors.gray100};
-  margin-bottom: ${rem(48)};
 `;
