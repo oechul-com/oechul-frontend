@@ -1,5 +1,5 @@
 export type MeetupForm = {
-  numberOfPeople: number;
+  groupType: number;
   teamName: string;
   day: string[];
   phoneNumber: string;
@@ -8,7 +8,7 @@ export type MeetupForm = {
 };
 
 export const initialMeetupForm: MeetupForm = {
-  numberOfPeople: 0,
+  groupType: 0,
   teamName: '',
   day: [],
   phoneNumber: '',
