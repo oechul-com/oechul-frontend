@@ -7,7 +7,7 @@ import { initialMeetupForm, MeetupForm } from '@/pages/meetup/create/types.ts';
 
 const MeetupCreatePage = (): ReactElement => {
   const [meetupForm, setMeetupForm] = useState<MeetupForm>(initialMeetupForm);
-
+  alert(meetupForm);
   const steps: string[] = ['initial', 'people', 'name', 'contact', 'complete'];
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
     stepQueryKey: 'step',
@@ -23,9 +23,7 @@ const MeetupCreatePage = (): ReactElement => {
     currentStep !== 'initial' && currentStep !== 'complete';
 
   const stepComponents: { [key: string]: ReactElement } = {
-    initial: (
-      <InitialStep formData={meetupForm} proceedToNextStep={handleNextStep} />
-    ),
+    initial: <InitialStep proceedToNextStep={handleNextStep} />,
     people: <></>,
     name: <></>,
     contact: <></>,
@@ -34,9 +32,13 @@ const MeetupCreatePage = (): ReactElement => {
 
   return (
     <Layout
-      arrow={visibleHeader}
-      title={visibleHeader ? '과팅 매칭' : undefined}
+      visibleHeader={visibleHeader}
+      arrow={true}
+      title={'과팅 매칭'}
+      progress={(steps.indexOf(currentStep) / (steps.length - 1)) * 100}
+      borderline={true}
     >
+      <div />
       <Funnel>
         {steps.map(step => (
           <Step key={step} name={step}>

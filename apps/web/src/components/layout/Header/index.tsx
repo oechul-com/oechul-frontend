@@ -8,6 +8,7 @@ import {
   HeaderInner,
   HeaderRoot,
   HeaderTitle,
+  ProgressBar,
 } from './Header.styles.ts';
 
 interface HeaderProps {
@@ -17,6 +18,7 @@ interface HeaderProps {
   branding?: boolean;
   borderline: boolean;
   title?: string;
+  progress?: number;
 }
 
 const Header = ({
@@ -26,6 +28,7 @@ const Header = ({
   branding,
   borderline,
   title,
+  progress,
 }: HeaderProps): ReactElement => {
   const navigate = useNavigate();
 
@@ -50,6 +53,7 @@ const Header = ({
         {!!branding && <Branding src="/static/assets/common/image-logo.svg" />}
         {title && <HeaderTitle>{title}</HeaderTitle>}
       </HeaderInner>
+      {progress && <ProgressBar $width={progress} />}
     </HeaderRoot>
   );
 };

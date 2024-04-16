@@ -42,3 +42,15 @@ export const HeaderIconButton = styled.button`
   border: none;
   background: none;
 `;
+
+export const ProgressBar = styled.div<{ $width: number }>`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: ${({ $width }) => `${$width}%`};
+  height: ${rem(2)};
+  border: none;
+  appearance: none;
+  background-color: ${theme.colors.black};
+  transition: width 0.3s;
+`;

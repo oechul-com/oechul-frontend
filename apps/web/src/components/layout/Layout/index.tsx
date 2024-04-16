@@ -11,6 +11,7 @@ interface LayoutProps {
   branding?: boolean;
   borderline?: boolean;
   title?: string;
+  progress?: number;
   children: ReactNode;
 }
 
@@ -22,6 +23,7 @@ const Layout = ({
   branding,
   borderline = false,
   title,
+  progress,
   children,
 }: LayoutProps): ReactElement => {
   return (
@@ -34,6 +36,7 @@ const Layout = ({
           branding={branding}
           borderline={borderline}
           title={title}
+          progress={progress}
         />
       )}
       <Main $visibleHeader={visibleHeader}>{children}</Main>

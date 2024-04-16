@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import useScreenSize from '@/hooks/useScreenSize.ts';
+import useScreenSize from '@/hooks/useScreenSize';
 import LoginPage from '@/pages/auth/login';
 import Register from '@/pages/auth/register';
-import ErrorPage from '@/pages/error.tsx';
-import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
-import MeetupPrivateRouter from '@/routers/MeetupPrivateRouter.tsx';
-import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
+import ErrorPage from '@/pages/error';
+import MainPrivateRouter from '@/routers/MainPrivateRouter';
+import MeetupPrivateRouter from '@/routers/MeetupPrivateRouter';
+import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter';
 
 const pages = [
   { path: '/', component: MainPrivateRouter },

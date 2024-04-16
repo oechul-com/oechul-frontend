@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import ErrorPage from '@/pages/error.tsx';
+import ErrorPage from '@/pages/error';
 import ProfilePage from '@/pages/profile';
 import ProfileSettingsPage from '@/pages/profile/settings';
 import VerificationPage from '@/pages/profile/verification';
