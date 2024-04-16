@@ -30,7 +30,7 @@ type MatchingTeamType = {
   type: 'HOST' | 'MEMBER';
   member: StudentInfoType[];
   title: string;
-  school: string;
+  school?: string;
   current: string;
 };
 
@@ -52,7 +52,6 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
     type: 'HOST',
     member: [{ name: 'student', img: '/static/assets/common/image-logo.svg' }],
     title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
     current: '매칭 중',
   },
   {
@@ -67,6 +66,19 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
     title: '소통합시다잉',
     school: '한국외국어대학교 글로벌캠퍼스',
     current: '매칭 성공',
+  },
+  {
+    type: 'MEMBER',
+    member: [
+      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+    ],
+    title: '소통합시다잉',
+    school: '한국외국어대학교 글로벌캠퍼스',
+    current: '확인하기',
   },
 ];
 
@@ -86,7 +98,7 @@ const MatchedMeetupPage = () => {
             return (
               <MyMeetupBox key={index}>
                 <MatchingTeamItemBottom>
-                  <div>
+                  <MatchedGap>
                     <Text
                       fontSize={theme.fontSizes.md}
                       fontWeight={theme.fontWeights.medium}
@@ -100,7 +112,7 @@ const MatchedMeetupPage = () => {
                     >
                       {member.length}
                     </Text>
-                  </div>
+                  </MatchedGap>
                 </MatchingTeamItemBottom>
                 <CustomButton>
                   <Text
@@ -159,7 +171,7 @@ const MatchedMeetupPage = () => {
                   </MatchingTypeTag>
                 </MatchingTeamItemTop>
                 <MatchingTeamItemBottom>
-                  <div>
+                  <MatchedGap>
                     <MatchingTeamTextBox>
                       <Text
                         fontSize={theme.fontSizes.md}
@@ -176,7 +188,7 @@ const MatchedMeetupPage = () => {
                     >
                       {school}
                     </Text>
-                  </div>
+                  </MatchedGap>
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -204,7 +216,7 @@ const MatchedMeetupPage = () => {
             return (
               <MatchingTeamItemBox key={index} $isTop={false}>
                 <MatchingTeamItemBottom $isTop={false}>
-                  <div>
+                  <MatchedGap>
                     <MatchingTeamTextBox>
                       <Text
                         fontSize={theme.fontSizes.md}
@@ -221,8 +233,8 @@ const MatchedMeetupPage = () => {
                     >
                       {school}
                     </Text>
-                  </div>
-                  <MatchedSuccess type={current} />
+                  </MatchedGap>
+                  <MatchedTag type={current} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -246,11 +258,11 @@ const MatchedMeetupPage = () => {
       </MatchedMeetupHeader>
       <NewMeetupsCol>
         {MATCHING_TEAM_LIST.map(
-          ({ title, school }: MatchingTeamType, index) => {
+          ({ title, school, current }: MatchingTeamType, index) => {
             return (
               <MatchingTeamItemBox key={index}>
                 <MatchingTeamItemBottom>
-                  <div>
+                  <MatchedGap>
                     <MatchingTeamTextBox>
                       <Text
                         fontSize={theme.fontSizes.md}
@@ -267,7 +279,8 @@ const MatchedMeetupPage = () => {
                     >
                       {school}
                     </Text>
-                  </div>
+                  </MatchedGap>
+                  <MatchedTag type={current} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -286,88 +299,86 @@ const MatchedMeetupHeader = styled.div`
 `;
 
 const MyMeetupBox = styled.div`
-  display: flex;
+  ${theme.layout.centerY}
+  justify-content: space-between;
   width: 100%;
   height: ${rem(70)};
-  padding: 16px 17px 16px 16px;
-  justify-content: space-between;
-  align-items: center;
+  padding: ${rem(16)} ${rem(17)} ${rem(16)} ${rem(16)};
 
-  border-radius: 10px;
-  border: 1px solid var(--gray-gray250, #f0f0f0);
-  background: var(--white, #fff);
+  border-radius: ${rem(10)};
+  border: ${rem(1)} solid ${theme.colors.gray250};
+  background: ${theme.colors.white};
 `;
 
 const CustomButton = styled.div`
-  display: flex;
-  height: 38px;
-  padding: 12px 10px;
-  justify-content: center;
-  align-items: center;
+  ${theme.layout.center}
+  height: ${rem(38)};
+  padding: ${rem(12)} ${rem(10)};
 
-  border-radius: 6px;
-  background: var(--black, #000);
+  border-radius: ${rem(6)};
+  background: ${theme.colors.black};
 `;
 
 const MyMeetupsCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${theme.layout.columnCenter}
 
-  margin: 17px 0 38px 0;
-  gap: 16px;
+  margin: ${rem(17)} 0 ${rem(38)} 0;
+  gap: ${rem(16)};
 `;
 
 const NewMeetupsCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  margin: 16px 0 36px 0;
-  gap: 16px;
+  ${theme.layout.columnCenter}
+  margin: ${rem(16)} 0 ${rem(36)} 0;
+  gap: ${rem(16)};
 `;
 
 const MatchingTeamTextBox = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
+  ${theme.layout.centerY}
+  gap: ${rem(6)};
 `;
 
 type MatchedType = {
   type: string;
 };
 
-const MatchedSuccess = ({ type }: MatchedType) => {
+const MatchedTag = ({ type }: MatchedType) => {
   return (
     <Fragment>
-      {type === '매칭 실패' || type === '매칭 거절' || type === '매칭 중' ? (
-        <Text>{type}</Text>
-      ) : (
-        <MatchedSuccessBox $isSuccess={type === '매칭 성공'}>
-          <Text
-            fontSize={theme.fontSizes.xs}
-            textColor={theme.colors.white}
-            fontWeight={theme.fontWeights.semibold}
-          >
-            {type}
-          </Text>
-          {type === '매칭 성공' ? <CaratRightIcon stroke="#ffffff" /> : <></>}
-        </MatchedSuccessBox>
-      )}
+      <MatchedColorTagBox $type={type}>
+        <Text
+          fontSize={theme.fontSizes.xs}
+          textColor={
+            type === '매칭 성공' || type === '확인하기'
+              ? theme.colors.white
+              : theme.colors.black
+          }
+          fontWeight={theme.fontWeights.semibold}
+        >
+          {type}
+        </Text>
+        {type === '매칭 성공' && <CaratRightIcon stroke="#ffffff" />}
+      </MatchedColorTagBox>
     </Fragment>
   );
 };
 
-const MatchedSuccessBox = styled.div<{ $isSuccess?: boolean }>`
-  display: flex;
-  padding: 6px 8px;
-  align-items: center;
-  gap: 4px;
+const MatchedColorTagBox = styled.div<{ $type: string }>`
+  ${theme.layout.centerY}
+  padding: ${rem(6)} ${rem(8)};
+  gap: ${rem(4)};
 
-  border-radius: 100px;
-  background: ${props => (props.$isSuccess ? '#ff4b4b' : '#000')};
+  border-radius: ${rem(100)};
+  background: ${({ $type }) =>
+    $type === '매칭 성공'
+      ? `${theme.colors.red.accent}`
+      : $type === '확인하기'
+        ? `${theme.colors.black}`
+        : `${theme.colors.white}`};
 
   cursor: pointer;
+`;
+
+const MatchedGap = styled.div`
+  ${theme.layout.column}
+  gap: ${rem(4)};
 `;

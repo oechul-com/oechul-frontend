@@ -126,7 +126,6 @@ export const MatchingTeamItemBottom = styled.div<{ $isTop?: boolean }>`
   justify-content: space-between;
 
   width: 100%;
-  gap: ${rem(4)};
 `;
 
 export const MatchingMemberProfilesBox = styled.div`
