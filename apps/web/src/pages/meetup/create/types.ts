@@ -1,17 +1,22 @@
 export type MeetupForm = {
-  groupType: number;
+  groupType: string;
   teamName: string;
-  day: string[];
+  days: string[];
   phoneNumber: string;
   instagram: string;
   kakaoTalk: string;
 };
 
 export const initialMeetupForm: MeetupForm = {
-  groupType: 0,
+  groupType: '',
   teamName: '',
-  day: [],
+  days: [],
   phoneNumber: '',
   instagram: '',
   kakaoTalk: '',
 };
+
+export interface MeetupCreateStepProps {
+  formData: MeetupForm;
+  proceedToNextStep: (data: Partial<MeetupForm>) => void;
+}

@@ -2,29 +2,30 @@ import { ReactElement, useState } from 'react';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
-import GroupTypeStep from '@/pages/meetup/create/_steps/GroupTypeStep.tsx';
-import InitialStep from '@/pages/meetup/create/_steps/InitialStep.tsx';
-import { initialMeetupForm, MeetupForm } from '@/pages/meetup/create/types.ts';
+
+import CompleteStep from './_steps/CompleteStep.tsx';
+import ContactStep from './_steps/ContactStep.tsx';
+import InitialStep from './_steps/InitialStep.tsx';
+import NameStep from './_steps/NameStep.tsx';
+import TypeStep from './_steps/TypeStep.tsx';
+import { initialMeetupForm, MeetupForm } from './types.ts';
 
 const MeetupCreatePage = (): ReactElement => {
   const [meetupForm, setMeetupForm] = useState<MeetupForm>(initialMeetupForm);
 
-  alert('meetupForm: ' + meetupForm);
-  const steps: string[] = [
-    'initial',
-    'group-type',
-    'name',
-    'contact',
-    'complete',
-  ];
+  const steps: string[] = ['initial', 'type', 'name', 'contact', 'complete'];
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
     stepQueryKey: 'step',
   });
 
   const handleNextStep = (data: Partial<MeetupForm>) => {
     setMeetupForm(prevForm => ({ ...prevForm, ...data }));
-    const nextStep = steps[steps.indexOf(currentStep) + 1];
-    goToStep(nextStep);
+    goToStep(steps[steps.indexOf(currentStep) + 1]);
+  };
+
+  const handleCreate = (data: Partial<MeetupForm>) => {
+    // todo - meetup create logic
+    handleNextStep(data);
   };
 
   const visibleHeader: boolean =
@@ -32,10 +33,10 @@ const MeetupCreatePage = (): ReactElement => {
 
   const stepComponents: { [key: string]: ReactElement } = {
     initial: <InitialStep proceedToNextStep={handleNextStep} />,
-    people: <GroupTypeStep />,
-    name: <></>,
-    contact: <></>,
-    complete: <></>,
+    type: <TypeStep formData={meetupForm} proceedToNextStep={handleNextStep} />,
+    name: <NameStep formData={meetupForm} proceedToNextStep={handleNextStep} />,
+    contact: <ContactStep formData={meetupForm} handleCreate={handleCreate} />,
+    complete: <CompleteStep />,
   };
 
   return (

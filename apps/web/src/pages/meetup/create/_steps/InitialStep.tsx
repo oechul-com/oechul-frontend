@@ -13,7 +13,7 @@ const InitialStep = ({ proceedToNextStep }: InitialStepProps): ReactElement => {
   return (
     <>
       <CenterContent>
-        <Text fontSize={theme.fontSizes['7xl']}>🍻</Text>
+        <Text fontSize={theme.fontSizes['6xl']}>🍻</Text>
         <Text
           textColor={theme.colors.black}
           fontSize={theme.fontSizes['2xl']}

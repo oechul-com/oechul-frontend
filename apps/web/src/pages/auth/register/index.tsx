@@ -35,10 +35,8 @@ const RegisterPage = (): ReactElement => {
   };
 
   const handleRegister = (password: string) => {
-    setRegisterForm(prevForm => ({ ...prevForm, password }));
-
     // todo - register logic
-    goToStep(steps[steps.indexOf(currentStep) + 1]);
+    handleNextStep({ password });
   };
 
   const stepComponents: { [key: string]: ReactElement } = {
