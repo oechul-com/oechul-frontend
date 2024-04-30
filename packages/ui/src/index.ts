@@ -4,3 +4,4 @@ export { default as Checkbox } from './Checkbox';
 export { default as Modal } from './Modal';
 export { default as Text } from './Text';
 export { default as Select } from './Select';
+export { default as Accordion } from './Accordion';

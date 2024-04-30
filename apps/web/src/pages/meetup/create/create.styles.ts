@@ -90,3 +90,83 @@ export const DayElement = styled.div<{ $selected: boolean }>`
     $selected ? theme.colors.black : theme.colors.white};
   transition: all 200ms ease;
 `;
+
+export const CreateCompleteContent = styled.div`
+  ${theme.layout.columnCenterX};
+  padding-top: ${rem(76)};
+  padding-bottom: ${rem(121)};
+`;
+
+export const CompleteContent = styled.div`
+  ${theme.layout.column};
+  width: 100%;
+  margin-top: ${rem(31)};
+  gap: ${rem(16)};
+`;
+
+export const InviteCodeInputContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const InviteCodeCopyButton = styled.button`
+  ${theme.layout.center};
+
+  position: absolute;
+  right: ${rem(15)};
+  top: 50%;
+  transform: translateY(-50%);
+  padding: ${rem(12)} ${rem(16)};
+  color: ${theme.colors.black};
+  font-size: ${theme.fontSizes.xs};
+  font-weight: ${theme.fontWeights.medium};
+  cursor: pointer;
+  border: none;
+  border-radius: ${rem(6)};
+  background-color: ${theme.colors.gray200};
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${theme.colors.gray300};
+  }
+`;
+
+export const AccordionHeader = styled.div`
+  ${theme.layout.centerY};
+  position: relative;
+  width: 100%;
+  padding: ${rem(16)};
+  color: ${theme.colors.black};
+  font-weight: ${theme.fontWeights.semibold};
+  gap: ${rem(10)};
+`;
+
+export const AccordionToggleContainer = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+`;
+
+export const AccordionContent = styled.ul`
+  padding: ${rem(10)} ${rem(16)} ${rem(10)} ${rem(36)};
+  margin: 0;
+  list-style: none;
+  counter-reset: list-counter;
+  color: ${theme.colors.gray500};
+  font-size: ${theme.fontSizes.xs};
+  line-height: 170%;
+
+  & > li {
+    counter-increment: list-counter;
+    padding-left: ${rem(20)};
+    position: relative;
+
+    &::before {
+      content: counter(list-counter) '.';
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+`;
