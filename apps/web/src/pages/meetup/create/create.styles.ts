@@ -15,7 +15,7 @@ export const Title = styled.h2`
 `;
 
 export const Subtitle = styled.p`
-  margin-top: ${rem(9)};
+  margin-top: ${rem(12)};
   color: ${theme.colors.gray500};
   font-size: ${theme.fontSizes.xs};
   font-weight: ${theme.fontWeights.medium};
@@ -69,19 +69,23 @@ export const TypeButton = styled.button<{ $current: boolean }>`
 `;
 
 export const DayElementContainer = styled.div`
-  ${theme.layout.center};
-  justify-content: space-between;
-  margin-top: ${rem(26)};
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
   gap: ${rem(6)};
-  overflow-y: auto;
+  margin-top: ${rem(26)};
+  justify-content: space-between;
 `;
 
 export const DayElement = styled.div<{ $selected: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
   color: ${({ $selected }) =>
     $selected ? theme.colors.white : theme.colors.gray500};
   font-weight: ${theme.fontWeights.semibold};
-  padding: ${rem(16)};
   cursor: pointer;
+  user-select: none;
   border: ${rem(1)} solid
     ${({ $selected }) =>
       $selected ? theme.colors.black : theme.colors.gray250};

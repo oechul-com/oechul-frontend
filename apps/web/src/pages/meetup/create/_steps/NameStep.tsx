@@ -1,6 +1,7 @@
 import { rem, theme } from '@oechul/styles';
 import { Text, Input } from '@oechul/ui';
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, ReactElement, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   SaveButton,
@@ -10,6 +11,7 @@ import {
   Title,
 } from '@/pages/meetup/create/create.styles.ts';
 import { MeetupCreateStepProps } from '@/pages/meetup/create/types.ts';
+import { validateFormStep } from '@/pages/meetup/create/validation.ts';
 
 const NameStep = ({
   formData,
@@ -25,6 +27,12 @@ const NameStep = ({
     if (!isFormValid) return;
     proceedToNextStep({ teamName });
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'name'))
+      navigate('/meetup/create', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <form onSubmit={handleFormSubmit}>

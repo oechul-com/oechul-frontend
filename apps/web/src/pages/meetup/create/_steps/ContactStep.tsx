@@ -1,6 +1,7 @@
 import { rem } from '@oechul/styles';
 import { Input } from '@oechul/ui';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   DayElement,
@@ -13,6 +14,7 @@ import {
   Title,
 } from '@/pages/meetup/create/create.styles.ts';
 import { MeetupForm } from '@/pages/meetup/create/types.ts';
+import { validateFormStep } from '@/pages/meetup/create/validation.ts';
 
 const DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일'];
 
@@ -49,6 +51,12 @@ const ContactStep = ({
       kakaoTalk,
     });
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'contact'))
+      navigate('/meetup/create', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <>

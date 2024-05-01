@@ -1,5 +1,6 @@
 import { rem, theme } from '@oechul/styles';
 import { Accordion, Input, Text } from '@oechul/ui';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -13,10 +14,20 @@ import {
   SaveButton,
   SaveButtonContainer,
 } from '@/pages/meetup/create/create.styles.ts';
+import { MeetupForm } from '@/pages/meetup/create/types.ts';
+import { validateFormStep } from '@/pages/meetup/create/validation.ts';
 import { copyTextToClipboard } from '@/utils/clipboard.tsx';
 
-const CompleteStep = () => {
+interface CompleteStepProps {
+  formData: MeetupForm;
+}
+
+const CompleteStep = ({ formData }: CompleteStepProps) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'complete'))
+      navigate('/meetup/create', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <>
@@ -27,7 +38,7 @@ const CompleteStep = () => {
           fontSize={theme.fontSizes['2xl']}
           fontWeight={theme.fontWeights.semibold}
         >
-          회원가입 완료!
+          팀 생성 완료!
         </Text>
 
         <CompleteContent>

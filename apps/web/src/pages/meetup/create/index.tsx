@@ -36,7 +36,7 @@ const MeetupCreatePage = (): ReactElement => {
     type: <TypeStep formData={meetupForm} proceedToNextStep={handleNextStep} />,
     name: <NameStep formData={meetupForm} proceedToNextStep={handleNextStep} />,
     contact: <ContactStep formData={meetupForm} handleCreate={handleCreate} />,
-    complete: <CompleteStep />,
+    complete: <CompleteStep formData={meetupForm} />,
   };
 
   return (
@@ -47,7 +47,6 @@ const MeetupCreatePage = (): ReactElement => {
       progress={(steps.indexOf(currentStep) / (steps.length - 1)) * 100}
       borderline={true}
     >
-      <div />
       <Funnel>
         {steps.map(step => (
           <Step key={step} name={step}>
