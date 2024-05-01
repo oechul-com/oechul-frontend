@@ -3,10 +3,10 @@ import { ReactElement, useState } from 'react';
 import {
   SaveButtonContainer,
   SaveButton,
-  StepContent,
+  StepContainer,
   Title,
-  TypeButton,
-  StepElementContainer,
+  GroupType,
+  OptionSelectorContainer,
 } from '@/pages/meetup/create/create.styles.ts';
 import { MeetupCreateStepProps } from '@/pages/meetup/create/types.ts';
 
@@ -25,11 +25,11 @@ const TypeStep = ({
 
   return (
     <>
-      <StepContent>
+      <StepContainer>
         <Title>참여 인원을 선택하세요</Title>
-        <StepElementContainer>
+        <OptionSelectorContainer>
           {['2', '3', '4'].map(type => (
-            <TypeButton
+            <GroupType
               key={type}
               onClick={() => {
                 setGroupType(type);
@@ -37,10 +37,10 @@ const TypeStep = ({
               $current={groupType === type}
             >
               {type}명
-            </TypeButton>
+            </GroupType>
           ))}
-        </StepElementContainer>
-      </StepContent>
+        </OptionSelectorContainer>
+      </StepContainer>
       <SaveButtonContainer>
         <SaveButton
           width="100%"

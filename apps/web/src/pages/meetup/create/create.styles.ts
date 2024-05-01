@@ -21,10 +21,16 @@ export const Subtitle = styled.p`
   font-weight: ${theme.fontWeights.medium};
 `;
 
-export const StepContent = styled.div`
+export const StepContainer = styled.div`
   ${theme.layout.column};
   padding-top: ${rem(28)};
   padding-bottom: ${rem(121)};
+`;
+
+export const OptionSelectorContainer = styled.div`
+  ${theme.layout.column};
+  margin-top: ${rem(28)};
+  gap: ${rem(16)};
 `;
 
 export const SaveButtonContainer = styled.div`
@@ -44,13 +50,7 @@ export const SaveButton = styled(Button)`
   margin-inline: auto;
 `;
 
-export const StepElementContainer = styled.div`
-  ${theme.layout.column};
-  margin-top: ${rem(28)};
-  gap: ${rem(16)};
-`;
-
-export const TypeButton = styled.button<{ $current: boolean }>`
+export const GroupType = styled.button<{ $current: boolean }>`
   height: ${rem(68)};
   padding: ${rem(26)} ${rem(24)};
   color: ${({ $current }) =>
@@ -68,7 +68,7 @@ export const TypeButton = styled.button<{ $current: boolean }>`
   transition: all 0.2s ease;
 `;
 
-export const DayElementContainer = styled.div`
+export const DayGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: ${rem(6)};
@@ -76,7 +76,7 @@ export const DayElementContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const DayElement = styled.div<{ $selected: boolean }>`
+export const Day = styled.div<{ $selected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,13 +95,13 @@ export const DayElement = styled.div<{ $selected: boolean }>`
   transition: all 200ms ease;
 `;
 
-export const CreateCompleteContent = styled.div`
+export const CompleteWrapper = styled.div`
   ${theme.layout.columnCenterX};
   padding-top: ${rem(76)};
   padding-bottom: ${rem(121)};
 `;
 
-export const CompleteContent = styled.div`
+export const GuideContainer = styled.div`
   ${theme.layout.column};
   width: 100%;
   margin-top: ${rem(31)};
@@ -113,7 +113,7 @@ export const InviteCodeInputContainer = styled.div`
   width: 100%;
 `;
 
-export const InviteCodeCopyButton = styled.button`
+export const InviteCodeCopy = styled.button`
   ${theme.layout.center};
 
   position: absolute;

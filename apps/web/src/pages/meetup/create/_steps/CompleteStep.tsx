@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import Guideline from '@/components/Guideline';
 import { COPY_MESSAGE } from '@/constants.ts';
 import {
-  CompleteContent,
-  CreateCompleteContent,
-  InviteCodeCopyButton,
+  GuideContainer,
+  CompleteWrapper,
+  InviteCodeCopy,
   InviteCodeInputContainer,
   SaveButton,
   SaveButtonContainer,
@@ -61,7 +61,7 @@ const CompleteStep = ({ formData }: CompleteStepProps) => {
 
   return (
     <>
-      <CreateCompleteContent>
+      <CompleteWrapper>
         <Text fontSize={rem(96)}>🎊</Text>
         <Text
           style={{ marginTop: rem(28) }}
@@ -71,25 +71,25 @@ const CompleteStep = ({ formData }: CompleteStepProps) => {
           팀 생성 완료!
         </Text>
 
-        <CompleteContent>
+        <GuideContainer>
           <InviteCodeInputContainer>
             <Input
               label="초대 코드"
               value="13D2-4WE2-4KD2-1E2D"
               readOnly={true}
             />
-            <InviteCodeCopyButton
+            <InviteCodeCopy
               onClick={() => handleCopyClick('13D2-4WE2-4KD2-1E22D')}
             >
               복사
-            </InviteCodeCopyButton>
+            </InviteCodeCopy>
           </InviteCodeInputContainer>
 
           {guidelines.map((data, index) => (
             <Guideline key={index} {...data} />
           ))}
-        </CompleteContent>
-      </CreateCompleteContent>
+        </GuideContainer>
+      </CompleteWrapper>
 
       <SaveButtonContainer>
         <SaveButton

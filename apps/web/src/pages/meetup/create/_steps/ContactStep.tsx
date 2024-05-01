@@ -4,12 +4,12 @@ import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  DayElement,
-  DayElementContainer,
+  Day,
+  DayGrid,
   SaveButton,
   SaveButtonContainer,
-  StepContent,
-  StepElementContainer,
+  StepContainer,
+  OptionSelectorContainer,
   Subtitle,
   Title,
 } from '@/pages/meetup/create/create.styles.ts';
@@ -60,23 +60,23 @@ const ContactStep = ({
 
   return (
     <>
-      <StepContent>
+      <StepContainer>
         <Title>우리팀이 희망하는 요일</Title>
         <Subtitle>최대 7개까지 선택할 수 있어요</Subtitle>
-        <DayElementContainer>
+        <DayGrid>
           {DAYS.map((day: string) => (
-            <DayElement
+            <Day
               key={day}
               $selected={days.includes(day)}
               onClick={() => toggleDay(day)}
             >
               {day}
-            </DayElement>
+            </Day>
           ))}
-        </DayElementContainer>
+        </DayGrid>
         <Title style={{ marginTop: rem(36) }}>대표 연락처 입력</Title>
         <Subtitle>하나 이상의 연락가능한 대표 연락처를 작성해주세요</Subtitle>
-        <StepElementContainer style={{ marginTop: rem(26) }}>
+        <OptionSelectorContainer style={{ marginTop: rem(26) }}>
           <Input
             label="전화번호"
             value={phoneNumber}
@@ -92,8 +92,8 @@ const ContactStep = ({
             value={kakaoTalk}
             onChange={e => setKakaoTalk(e.target.value)}
           />
-        </StepElementContainer>
-      </StepContent>
+        </OptionSelectorContainer>
+      </StepContainer>
       <SaveButtonContainer>
         <SaveButton
           width="100%"

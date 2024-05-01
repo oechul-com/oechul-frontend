@@ -25,7 +25,7 @@ const InitialStep = ({ proceedToNextStep }: InitialStepProps): ReactElement => {
         <Text
           textColor={theme.colors.gray500}
           fontWeight={theme.fontWeights.semibold}
-          lineHeight="140%"
+          lineHeight="170%"
           style={{ marginTop: rem(80) }}
         >
           1. 과팅 신청 전에 과팅 참가자 모두 외출 회원가입 및 재학생 인증을

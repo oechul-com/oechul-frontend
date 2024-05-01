@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   SaveButton,
   SaveButtonContainer,
-  StepContent,
+  StepContainer,
   Subtitle,
   Title,
 } from '@/pages/meetup/create/create.styles.ts';
@@ -36,7 +36,7 @@ const NameStep = ({
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <StepContent>
+      <StepContainer>
         <Title>팀명을 입력해주세요</Title>
         <Subtitle>재미있는 팀명일수록 매칭 확률이 높아요</Subtitle>
         <Input
@@ -55,7 +55,7 @@ const NameStep = ({
         >
           {teamName.length}/15
         </Text>
-      </StepContent>
+      </StepContainer>
       <SaveButtonContainer>
         <SaveButton width="100%" type="submit" aria-invalid={!isFormValid}>
           다음
