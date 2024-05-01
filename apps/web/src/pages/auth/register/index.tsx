@@ -7,14 +7,13 @@ import {
   RegisterForm,
   initialRegisterForm,
 } from '@/pages/auth/register/types.ts';
+import { steps } from '@/pages/auth/register/validation.ts';
 
 import CompleteStep from './_steps/CompleteStep.tsx';
 import EmailStep from './_steps/EmailStep.tsx';
 import PasswordStep from './_steps/PasswordStep.tsx';
 import PersonalStep from './_steps/PersonalStep.tsx';
 import SchoolStep from './_steps/SchoolStep.tsx';
-
-const steps: string[] = ['school', 'personal', 'email', 'password', 'complete'];
 
 const RegisterPage = (): ReactElement => {
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
@@ -41,7 +40,7 @@ const RegisterPage = (): ReactElement => {
     password: (
       <PasswordStep formData={registerForm} handleRegister={handleRegister} />
     ),
-    complete: <CompleteStep />,
+    complete: <CompleteStep formData={registerForm} />,
   };
 
   return (

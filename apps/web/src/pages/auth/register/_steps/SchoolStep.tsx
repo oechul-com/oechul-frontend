@@ -3,30 +3,36 @@ import { Button, Input, Select } from '@oechul/ui';
 import { FormEvent, useState, useMemo } from 'react';
 
 import Tip from '@/components/Tip';
+import useUniversitiesQuery from '@/hooks/queries/useUniversitiesQuery.ts';
+import useUniversityDepartmentsQuery from '@/hooks/queries/useUniversityDepartmentsQuery.ts';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
 import { RegisterStepProps } from '@/pages/auth/register/types.ts';
-
-const schoolOptions = [
-  { label: '한국외국어대학교 글로벌캠퍼스', value: 'hufs-global' },
-];
-
-const majorOptions = [
-  { label: '글로벌비즈니스학과', value: 'global-business' },
-  { label: '글로벌커뮤니케이션학과', value: 'global-communication' },
-  { label: '글로벌경제학과', value: 'global-economics' },
-  { label: '글로벌한국학과', value: 'global-korean-studies' },
-  { label: '글로벌문화콘텐츠학과', value: 'global-culture-contents' },
-  { label: '글로벌미디어학과', value: 'global-media' },
-  { label: '글로벌스포츠산업학과', value: 'global-sports-industry' },
-  { label: '글로벌인재학부', value: 'global-human-resources' },
-  { label: '글로벌리더십학부', value: 'global-leadership' },
-  { label: '글로벌한국학부', value: 'global-korean-studies' },
-];
 
 const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
   const [school, setSchool] = useState<string>(formData.school);
   const [major, setMajor] = useState<string>(formData.major);
   const [studentId, setStudentId] = useState<string>(formData.studentId);
+
+  const { data: universities } = useUniversitiesQuery();
+  const { data: departments } = useUniversityDepartmentsQuery(school);
+
+  const universityOptions = useMemo(() => {
+    if (!universities || !universities.code.startsWith('2')) return [];
+
+    return universities.result.universityList.map(university => ({
+      value: university.id.toString(),
+      label: university.name,
+    }));
+  }, [universities]);
+
+  const departmentOptions = useMemo(() => {
+    if (!departments || !departments.code.startsWith('2')) return [];
+
+    return departments.result.departmentList.map(department => ({
+      value: department.id.toString(),
+      label: department.name,
+    }));
+  }, [departments]);
 
   const isSchoolStepValid = useMemo(() => {
     return school !== '' && major !== '' && studentId.length >= 7;
@@ -45,7 +51,7 @@ const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
         </Tip>
         <Select
           label="학교 선택"
-          options={schoolOptions}
+          options={universityOptions}
           value={school}
           onChange={e => {
             setSchool(e.target.value);
@@ -55,7 +61,7 @@ const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
         <Select
           style={{ marginTop: rem(16) }}
           label="학과 선택"
-          options={majorOptions}
+          options={departmentOptions}
           value={major}
           onChange={e => setMajor(e.target.value)}
         />

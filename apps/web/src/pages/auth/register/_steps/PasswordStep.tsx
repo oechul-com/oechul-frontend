@@ -10,6 +10,7 @@ import {
   RegisterContent,
 } from '@/pages/auth/auth.styles.ts';
 import { RegisterForm } from '@/pages/auth/register/types.ts';
+import { validateFormStep } from '@/pages/auth/register/validation.ts';
 
 interface PasswordStepProps {
   formData: RegisterForm;
@@ -17,28 +18,11 @@ interface PasswordStepProps {
 }
 
 const PasswordStep = ({ formData, handleRegister }: PasswordStepProps) => {
-  const navigate = useNavigate();
-
   const [password, setPassword] = useState<string>(formData.password);
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [isTermsAgreed, setIsTermsAgreed] = useState<boolean>(false);
   const [isPrivacyPolicyAgreed, setIsPrivacyPolicyAgreed] =
     useState<boolean>(false);
-
-  useEffect(() => {
-    const { school, major, studentId, gender, name, nickname, email } =
-      formData;
-    if (
-      !school ||
-      !major ||
-      !studentId ||
-      !gender ||
-      !name ||
-      !nickname ||
-      !email
-    )
-      navigate('/auth/register', { replace: true });
-  }, [formData, navigate]);
 
   const isPasswordValid: boolean | undefined = useMemo(() => {
     if (password === '') return undefined;
@@ -69,6 +53,12 @@ const PasswordStep = ({ formData, handleRegister }: PasswordStepProps) => {
     event.preventDefault();
     if (isPasswordStepValid) handleRegister(password);
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'password'))
+      navigate('/auth/register', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <RegisterContent as="form" onSubmit={handleFormSubmit}>

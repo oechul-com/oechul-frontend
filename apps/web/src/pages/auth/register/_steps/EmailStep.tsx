@@ -7,17 +7,10 @@ import Tip from '@/components/Tip';
 import { emailRegex } from '@/constants.ts';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
 import { RegisterStepProps } from '@/pages/auth/register/types.ts';
+import { validateFormStep } from '@/pages/auth/register/validation.ts';
 
 const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState<string>(formData.email);
-
-  useEffect(() => {
-    const { school, major, studentId, gender, name, nickname } = formData;
-    if (!school || !major || !studentId || !gender || !name || !nickname)
-      navigate('/auth/register', { replace: true });
-  }, [formData, navigate]);
 
   const isEmailValid = useMemo(() => {
     if (email.length === 0) return undefined;
@@ -28,6 +21,12 @@ const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
     event.preventDefault();
     if (isEmailValid) proceed({ email });
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'email'))
+      navigate('/auth/register', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <RegisterContent as="form" onSubmit={handleFormSubmit}>

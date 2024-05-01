@@ -7,6 +7,7 @@ export default function useUniversityDepartmentsQuery(universityId: string) {
   const query = useQuery({
     queryKey: [QUERIES.UNIVERSITY.DEPARTMENT_KEY, universityId],
     queryFn: () => getUniversityDepartment(universityId),
+    enabled: !!universityId,
   });
 
   if (query.error) throw query.error;

@@ -5,3 +5,5 @@ export { default as Modal } from './Modal';
 export { default as Text } from './Text';
 export { default as Select } from './Select';
 export { default as Accordion } from './Accordion';
+
+export type { SelectOptionType } from './Select';

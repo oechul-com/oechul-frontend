@@ -1,11 +1,22 @@
 import { rem, theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { RegisterCompleteContent } from '@/pages/auth/auth.styles.ts';
+import { RegisterForm } from '@/pages/auth/register/types.ts';
+import { validateFormStep } from '@/pages/auth/register/validation.ts';
 
-const CompleteStep = () => {
+interface CompleteStepProps {
+  formData: RegisterForm;
+}
+
+const CompleteStep = ({ formData }: CompleteStepProps) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'complete'))
+      navigate('/auth/register', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <>

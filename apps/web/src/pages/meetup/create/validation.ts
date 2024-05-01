@@ -1,7 +1,18 @@
 import { MeetupForm } from '@/pages/meetup/create/types.ts';
 
+export const steps: string[] = [
+  'initial',
+  'type',
+  'name',
+  'contact',
+  'complete',
+];
+
+type StepsType = (typeof steps)[number];
+type ValidStepsType = Exclude<StepsType, 'initial' | 'type'>;
+
 const requiredFieldsByStep: Record<
-  'name' | 'contact' | 'complete',
+  ValidStepsType,
   (keyof MeetupForm | 'contactInfo')[]
 > = {
   name: ['groupType'],
@@ -11,10 +22,9 @@ const requiredFieldsByStep: Record<
 
 export const validateFormStep = (
   formData: MeetupForm,
-  step: 'name' | 'contact' | 'complete',
+  step: ValidStepsType,
 ): boolean => {
-  const fields: (keyof MeetupForm | 'contactInfo')[] =
-    requiredFieldsByStep[step];
+  const fields = requiredFieldsByStep[step];
 
   return fields.every(field => {
     if (field === 'days') return formData.days.length > 0;

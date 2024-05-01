@@ -1,5 +1,6 @@
 export type HttpResponse<T> = {
-  data: T;
-  code: number;
+  result: T;
+  isSuccess: boolean;
+  code: string;
   message: string;
 };

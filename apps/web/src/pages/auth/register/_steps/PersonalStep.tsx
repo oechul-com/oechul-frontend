@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Tip from '@/components/Tip';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
 import { RegisterStepProps } from '@/pages/auth/register/types.ts';
+import { validateFormStep } from '@/pages/auth/register/validation.ts';
 
 const genderOptions = [
   { label: '여성', value: 'female' },
@@ -16,40 +17,24 @@ const PersonalStep = ({
   formData,
   proceed,
 }: RegisterStepProps): ReactElement => {
-  const navigate = useNavigate();
-
   const [gender, setGender] = useState<string>(formData.gender);
   const [name, setName] = useState<string>(formData.name);
   const [nickname, setNickname] = useState<string>(formData.nickname);
-
-  useEffect(() => {
-    const { school, major, studentId } = formData;
-    if (!school || !major || !studentId)
-      navigate('/auth/register', { replace: true });
-  }, [formData, navigate]);
 
   const isPersonalStepValid = useMemo(() => {
     return gender !== '' && name.length > 1 && nickname.length > 1;
   }, [gender, name, nickname]);
 
-  const checkNicknameAvailability = async (
-    nickname: string,
-  ): Promise<boolean> => {
-    alert(`nickname: ${nickname}`);
-    // todo API call to check if the nickname is available
-    return true;
-  };
-
   const handleFormSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const nicknameAvailable = await checkNicknameAvailability(nickname);
-    if (!nicknameAvailable) {
-      alert('이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.');
-      return;
-    }
-
     if (isPersonalStepValid) proceed({ gender, name, nickname });
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'personal'))
+      navigate('/auth/register', { replace: true });
+  }, [formData, navigate]);
 
   return (
     <RegisterContent as="form" onSubmit={handleFormSubmit}>

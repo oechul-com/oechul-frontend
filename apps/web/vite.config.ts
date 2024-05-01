@@ -20,4 +20,13 @@ export default defineConfig({
   build: {
     outDir: './dist',
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.oechul.com/api/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });

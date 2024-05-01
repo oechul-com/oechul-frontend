@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
+import { steps } from '@/pages/meetup/create/validation.ts';
 
 import CompleteStep from './_steps/CompleteStep.tsx';
 import ContactStep from './_steps/ContactStep.tsx';
@@ -13,7 +14,6 @@ import { initialMeetupForm, MeetupForm } from './types.ts';
 const MeetupCreatePage = (): ReactElement => {
   const [meetupForm, setMeetupForm] = useState<MeetupForm>(initialMeetupForm);
 
-  const steps: string[] = ['initial', 'type', 'name', 'contact', 'complete'];
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
     stepQueryKey: 'step',
   });
