@@ -1,3 +1,10 @@
+export const QUERIES = {
+  UNIVERSITY: {
+    KEY: 'UNIVERSITY_QUERY_KEY',
+    DEPARTMENT_KEY: 'UNIVERSITY_DEPARTMENT_QUERY_KEY',
+  },
+};
+
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const POLICY = {

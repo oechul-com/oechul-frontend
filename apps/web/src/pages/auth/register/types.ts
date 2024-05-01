@@ -22,5 +22,5 @@ export const initialRegisterForm: RegisterForm = {
 
 export interface RegisterStepProps {
   formData: RegisterForm;
-  proceedToNextStep: (data: Partial<RegisterForm>) => void;
+  proceed: (data: Partial<RegisterForm>) => void;
 }

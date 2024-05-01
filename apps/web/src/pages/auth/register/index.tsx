@@ -14,14 +14,9 @@ import PasswordStep from './_steps/PasswordStep.tsx';
 import PersonalStep from './_steps/PersonalStep.tsx';
 import SchoolStep from './_steps/SchoolStep.tsx';
 
+const steps: string[] = ['school', 'personal', 'email', 'password', 'complete'];
+
 const RegisterPage = (): ReactElement => {
-  const steps: string[] = [
-    'school',
-    'personal',
-    'email',
-    'password',
-    'complete',
-  ];
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
     stepQueryKey: 'step',
   });
@@ -40,18 +35,9 @@ const RegisterPage = (): ReactElement => {
   };
 
   const stepComponents: { [key: string]: ReactElement } = {
-    school: (
-      <SchoolStep formData={registerForm} proceedToNextStep={handleNextStep} />
-    ),
-    personal: (
-      <PersonalStep
-        formData={registerForm}
-        proceedToNextStep={handleNextStep}
-      />
-    ),
-    email: (
-      <EmailStep formData={registerForm} proceedToNextStep={handleNextStep} />
-    ),
+    school: <SchoolStep formData={registerForm} proceed={handleNextStep} />,
+    personal: <PersonalStep formData={registerForm} proceed={handleNextStep} />,
+    email: <EmailStep formData={registerForm} proceed={handleNextStep} />,
     password: (
       <PasswordStep formData={registerForm} handleRegister={handleRegister} />
     ),

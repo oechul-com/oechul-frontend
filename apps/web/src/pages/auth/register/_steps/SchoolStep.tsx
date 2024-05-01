@@ -23,7 +23,7 @@ const majorOptions = [
   { label: '글로벌한국학부', value: 'global-korean-studies' },
 ];
 
-const SchoolStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
+const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
   const [school, setSchool] = useState<string>(formData.school);
   const [major, setMajor] = useState<string>(formData.major);
   const [studentId, setStudentId] = useState<string>(formData.studentId);
@@ -34,7 +34,7 @@ const SchoolStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isSchoolStepValid) proceedToNextStep({ school, major, studentId });
+    if (isSchoolStepValid) proceed({ school, major, studentId });
   };
 
   return (

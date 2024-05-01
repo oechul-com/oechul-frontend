@@ -14,7 +14,7 @@ const genderOptions = [
 
 const PersonalStep = ({
   formData,
-  proceedToNextStep,
+  proceed,
 }: RegisterStepProps): ReactElement => {
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const PersonalStep = ({
       return;
     }
 
-    if (isPersonalStepValid) proceedToNextStep({ gender, name, nickname });
+    if (isPersonalStepValid) proceed({ gender, name, nickname });
   };
 
   return (

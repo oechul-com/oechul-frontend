@@ -8,7 +8,7 @@ import { emailRegex } from '@/constants.ts';
 import { RegisterContent } from '@/pages/auth/auth.styles.ts';
 import { RegisterStepProps } from '@/pages/auth/register/types.ts';
 
-const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
+const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>(formData.email);
@@ -26,7 +26,7 @@ const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isEmailValid) proceedToNextStep({ email });
+    if (isEmailValid) proceed({ email });
   };
 
   return (

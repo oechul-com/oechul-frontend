@@ -19,6 +19,7 @@
     "@oechul/ui": "workspace:*",
     "@tanstack/react-query": "^5.32.1",
     "@tanstack/react-query-devtools": "^5.32.1",
+    "axios": "^1.6.8",
     "framer-motion": "^11.1.7",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
