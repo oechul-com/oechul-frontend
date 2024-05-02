@@ -14,7 +14,7 @@ export const getUniversities = async () => {
   return data;
 };
 
-export const getUniversityDepartment = async (universityId: string) => {
+export const getUniversityDepartments = async (universityId: string) => {
   const { data } = await axios.get<HttpResponse<UniversityDepartmentsType>>(
     `/api/v1/universities/${universityId}`,
   );
