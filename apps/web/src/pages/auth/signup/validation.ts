@@ -1,4 +1,4 @@
-import { RegisterForm } from '@/pages/auth/register/types.ts';
+import { SignUpForm } from '@/pages/auth/signup/types.ts';
 
 export const steps: string[] = [
   'school',
@@ -11,23 +11,30 @@ export const steps: string[] = [
 type StepsType = (typeof steps)[number];
 type ValidStepsType = Exclude<StepsType, 'school'>;
 
-const requiredFieldsByStep: Record<ValidStepsType, (keyof RegisterForm)[]> = {
-  personal: ['school', 'major', 'studentId'],
-  email: ['school', 'major', 'studentId', 'nickname', 'gender', 'name'],
+const requiredFieldsByStep: Record<ValidStepsType, (keyof SignUpForm)[]> = {
+  personal: ['universityId', 'departmentId', 'studentNumber'],
+  email: [
+    'universityId',
+    'departmentId',
+    'studentNumber',
+    'nickname',
+    'sex',
+    'name',
+  ],
   password: [
-    'school',
-    'major',
-    'studentId',
-    'gender',
+    'universityId',
+    'departmentId',
+    'studentNumber',
+    'sex',
     'name',
     'nickname',
     'email',
   ],
   complete: [
-    'school',
-    'major',
-    'studentId',
-    'gender',
+    'universityId',
+    'departmentId',
+    'studentNumber',
+    'sex',
     'name',
     'nickname',
     'email',
@@ -36,7 +43,7 @@ const requiredFieldsByStep: Record<ValidStepsType, (keyof RegisterForm)[]> = {
 };
 
 export const validateFormStep = (
-  formData: RegisterForm,
+  formData: SignUpForm,
   step: ValidStepsType,
 ): boolean => {
   const fields = requiredFieldsByStep[step];

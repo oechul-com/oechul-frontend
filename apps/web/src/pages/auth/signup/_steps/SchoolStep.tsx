@@ -5,13 +5,13 @@ import { FormEvent, useState, useMemo } from 'react';
 import Tip from '@/components/Tip';
 import useUniversitiesQuery from '@/hooks/queries/useUniversitiesQuery.ts';
 import useUniversityDepartmentsQuery from '@/hooks/queries/useUniversityDepartmentsQuery.ts';
-import { RegisterContent } from '@/pages/auth/auth.styles.ts';
-import { RegisterStepProps } from '@/pages/auth/register/types.ts';
+import { SignUpContent } from '@/pages/auth/auth.styles.ts';
+import { SignUpStepProps } from '@/pages/auth/signup/types.ts';
 
-const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
-  const [school, setSchool] = useState<string>(formData.school);
-  const [major, setMajor] = useState<string>(formData.major);
-  const [studentId, setStudentId] = useState<string>(formData.studentId);
+const SchoolStep = ({ formData, proceed }: SignUpStepProps) => {
+  const [school, setSchool] = useState<string>(formData.universityId);
+  const [major, setMajor] = useState<string>(formData.departmentId);
+  const [studentId, setStudentId] = useState<string>(formData.studentNumber);
 
   const { data: universities } = useUniversitiesQuery();
   const { data: departments } = useUniversityDepartmentsQuery(school);
@@ -40,11 +40,16 @@ const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isSchoolStepValid) proceed({ school, major, studentId });
+    if (isSchoolStepValid)
+      proceed({
+        universityId: school,
+        departmentId: major,
+        studentNumber: studentId,
+      });
   };
 
   return (
-    <RegisterContent as="form" onSubmit={handleFormSubmit}>
+    <SignUpContent as="form" onSubmit={handleFormSubmit}>
       <div>
         <Tip margin={`0 0 ${rem(28)} 0`}>
           한번 입력한 학교와 학과, 학번은 수정이 불가해요.
@@ -78,7 +83,7 @@ const SchoolStep = ({ formData, proceed }: RegisterStepProps) => {
       <Button type="submit" aria-invalid={!isSchoolStepValid}>
         다음
       </Button>
-    </RegisterContent>
+    </SignUpContent>
   );
 };
 

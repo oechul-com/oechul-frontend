@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Tip from '@/components/Tip';
 import { emailRegex } from '@/constants.ts';
-import { RegisterContent } from '@/pages/auth/auth.styles.ts';
-import { RegisterStepProps } from '@/pages/auth/register/types.ts';
-import { validateFormStep } from '@/pages/auth/register/validation.ts';
+import { SignUpContent } from '@/pages/auth/auth.styles.ts';
+import { SignUpStepProps } from '@/pages/auth/signup/types.ts';
+import { validateFormStep } from '@/pages/auth/signup/validation.ts';
 
-const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
+const EmailStep = ({ formData, proceed }: SignUpStepProps) => {
   const [email, setEmail] = useState<string>(formData.email);
 
   const isEmailValid = useMemo(() => {
@@ -25,11 +25,11 @@ const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!validateFormStep(formData, 'email'))
-      navigate('/auth/register', { replace: true });
+      navigate('/auth/signup', { replace: true });
   }, [formData, navigate]);
 
   return (
-    <RegisterContent as="form" onSubmit={handleFormSubmit}>
+    <SignUpContent as="form" onSubmit={handleFormSubmit}>
       <div>
         <Tip margin={`0 0 ${rem(28)} 0`}>정확한 학교 메일을 입력해주세요.</Tip>
         <Input
@@ -47,7 +47,7 @@ const EmailStep = ({ formData, proceed }: RegisterStepProps) => {
       <Button type="submit" aria-invalid={!isEmailValid}>
         다음
       </Button>
-    </RegisterContent>
+    </SignUpContent>
   );
 };
 

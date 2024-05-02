@@ -2,12 +2,10 @@ import { ReactElement, useState } from 'react';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layout/Layout';
+import useSignUpMutation from '@/hooks/mutations/useSignUpMutation.ts';
 import { Header } from '@/pages/auth/auth.styles.ts';
-import {
-  RegisterForm,
-  initialRegisterForm,
-} from '@/pages/auth/register/types.ts';
-import { steps } from '@/pages/auth/register/validation.ts';
+import { SignUpForm, initialSignUpForm } from '@/pages/auth/signup/types.ts';
+import { steps } from '@/pages/auth/signup/validation.ts';
 
 import CompleteStep from './_steps/CompleteStep.tsx';
 import EmailStep from './_steps/EmailStep.tsx';
@@ -15,32 +13,40 @@ import PasswordStep from './_steps/PasswordStep.tsx';
 import PersonalStep from './_steps/PersonalStep.tsx';
 import SchoolStep from './_steps/SchoolStep.tsx';
 
-const RegisterPage = (): ReactElement => {
+const SignUpPage = (): ReactElement => {
   const { currentStep, Funnel, Step, goToStep } = useFunnel(steps, {
     stepQueryKey: 'step',
   });
 
-  const [registerForm, setRegisterForm] =
-    useState<RegisterForm>(initialRegisterForm);
+  const [signUpForm, setSignUpForm] = useState<SignUpForm>(initialSignUpForm);
 
-  const handleNextStep = (data: Partial<RegisterForm>) => {
-    setRegisterForm(prevForm => ({ ...prevForm, ...data }));
+  const handleNextStep = (data: Partial<SignUpForm>) => {
+    setSignUpForm(prevForm => ({ ...prevForm, ...data }));
     goToStep(steps[steps.indexOf(currentStep) + 1]);
   };
 
-  const handleRegister = (password: string) => {
-    // todo - register logic
+  const { mutate: signUp } = useSignUpMutation();
+
+  const handleSignUp = (password: string) => {
+    signUp(
+      { ...signUpForm },
+      {
+        onSuccess: () => {
+          goToStep('complete');
+        },
+      },
+    );
     handleNextStep({ password });
   };
 
   const stepComponents: { [key: string]: ReactElement } = {
-    school: <SchoolStep formData={registerForm} proceed={handleNextStep} />,
-    personal: <PersonalStep formData={registerForm} proceed={handleNextStep} />,
-    email: <EmailStep formData={registerForm} proceed={handleNextStep} />,
+    school: <SchoolStep formData={signUpForm} proceed={handleNextStep} />,
+    personal: <PersonalStep formData={signUpForm} proceed={handleNextStep} />,
+    email: <EmailStep formData={signUpForm} proceed={handleNextStep} />,
     password: (
-      <PasswordStep formData={registerForm} handleRegister={handleRegister} />
+      <PasswordStep formData={signUpForm} handleSignUp={handleSignUp} />
     ),
-    complete: <CompleteStep formData={registerForm} />,
+    complete: <CompleteStep formData={signUpForm} />,
   };
 
   return (
@@ -57,4 +63,4 @@ const RegisterPage = (): ReactElement => {
   );
 };
 
-export default RegisterPage;
+export default SignUpPage;

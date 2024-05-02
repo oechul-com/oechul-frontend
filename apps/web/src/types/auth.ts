@@ -4,20 +4,23 @@ export type AuthSignInPayload = {
 };
 
 export type AuthSignUpPayload = {
-  university_id: string;
-  department_id: string;
-  ssn: string;
+  departmentId: string;
+  universityId: string;
+  studentNumber: string;
   sex: string;
   name: string;
   nickname: string;
   email: string;
+  password: string;
 };
 
-export type AuthSignUp = {
+export type AuthSignUpType = {
   id: string;
   message: string;
 };
 
 export type TokenType = {
+  token: string;
   refreshToken: string;
+  deviceUuid: string;
 };
