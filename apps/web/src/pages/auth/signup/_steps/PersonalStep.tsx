@@ -9,8 +9,8 @@ import { SignUpStepProps } from '@/pages/auth/signup/types.ts';
 import { validateFormStep } from '@/pages/auth/signup/validation.ts';
 
 const genderOptions = [
-  { label: '여성', value: 'female' },
-  { label: '남성', value: 'male' },
+  { label: '여성', value: 'F' },
+  { label: '남성', value: 'M' },
 ];
 
 const PersonalStep = ({ formData, proceed }: SignUpStepProps): ReactElement => {

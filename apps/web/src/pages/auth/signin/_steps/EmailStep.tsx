@@ -3,11 +3,11 @@ import { Button, Input } from '@oechul/ui';
 import { ReactElement, useMemo, useState, FormEvent } from 'react';
 
 import { emailRegex } from '@/constants.ts';
-import { LoginContent } from '@/pages/auth/auth.styles.ts';
-import { LoginForm } from '@/pages/auth/login/types.ts';
+import { SignInContent } from '@/pages/auth/auth.styles.ts';
+import { SignInForm } from '@/pages/auth/signin/types.ts';
 
 interface EmailStepProps {
-  formData: LoginForm;
+  formData: SignInForm;
   proceedToNextStep: (email: string) => void;
 }
 
@@ -28,7 +28,7 @@ const EmailStep = ({
   };
 
   return (
-    <LoginContent as="form" onSubmit={handleFormSubmit}>
+    <SignInContent as="form" onSubmit={handleFormSubmit}>
       <Input
         label={
           isEmailValid === false
@@ -48,7 +48,7 @@ const EmailStep = ({
       >
         다음
       </Button>
-    </LoginContent>
+    </SignInContent>
   );
 };
 

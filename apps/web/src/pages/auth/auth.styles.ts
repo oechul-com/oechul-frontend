@@ -9,11 +9,11 @@ export const Header = styled.h1`
   font-weight: ${theme.fontWeights.semibold};
 `;
 
-export const LoginContent = styled.div`
+export const SignInContent = styled.div`
   margin-top: ${rem(28)};
 `;
 
-export const LoginNavigationText = styled(Text)`
+export const SignInNavigationText = styled(Text)`
   ${theme.layout.centerX};
   margin-top: ${rem(15)};
   color: ${theme.colors.gray600};

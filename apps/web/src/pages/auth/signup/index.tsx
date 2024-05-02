@@ -6,6 +6,7 @@ import useSignUpMutation from '@/hooks/mutations/useSignUpMutation.ts';
 import { Header } from '@/pages/auth/auth.styles.ts';
 import { SignUpForm, initialSignUpForm } from '@/pages/auth/signup/types.ts';
 import { steps } from '@/pages/auth/signup/validation.ts';
+import { AuthSignUpPayload } from '@/types/auth.ts';
 
 import CompleteStep from './_steps/CompleteStep.tsx';
 import EmailStep from './_steps/EmailStep.tsx';
@@ -28,15 +29,14 @@ const SignUpPage = (): ReactElement => {
   const { mutate: signUp } = useSignUpMutation();
 
   const handleSignUp = (password: string) => {
-    signUp(
-      { ...signUpForm },
-      {
-        onSuccess: () => {
-          goToStep('complete');
-        },
+    signUp({ ...signUpForm, password } as AuthSignUpPayload, {
+      onSuccess: () => {
+        handleNextStep({ password });
       },
-    );
-    handleNextStep({ password });
+      onError: () => {
+        alert('회원가입에 실패했습니다.');
+      },
+    });
   };
 
   const stepComponents: { [key: string]: ReactElement } = {
