@@ -14,6 +14,7 @@
     "**/*.{ts,tsx}": "eslint --fix --max-warnings 0"
   },
   "dependencies": {
+    "@oechul/icons": "workspace:*",
     "@oechul/styles": "workspace:*",
     "@oechul/ui": "workspace:*",
     "react": "^18.2.0",

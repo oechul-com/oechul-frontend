@@ -1,0 +1,30 @@
+name: git push into hakui repository
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: install mustache
+        run: apk add ruby && gem install mustache
+      - name: create outputs
+        run: sh ./build.sh
+      - name: update hakui repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.HAKUI_REPO_UPDATE_KEY }}
+        with:
+          source-directory: 'output'
+          destination-github-username: [ ohprettyhak ]
+          destination-repository-name: [ oechul-frontend ]
+          user-email: ${{ secrets.HAKUI_EMAIL }}
+          commit-message: ${{ github.event.commits[0].message }}
+          target-branch: main
+      - name: test get variable exported by ohprettyhak/oechul-frontend
+        run: echo $DESTINATION_CLONED_DIRECTORY
