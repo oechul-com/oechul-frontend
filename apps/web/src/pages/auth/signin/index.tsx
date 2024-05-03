@@ -53,7 +53,7 @@ const SignInPage = (): ReactElement => {
         </Step>
       </Funnel>
       <SignInNavigationText>
-        <Link to="/auth/register">가입하기</Link> 또는
+        <Link to="/auth/signup">가입하기</Link> 또는
         <Link to="/auth/recover">계정찾기</Link>
       </SignInNavigationText>
     </Layout>

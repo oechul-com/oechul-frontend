@@ -4,6 +4,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://api.oechul.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
