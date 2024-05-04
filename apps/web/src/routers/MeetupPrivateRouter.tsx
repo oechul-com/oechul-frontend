@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import ErrorPage from '@/pages/error.tsx';
 import MeetupPage from '@/pages/meetup';
 import MeetupCreatePage from '@/pages/meetup/create.tsx';
+import MatchedSuccessPage from '@/pages/meetup/matched/success';
 import MatchedMeetupPage from '@/pages/meetup/matched.tsx';
 import NewMeetupPage from '@/pages/meetup/new.tsx';
 
@@ -18,6 +19,8 @@ const MeetupPrivateRouter = (): ReactElement => {
       return <MeetupCreatePage />;
     case '/meetup/matched':
       return <MatchedMeetupPage />;
+    case '/meetup/matched/success':
+      return <MatchedSuccessPage />;
     case '/meetup/new':
       return <NewMeetupPage />;
     default:

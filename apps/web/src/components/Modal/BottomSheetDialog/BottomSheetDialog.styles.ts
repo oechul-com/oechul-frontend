@@ -16,6 +16,4 @@ export const ModalContent = styled.div`
   width: 100%;
   padding: ${rem(48)} ${rem(30)} ${rem(40)} ${rem(30)};
   gap: ${rem(26)};
-
-  overflow-y: scroll;
 `;

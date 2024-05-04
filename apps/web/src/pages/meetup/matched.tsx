@@ -1,11 +1,11 @@
 import { CaratRightIcon } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
-import { Button, Text } from '@oechul/ui';
+import { Button, Modal, Text } from '@oechul/ui';
 import { Fragment, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
-import BottomSheetDialog from '@/components/Modal/BottomSheetDialog';
 
 import {
   MatchingTeamItemBox,
@@ -36,6 +36,7 @@ type MyMatchingTeamType = {
   member: StudentInfoType[];
   title: string;
   school: string;
+  days: string[];
 };
 
 type MatchingTeamType = {
@@ -44,6 +45,7 @@ type MatchingTeamType = {
   title: string;
   school?: string;
   current: string;
+  days: string[];
 };
 
 const MY_MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
@@ -84,6 +86,7 @@ const MY_MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
     ],
     title: '소통합시다잉',
     school: '한국외국어대학교',
+    days: ['월, 화'],
   },
   {
     member: [
@@ -98,6 +101,7 @@ const MY_MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
     ],
     title: '소통합시다잉',
     school: '한국외국어대학교',
+    days: ['수'],
   },
 ];
 
@@ -116,6 +120,7 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
     ],
     title: '소통합시다잉',
     current: '매칭 중',
+    days: ['월, 화'],
   },
   {
     type: 'MEMBER',
@@ -148,6 +153,7 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
     title: '소통합시다잉',
     school: '한국외국어대학교 글로벌캠퍼스',
     current: '매칭 성공',
+    days: ['월, 화'],
   },
   {
     type: 'MEMBER',
@@ -188,6 +194,7 @@ const MATCHING_TEAM_LIST: MatchingTeamType[] = [
     title: '소통합시다잉',
     school: '한국외국어대학교 글로벌캠퍼스',
     current: '확인하기',
+    days: ['월, 화'],
   },
 ];
 
@@ -195,7 +202,10 @@ const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
 
 const MatchedMeetupPage = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [matchingTeam, setMatchingTeam] = useState<MyMatchingTeamType>();
+  const [matchingTeam, setMatchingTeam] = useState<
+    MatchingTeamType | MyMatchingTeamType
+  >();
+  const navigate = useNavigate();
 
   ///
 
@@ -225,7 +235,7 @@ const MatchedMeetupPage = () => {
 
   const onClickModal = (
     key: keyof MatchingModalOpenType,
-    matchingTeam: MyMatchingTeamType,
+    matchingTeam: MatchingTeamType | MyMatchingTeamType,
   ) => {
     setMatchingTeam(matchingTeam);
     setOpen(open => !open);
@@ -250,99 +260,164 @@ const MatchedMeetupPage = () => {
     setOvrlpDays(['월', '목', '금']);
   }, []);
 
+  const renderButton = () => {
+    if (
+      modalState.registerMatchingModalOpen &&
+      matchingTeam?.current === '매칭 중'
+    ) {
+      return (
+        <Button bgColor="#F5F5F5">
+          <Text fontSize="18px" fontWeight="600" textColor="#000">
+            {'수락 대기중'}
+          </Text>
+        </Button>
+      );
+    } else if (
+      modalState.requestMatchingModalOpen &&
+      matchingTeam?.current === '확인하기'
+    ) {
+      return (
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <Button bgColor="#F5F5F5" width="100%">
+            <Text fontSize="18px" fontWeight="600" textColor="#000">
+              {'거절하기'}
+            </Text>
+          </Button>
+          <Button bgColor="#FF4B4B" width="100%">
+            <Text fontSize="18px" fontWeight="600" textColor="#ffffff">
+              {'수락하기'}
+            </Text>
+          </Button>
+        </div>
+      );
+    } else if (modalState.newMatchingModalOpen) {
+      return (
+        <Button
+          bgColor="#FF4B4B"
+          onClick={() => navigate('/meetup/matched/success')}
+        >
+          <Text fontSize="18px" fontWeight="600" textColor="#fff">
+            {'신청하기'}
+          </Text>
+        </Button>
+      );
+    } else {
+      return (
+        <Button bgColor="#000000">
+          <Text fontSize="18px" fontWeight="600" textColor="#fff">
+            {'확인'}
+          </Text>
+        </Button>
+      );
+    }
+  };
+
   return (
     <Layout arrow borderline title={'과팅 매칭'}>
-      <BottomSheetDialog open={open} setOpen={setOpen}>
-        <div>
-          <Text
-            fontSize={theme.fontSizes.xs}
-            fontWeight={theme.fontWeights.normal}
-            textColor={theme.colors.gray500}
-            textAlign={'center'}
-            style={{ marginBottom: '6px' }}
-          >
-            {matchingTeam?.school}
-          </Text>
-          <Text
-            fontSize={theme.fontSizes.xl}
-            fontWeight={theme.fontWeights.semibold}
-            textAlign={'center'}
-          >
-            {matchingTeam?.title}
-          </Text>
-        </div>
-        <MatchedModalItemsBox>
-          {matchingTeam?.member.map(
-            (
-              {
-                name,
-                studentId,
-                img,
-                department,
-                selfIntroduction,
-              }: StudentInfoType,
-              index,
-            ) => {
-              return (
-                <MatchedModalItemBox>
-                  <MatchedModalProfileImageBox $image={img} key={index} />
-                  <MatchedModalProfileIntroductionBox>
-                    <Text
-                      fontSize={theme.fontSizes.md}
-                      fontWeight={theme.fontWeights.medium}
-                      style={{ marginBottom: '6px' }}
-                    >
-                      {name}
-                    </Text>
-                    <Text
-                      fontSize={theme.fontSizes.xs}
-                      fontWeight={theme.fontWeights.medium}
-                      textColor={theme.colors.red.accent}
-                      style={{ marginBottom: '12px' }}
-                    >
-                      {department + ' • ' + studentId}
-                    </Text>
-                    <Text textColor={theme.colors.gray500} lineHeight={'140%'}>
-                      {selfIntroduction}
-                    </Text>
-                  </MatchedModalProfileIntroductionBox>
-                </MatchedModalItemBox>
-              );
-            },
-          )}
-        </MatchedModalItemsBox>
-        <div>
-          <Text
-            fontSize={theme.fontSizes.xl}
-            fontWeight={theme.fontWeights.semibold}
-            textAlign={'center'}
-            style={{ marginBottom: '12px' }}
-          >
-            {matchingTeam?.title + '팀이 희망하는 요일'}
-          </Text>
-          <Text
-            fontSize={theme.fontSizes.xs}
-            fontWeight={theme.fontWeights.medium}
-            textColor={theme.colors.gray500}
-            textAlign={'center'}
-            style={{ marginBottom: '26px' }}
-          >
-            {getActiveModalDescription()}
-          </Text>
-        </div>
-        <MatchedWeeksBox>
-          {DAYWEEKS.map(week => {
-            return (
-              <MatchedWeekBox>
-                <Text>{week}</Text>
-              </MatchedWeekBox>
-            );
-          })}
-        </MatchedWeeksBox>
-        <Button>
-          <Text>{'확인'}</Text>
-        </Button>
-      </BottomSheetDialog>
+      <Modal isOpen={open} onStateChange={() => setOpen(!open)}>
+        <Modal.Content>
+          <MatchedMeetupModalLayout>
+            <div style={{ marginBottom: '40px' }}>
+              <Text
+                fontSize={theme.fontSizes.xs}
+                fontWeight={theme.fontWeights.normal}
+                textColor={theme.colors.gray500}
+                textAlign={'center'}
+                style={{ marginBottom: '6px' }}
+              >
+                {matchingTeam?.school}
+              </Text>
+              <Text
+                fontSize={theme.fontSizes.xl}
+                fontWeight={theme.fontWeights.semibold}
+                textAlign={'center'}
+              >
+                {matchingTeam?.title}
+              </Text>
+            </div>
+            <MatchedModalItemsBox>
+              {matchingTeam?.member.map(
+                (
+                  {
+                    name,
+                    studentId,
+                    img,
+                    department,
+                    selfIntroduction,
+                  }: StudentInfoType,
+                  index,
+                ) => {
+                  return (
+                    <MatchedModalItemBox>
+                      <MatchedModalProfileImageBox $image={img} key={index} />
+                      <MatchedModalProfileIntroductionBox>
+                        <Text
+                          fontSize={theme.fontSizes.md}
+                          fontWeight={theme.fontWeights.medium}
+                          style={{ marginBottom: '6px' }}
+                        >
+                          {name}
+                        </Text>
+                        <Text
+                          fontSize={theme.fontSizes.xs}
+                          fontWeight={theme.fontWeights.medium}
+                          textColor={theme.colors.red.accent}
+                          style={{ marginBottom: '12px' }}
+                        >
+                          {department + ' • ' + studentId}
+                        </Text>
+                        <Text
+                          textColor={theme.colors.gray500}
+                          lineHeight={'140%'}
+                        >
+                          {selfIntroduction}
+                        </Text>
+                      </MatchedModalProfileIntroductionBox>
+                    </MatchedModalItemBox>
+                  );
+                },
+              )}
+            </MatchedModalItemsBox>
+            <div>
+              <Text
+                fontSize={theme.fontSizes.xl}
+                fontWeight={theme.fontWeights.semibold}
+                textAlign={'center'}
+                style={{ marginBottom: '12px' }}
+              >
+                {matchingTeam?.title + '팀이 희망하는 요일'}
+              </Text>
+              <Text
+                fontSize={theme.fontSizes.xs}
+                fontWeight={theme.fontWeights.medium}
+                textColor={theme.colors.gray500}
+                textAlign={'center'}
+                style={{ marginBottom: '26px' }}
+              >
+                {getActiveModalDescription()}
+              </Text>
+            </div>
+            <MatchedWeeksBox>
+              {DAYWEEKS.map(week => {
+                return (
+                  <MatchedWeekBox
+                    $isCheckGroup={
+                      ovrlpDays.includes(week)
+                        ? 'ovrlpDay'
+                        : matchingTeam?.days.includes(week)
+                          ? 'normal'
+                          : 'default'
+                    }
+                  >
+                    <Text>{week}</Text>
+                  </MatchedWeekBox>
+                );
+              })}
+            </MatchedWeeksBox>
+            {renderButton()}
+          </MatchedMeetupModalLayout>
+        </Modal.Content>
+      </Modal>
       <Text
         fontSize={theme.fontSizes.xl}
         fontWeight={theme.fontWeights.semibold}
@@ -352,7 +427,7 @@ const MatchedMeetupPage = () => {
       </Text>
       <MyMeetupsCol>
         {MY_MATCHING_TEAM_LIST.map(
-          ({ member, title, school }: MyMatchingTeamType, index) => {
+          ({ member, title, school, days }: MyMatchingTeamType, index) => {
             return (
               <MyMeetupBox key={index}>
                 <MatchingTeamItemBottom>
@@ -378,6 +453,7 @@ const MatchedMeetupPage = () => {
                       member,
                       title,
                       school,
+                      days,
                     })
                   }
                 >
@@ -411,7 +487,10 @@ const MatchedMeetupPage = () => {
       </MatchedMeetupHeader>
       <NewMeetupsCol>
         {MATCHING_TEAM_LIST.map(
-          ({ member, title, school }: MatchingTeamType, index) => {
+          (
+            { member, title, school, days, current }: MatchingTeamType,
+            index,
+          ) => {
             return (
               <MatchingTeamItemBox
                 key={index}
@@ -420,6 +499,8 @@ const MatchedMeetupPage = () => {
                     member,
                     title,
                     school,
+                    days,
+                    current,
                   })
                 }
               >
@@ -487,16 +568,21 @@ const MatchedMeetupPage = () => {
       </MatchedMeetupHeader>
       <NewMeetupsCol>
         {MATCHING_TEAM_LIST.map(
-          ({ title, school, current, member }: MatchingTeamType, index) => {
+          (
+            { title, school, current, member, days }: MatchingTeamType,
+            index,
+          ) => {
             return (
               <MatchingTeamItemBox
                 key={index}
                 $isTop={false}
                 onClick={() =>
-                  onClickModal('newMatchingModalOpen', {
+                  onClickModal('registerMatchingModalOpen', {
                     member,
                     title,
                     school,
+                    days,
+                    current,
                   })
                 }
               >
@@ -543,15 +629,20 @@ const MatchedMeetupPage = () => {
       </MatchedMeetupHeader>
       <NewMeetupsCol>
         {MATCHING_TEAM_LIST.map(
-          ({ title, school, current, member }: MatchingTeamType, index) => {
+          (
+            { title, school, current, member, days }: MatchingTeamType,
+            index,
+          ) => {
             return (
               <MatchingTeamItemBox
                 key={index}
                 onClick={() =>
-                  onClickModal('newMatchingModalOpen', {
+                  onClickModal('requestMatchingModalOpen', {
                     member,
                     title,
                     school,
+                    days,
+                    current,
                   })
                 }
               >
@@ -686,6 +777,7 @@ const MatchedModalItemsBox = styled.div`
   justify-content: center;
 
   gap: 44px;
+  margin-bottom: 64px;
 `;
 
 const MatchedModalItemBox = styled.div`
@@ -716,15 +808,41 @@ const MatchedModalProfileIntroductionBox = styled.div`
 const MatchedWeeksBox = styled.div`
   display: flex;
   gap: 6px;
+  margin-bottom: 40px;
 `;
 
-const MatchedWeekBox = styled.div`
+const MatchedWeekBox = styled.div<{ $isCheckGroup: string }>`
   display: flex;
-  width: 100%;
   height: 42px;
-  padding: 16px 24px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background: var(--accent, #ff4b4b);
+  background: ${({ $isCheckGroup }) =>
+    $isCheckGroup === 'ovrlpDay'
+      ? 'var(--accent, #ff4b4b)'
+      : $isCheckGroup === 'normal'
+        ? '#000'
+        : '#999'};
+
+  flex: 1 1 auto; /* 여기에 추가 */
+  min-width: 4px; /* 너비가 0보다 작아지지 않도록 설정 */
+
+  & > span {
+    color: ${({ $isCheckGroup }) =>
+      $isCheckGroup === 'default' ? '#d9d9d9' : '#fff'};
+  }
+`;
+
+const MatchedMeetupModalLayout = styled.div`
+  padding: ${rem(48)} ${rem(30)} ${rem(30)};
+  background-color: #fff;
+  height: 400px;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 10px;
+
+  margin: -30px;
 `;
