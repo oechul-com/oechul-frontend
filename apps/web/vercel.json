@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://api.oechul.com/api/:path*"
+      "destination": "https://api.oechul.com/:path*"
     },
     {
       "source": "/(.*)",
