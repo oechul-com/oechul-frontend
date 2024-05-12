@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
+import {
+  MatchedWeeksBox,
+  MatchedWeekBox,
+} from '@/pages/dashboard/matched.styles';
 
 type StudentInfoType = {
   name: string;
@@ -31,7 +35,6 @@ const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
 
 const MatchedSuccessPage = () => {
   const matchingTeam = {
-    type: 'MEMBER',
     member: [
       {
         name: 'student',
@@ -68,18 +71,27 @@ const MatchedSuccessPage = () => {
     ],
     title: '소통합시다잉',
     school: '한국외국어대학교 글로벌캠퍼스',
-    current: '확인하기',
-    days: ['월, 화'],
+    type: '확인하기',
+    days: ['월', '화'],
   };
 
-  const [ovrlpDays, setOvrlpDays] = useState<string[]>(['월, 금']);
+  const [ovrlpDays, setOvrlpDays] = useState<string[]>(['월', '금']);
   const [isBlur, setIsBlur] = useState<boolean>(true);
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [instagramId, setInstagramId] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+
+  const onCopyText = (id: string) => {
+    window.navigator.clipboard.writeText(id);
+  };
 
   useEffect(() => {
     setOvrlpDays([]);
+    setInstagramId('lovu_bigmc');
+    setPhoneNumber('010-1234-5678');
   }, []);
+
   return (
     <Layout visibleHeader arrow>
       <div style={{ touchAction: `${isBlur ? 'none' : 'auto'}` }}>
@@ -225,16 +237,28 @@ const MatchedSuccessPage = () => {
         <ContactBox>
           <div style={{ display: 'flex' }}>
             <CallIcon />
-            <Text style={{ marginLeft: '10px' }}>{'010-1234-5678'}</Text>
+            <Text style={{ marginLeft: '10px' }}>{phoneNumber}</Text>
           </div>
-          <ContactCopyBox>{'복사'}</ContactCopyBox>
+          <ContactCopyBox
+            onClick={() => {
+              onCopyText(phoneNumber);
+            }}
+          >
+            {'복사'}
+          </ContactCopyBox>
         </ContactBox>
         <ContactBox style={{ marginTop: '16px' }}>
           <div style={{ display: 'flex' }}>
             <InstagramIcon />
-            <Text style={{ marginLeft: '10px' }}>{'lovu_bigmc'}</Text>
+            <Text style={{ marginLeft: '10px' }}>{instagramId}</Text>
           </div>
-          <ContactCopyBox>{'복사'}</ContactCopyBox>
+          <ContactCopyBox
+            onClick={() => {
+              onCopyText(instagramId);
+            }}
+          >
+            {'복사'}
+          </ContactCopyBox>
         </ContactBox>
         <MatchingSuccessDescriptionBoxTop $isExpanded={isExpanded}>
           <Text
@@ -323,34 +347,6 @@ const MatchedModalProfileIntroductionBox = styled.div`
   flex-direction: column;
 `;
 
-const MatchedWeeksBox = styled.div`
-  display: flex;
-  gap: 6px;
-  margin-bottom: 40px;
-`;
-
-const MatchedWeekBox = styled.div<{ $isCheckGroup: string }>`
-  display: flex;
-  height: 42px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background: ${({ $isCheckGroup }) =>
-    $isCheckGroup === 'ovrlpDay'
-      ? 'var(--accent, #ff4b4b)'
-      : $isCheckGroup === 'normal'
-        ? '#000'
-        : '#999'};
-
-  flex: 1 1 auto; /* 여기에 추가 */
-  min-width: 4px; /* 너비가 0보다 작아지지 않도록 설정 */
-
-  & > span {
-    color: ${({ $isCheckGroup }) =>
-      $isCheckGroup === 'default' ? '#d9d9d9' : '#fff'};
-  }
-`;
-
 const MatchedBlurBox = styled.div`
   position: absolute;
   width: 339px;
@@ -386,6 +382,8 @@ const ContactCopyBox = styled.div`
 
   font-size: 14px;
   font-weight: 600;
+
+  cursor: pointer;
 `;
 
 export const MatchingSuccessDescriptionBoxTop = styled.div<{

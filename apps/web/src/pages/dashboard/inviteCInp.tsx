@@ -9,7 +9,7 @@ import {
   MatchingSuccessDescriptionBoxTop,
   MatchingSuccessDescriptionBoxBottom,
   DescriptionBox,
-} from './dasyboard.styles';
+} from './matched.styles';
 
 const DashboardInviteCodeInputPage = () => {
   const [inviteCode, setInviteCode] = useState<string>('');

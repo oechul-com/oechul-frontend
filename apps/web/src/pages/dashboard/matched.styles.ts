@@ -150,11 +150,11 @@ export const MatchingMemberProfileBox = styled.div<MatchingMemberProfileBoxType>
   z-index: ${props => props.$zIndex};
 `;
 
-export const MatchingTypeTag = styled.div<{ $type?: string }>`
+export const MatchingTypeTag = styled.div<{ $isHost?: string }>`
   background: ${props =>
-    props.$type === 'HOST'
+    props.$isHost === 'Y'
       ? '#9747FF'
-      : props.$type === 'MEMBER'
+      : props.$isHost === 'N'
         ? '#4B88FF'
         : `${theme.colors.orange.bg}`};
 
@@ -285,4 +285,34 @@ export const MatchingSuccessDescriptionBoxBottom = styled.div`
 
   border-radius: 0 0 ${rem(10)} ${rem(10)};
   background: ${theme.colors.gray100};
+`;
+
+//
+
+export const MatchedWeeksBox = styled.div`
+  display: flex;
+  gap: 6px;
+  margin-bottom: 40px;
+`;
+
+export const MatchedWeekBox = styled.div<{ $isCheckGroup: string }>`
+  display: flex;
+  height: 42px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: ${({ $isCheckGroup }) =>
+    $isCheckGroup === 'ovrlpDay'
+      ? 'var(--accent, #ff4b4b)'
+      : $isCheckGroup === 'normal'
+        ? '#000'
+        : '#FCFCFC'};
+
+  flex: 1 1 auto; /* 여기에 추가 */
+  min-width: 4px; /* 너비가 0보다 작아지지 않도록 설정 */
+
+  & > span {
+    color: ${({ $isCheckGroup }) =>
+      $isCheckGroup === 'default' ? '#d9d9d9' : '#fff'};
+  }
 `;

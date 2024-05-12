@@ -38,7 +38,7 @@ import {
   ModalHeader,
   ProfileModalItemBox,
   ProfileModalItemsBox,
-} from './dasyboard.styles';
+} from './matched.styles';
 
 type ProfileModalItemType = {
   type: string;
@@ -53,11 +53,6 @@ type MatchingModalOpenType = {
   matchingStartModalOpen: boolean;
 };
 
-type StudentInfoType = {
-  name: string;
-  img: string;
-};
-
 type ParticipateMatchingItemType = {
   icon: string;
   title: string;
@@ -66,11 +61,12 @@ type ParticipateMatchingItemType = {
   bgColor: string;
 };
 
-type MatchingTeamType = {
-  type: 'HOST' | 'MEMBER';
-  member: StudentInfoType[];
-  title: string;
-  school: string;
+type MyMatchingTeamType = {
+  isHost: 'Y' | 'N';
+  teamId: string;
+  teamProfile: string[];
+  teamName: string;
+  university: string;
 };
 
 const PARTICIPATE_MATCHING_LIST: ParticipateMatchingItemType[] = [
@@ -97,24 +93,37 @@ const PARTICIPATE_MATCHING_LIST: ParticipateMatchingItemType[] = [
   },
 ];
 
-const MATCHING_TEAM_LIST: MatchingTeamType[] = [
+const MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
   {
-    type: 'HOST',
-    member: [{ name: 'student', img: '/static/assets/common/image-logo.svg' }],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
+    teamId: '1',
+    isHost: 'Y',
+    teamProfile: ['/static/assets/common/image-logo.svg'],
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
   },
   {
-    type: 'MEMBER',
-    member: [
-      { name: 'student', img: '/static/assets/common/image-logo.svg' },
-      { name: 'student', img: '/static/assets/common/image-logo.svg' },
-      { name: 'student', img: '/static/assets/common/image-logo.svg' },
-      { name: 'student', img: '/static/assets/common/image-logo.svg' },
-      { name: 'student', img: '/static/assets/common/image-logo.svg' },
+    teamId: '2',
+    isHost: 'N',
+    teamProfile: [
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
     ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
+  },
+  {
+    teamId: '3',
+    isHost: 'N',
+    teamProfile: [
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+    ],
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
   },
 ];
 
@@ -137,6 +146,14 @@ const DashboardPage = () => {
   // 유저 정보 한 번에 받으면 데이터 구조 따라 변경
   const [isProfile, setIsProfile] = useState<boolean>(false);
   const [isStudent, setIsStudent] = useState<boolean>(false);
+
+  // 내 매칭 팀 정보
+  const [myMatchingTeamList, setMyMatchingTeamList] = useState<
+    MyMatchingTeamType[]
+  >([]);
+
+  // 매칭 팀 전부 보여주기 유무
+  const [isShowAll, setIsShowAll] = useState<boolean>(false);
 
   //
   const navigate = useNavigate();
@@ -173,9 +190,14 @@ const DashboardPage = () => {
     setSelectMeetingType(type);
   };
 
+  const _onLoadData = () => {
+    setMyMatchingTeamList(MATCHING_TEAM_LIST);
+  };
+
   useEffect(() => {
     setIsProfile(false); // 추후 로직
     setIsStudent(true);
+    _onLoadData();
   }, []);
 
   useEffect(() => {
@@ -438,31 +460,40 @@ const DashboardPage = () => {
               fontWeight={theme.fontWeights.medium}
               textColor={theme.colors.gray500}
               style={{ cursor: 'pointer' }}
-              onClick={() => navigate('/meetup/matched')}
+              onClick={() => setIsShowAll(true)}
             >
               {'전체 보기'}
             </Text>
           </MatchingTeamHeader>
           <MatchingTeamItemsBox>
-            {MATCHING_TEAM_LIST.length > 0 ? (
-              MATCHING_TEAM_LIST.map(
-                ({ type, member, title, school }: MatchingTeamType, index) => {
+            {myMatchingTeamList.length > 0 ? (
+              (isShowAll
+                ? myMatchingTeamList
+                : myMatchingTeamList.slice(0, 2)
+              ).map(
+                ({
+                  isHost,
+                  teamId,
+                  teamProfile,
+                  teamName,
+                  university,
+                }: MyMatchingTeamType) => {
                   return (
-                    <MatchingTeamItemBox key={index}>
+                    <MatchingTeamItemBox key={teamId}>
                       <MatchingTeamItemTop>
                         <MatchingMemberProfilesBox>
-                          {member.map(({ img }, index) => {
+                          {teamProfile.map((img: string, index: number) => {
                             return (
                               <MatchingMemberProfileBox
-                                $zIndex={member.length}
+                                $zIndex={teamProfile.length}
                                 $image={img}
                                 key={index}
                               />
                             );
                           })}
                         </MatchingMemberProfilesBox>
-                        <MatchingTypeTag $type={'HOST'}>
-                          {type === 'HOST' ? (
+                        <MatchingTypeTag $isHost={isHost}>
+                          {isHost === 'Y' ? (
                             <CrownIcon width={10} fill="white" />
                           ) : (
                             <MemberIcon width={10} fill="white" />
@@ -472,7 +503,7 @@ const DashboardPage = () => {
                             fontSize={theme.fontSizes['3xs']}
                             fontWeight={theme.fontWeights.bold}
                           >
-                            {type}
+                            {isHost === 'Y' ? 'HOST' : 'MEMBER'}
                           </Text>
                         </MatchingTypeTag>
                       </MatchingTeamItemTop>
@@ -481,14 +512,14 @@ const DashboardPage = () => {
                           fontSize={theme.fontSizes.md}
                           fontWeight={theme.fontWeights.semibold}
                         >
-                          {title}
+                          {teamName}
                         </Text>
                         <Text
                           fontSize={theme.fontSizes['2xs']}
                           fontWeight={theme.fontWeights.normal}
                           textColor={theme.colors.gray500}
                         >
-                          {school}
+                          {university}
                         </Text>
                       </MatchingTeamItemBottom>
                     </MatchingTeamItemBox>

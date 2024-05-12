@@ -1,4 +1,4 @@
-import { CaratRightIcon } from '@oechul/icons';
+import { CaratRightIcon, CloseIcon } from '@oechul/icons';
 import { rem, theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
 import { Fragment, useEffect, useState } from 'react';
@@ -8,197 +8,38 @@ import { styled } from 'styled-components';
 import Layout from '@/components/layout/Layout';
 
 import {
+  APPLY_MATCHING_TEAM_LIST,
+  MY_MATCHING_TEAM_LIST,
+  NEW_MATCHING_TEAM_LIST,
+  REQUEST_MATCHING_TEAM_LIST,
+} from './matched/mockData';
+import {
+  MatchingTeamType,
+  MyMatchingTeamType,
+  MatchingModalOpenType,
+  dayDescriptionType,
+  StudentInfoType,
+  RequireApplyMatchingTeamType,
+} from './matched/type';
+import {
   MatchingTeamItemBox,
   MatchingTeamItemTop,
   MatchingMemberProfilesBox,
   MatchingMemberProfileBox,
   MatchingTypeTag,
   MatchingTeamItemBottom,
-} from '../dashboard/dasyboard.styles';
-
-type dayDescriptionType = {
-  [key: string]: string;
-};
-
-type MatchingModalOpenType = {
-  [key: string]: boolean;
-};
-
-type StudentInfoType = {
-  name: string;
-  img: string;
-  department: string;
-  studentId: string;
-  selfIntroduction: string;
-};
-
-type MyMatchingTeamType = {
-  member: StudentInfoType[];
-  title: string;
-  school: string;
-  days: string[];
-};
-
-type MatchingTeamType = {
-  type: 'HOST' | 'MEMBER';
-  member: StudentInfoType[];
-  title: string;
-  school?: string;
-  current: string;
-  days: string[];
-};
-
-const MY_MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교',
-    days: ['월, 화'],
-  },
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교',
-    days: ['수'],
-  },
-];
-
-const MATCHING_TEAM_LIST: MatchingTeamType[] = [
-  {
-    type: 'HOST',
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    current: '매칭 중',
-    days: ['월, 화'],
-  },
-  {
-    type: 'MEMBER',
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    current: '매칭 성공',
-    days: ['월, 화'],
-  },
-  {
-    type: 'MEMBER',
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    current: '확인하기',
-    days: ['월, 화'],
-  },
-];
+  MatchedWeeksBox,
+  MatchedWeekBox,
+} from '../dashboard/matched.styles';
 
 const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
+
+type MatchingTeamsType = {
+  myMatchingTeam: MyMatchingTeamType[];
+  newMatchingTeam: MatchingTeamType[];
+  applyMatchingTeam: RequireApplyMatchingTeamType[];
+  requestMatchingTeam: RequireApplyMatchingTeamType[];
+};
 
 const MatchedMeetupPage = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -209,12 +50,19 @@ const MatchedMeetupPage = () => {
 
   ///
 
-  const [ovrlpDays, setOvrlpDays] = useState<string[]>(['월, 금']);
+  const [matchingTeamList, setMatchingTeamList] = useState<MatchingTeamsType>({
+    myMatchingTeam: [],
+    newMatchingTeam: [],
+    applyMatchingTeam: [],
+    requestMatchingTeam: [],
+  });
+
+  const [ovrlpDays, setOvrlpDays] = useState<string[]>([]);
 
   const [modalState, setModalState] = useState<MatchingModalOpenType>({
     myMatchingModalOpen: false,
     newMatchingModalOpen: false,
-    registerMatchingModalOpen: false,
+    applyMatchingModalOpen: false,
     requestMatchingModalOpen: false,
   });
 
@@ -225,6 +73,8 @@ const MatchedMeetupPage = () => {
     requestMatchingModalOpen:
       '나의 팀과 희망요일이 2개 일치해요!\n🟥: 일치하는 요일 ⬛️: 상대팀이 희망하는 요일',
   };
+
+  const myMatchingTeamDays = ['일', '화', '금'];
 
   const getActiveModalDescription = () => {
     const activeKey =
@@ -237,6 +87,10 @@ const MatchedMeetupPage = () => {
     key: keyof MatchingModalOpenType,
     matchingTeam: MatchingTeamType | MyMatchingTeamType,
   ) => {
+    const ovlpElements = myMatchingTeamDays.filter(element =>
+      matchingTeam.days.includes(element),
+    );
+    setOvrlpDays(ovlpElements);
     setMatchingTeam(matchingTeam);
     setOpen(open => !open);
     setModalState(prevState => ({
@@ -256,14 +110,23 @@ const MatchedMeetupPage = () => {
     }
   }, [open]);
 
+  const _onLoadData = () => {
+    setMatchingTeamList({
+      myMatchingTeam: MY_MATCHING_TEAM_LIST,
+      newMatchingTeam: NEW_MATCHING_TEAM_LIST,
+      applyMatchingTeam: APPLY_MATCHING_TEAM_LIST,
+      requestMatchingTeam: REQUEST_MATCHING_TEAM_LIST,
+    });
+  };
+
   useEffect(() => {
-    setOvrlpDays(['월', '목', '금']);
+    _onLoadData();
   }, []);
 
   const renderButton = () => {
     if (
       modalState.registerMatchingModalOpen &&
-      matchingTeam?.current === '매칭 중'
+      matchingTeam?.type === '매칭 중'
     ) {
       return (
         <Button bgColor="#F5F5F5">
@@ -274,7 +137,7 @@ const MatchedMeetupPage = () => {
       );
     } else if (
       modalState.requestMatchingModalOpen &&
-      matchingTeam?.current === '확인하기'
+      matchingTeam?.type === '확인하기'
     ) {
       return (
         <div style={{ display: 'flex', gap: '16px' }}>
@@ -283,7 +146,11 @@ const MatchedMeetupPage = () => {
               {'거절하기'}
             </Text>
           </Button>
-          <Button bgColor="#FF4B4B" width="100%">
+          <Button
+            bgColor="#FF4B4B"
+            width="100%"
+            onClick={() => navigate('/meetup/matched/success')}
+          >
             <Text fontSize="18px" fontWeight="600" textColor="#ffffff">
               {'수락하기'}
             </Text>
@@ -303,7 +170,7 @@ const MatchedMeetupPage = () => {
       );
     } else {
       return (
-        <Button bgColor="#000000">
+        <Button bgColor="#000000" onClick={() => setOpen(!open)}>
           <Text fontSize="18px" fontWeight="600" textColor="#fff">
             {'확인'}
           </Text>
@@ -317,6 +184,16 @@ const MatchedMeetupPage = () => {
       <Modal isOpen={open} onStateChange={() => setOpen(!open)}>
         <Modal.Content>
           <MatchedMeetupModalLayout>
+            <div
+              style={{
+                position: 'absolute',
+                top: 26,
+                right: 26,
+                cursor: 'pointer',
+              }}
+            >
+              <CloseIcon color="#000" />
+            </div>
             <div style={{ marginBottom: '40px' }}>
               <Text
                 fontSize={theme.fontSizes.xs}
@@ -426,8 +303,11 @@ const MatchedMeetupPage = () => {
         {'나의 과팅'}
       </Text>
       <MyMeetupsCol>
-        {MY_MATCHING_TEAM_LIST.map(
-          ({ member, title, school, days }: MyMatchingTeamType, index) => {
+        {matchingTeamList.myMatchingTeam.map(
+          (
+            { member, title, school, days }: MyMatchingTeamType,
+            index: number,
+          ) => {
             return (
               <MyMeetupBox key={index}>
                 <MatchingTeamItemBottom>
@@ -486,10 +366,10 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {MATCHING_TEAM_LIST.map(
+        {matchingTeamList.newMatchingTeam.map(
           (
-            { member, title, school, days, current }: MatchingTeamType,
-            index,
+            { member, title, school, days }: MatchingTeamType,
+            index: number,
           ) => {
             return (
               <MatchingTeamItemBox
@@ -500,7 +380,6 @@ const MatchedMeetupPage = () => {
                     title,
                     school,
                     days,
-                    current,
                   })
                 }
               >
@@ -567,10 +446,10 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {MATCHING_TEAM_LIST.map(
+        {matchingTeamList.applyMatchingTeam.map(
           (
-            { title, school, current, member, days }: MatchingTeamType,
-            index,
+            { title, school, type, member, days }: RequireApplyMatchingTeamType,
+            index: number,
           ) => {
             return (
               <MatchingTeamItemBox
@@ -582,7 +461,7 @@ const MatchedMeetupPage = () => {
                     title,
                     school,
                     days,
-                    current,
+                    type,
                   })
                 }
               >
@@ -605,7 +484,7 @@ const MatchedMeetupPage = () => {
                       {school}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={current} />
+                  <MatchedTag type={type} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -628,10 +507,10 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {MATCHING_TEAM_LIST.map(
+        {matchingTeamList.requestMatchingTeam.map(
           (
-            { title, school, current, member, days }: MatchingTeamType,
-            index,
+            { title, school, type, member, days }: RequireApplyMatchingTeamType,
+            index: number,
           ) => {
             return (
               <MatchingTeamItemBox
@@ -642,7 +521,7 @@ const MatchedMeetupPage = () => {
                     title,
                     school,
                     days,
-                    current,
+                    type,
                   })
                 }
               >
@@ -665,7 +544,7 @@ const MatchedMeetupPage = () => {
                       {school}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={current} />
+                  <MatchedTag type={type} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -702,6 +581,8 @@ const CustomButton = styled.div`
 
   border-radius: ${rem(6)};
   background: ${theme.colors.black};
+
+  cursor: pointer;
 `;
 
 const MyMeetupsCol = styled.div`
@@ -805,34 +686,6 @@ const MatchedModalProfileIntroductionBox = styled.div`
   flex-direction: column;
 `;
 
-const MatchedWeeksBox = styled.div`
-  display: flex;
-  gap: 6px;
-  margin-bottom: 40px;
-`;
-
-const MatchedWeekBox = styled.div<{ $isCheckGroup: string }>`
-  display: flex;
-  height: 42px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background: ${({ $isCheckGroup }) =>
-    $isCheckGroup === 'ovrlpDay'
-      ? 'var(--accent, #ff4b4b)'
-      : $isCheckGroup === 'normal'
-        ? '#000'
-        : '#999'};
-
-  flex: 1 1 auto; /* 여기에 추가 */
-  min-width: 4px; /* 너비가 0보다 작아지지 않도록 설정 */
-
-  & > span {
-    color: ${({ $isCheckGroup }) =>
-      $isCheckGroup === 'default' ? '#d9d9d9' : '#fff'};
-  }
-`;
-
 const MatchedMeetupModalLayout = styled.div`
   padding: ${rem(48)} ${rem(30)} ${rem(30)};
   background-color: #fff;
@@ -845,4 +698,6 @@ const MatchedMeetupModalLayout = styled.div`
   border-radius: 10px;
 
   margin: -30px;
+
+  position: relative;
 `;
