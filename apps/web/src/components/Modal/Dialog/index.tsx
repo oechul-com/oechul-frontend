@@ -2,11 +2,11 @@ import { theme } from '@oechul/styles';
 import { Modal } from '@oechul/ui';
 import { ReactNode } from 'react';
 
-import { DialogContent } from './Dialog.styles.ts';
+import { DialogContent } from '@/components/Modal/Dialog/Dialog.styles.ts';
 
 interface DialogProps {
-  isOpen: boolean;
-  onToggle: () => void;
+  isOpen?: boolean;
+  onToggle?: () => void;
   children: ReactNode;
 }
 

@@ -5,9 +5,9 @@ import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Layout from '@/components/layout/Layout';
-import { StatItemType } from '@/pages/landing/_components/StatScroller/types';
+import ContactDialog from '@/components/Modal/ContactModal';
 
-import StatScroller from './_components/StatScroller';
+import StatScroller, { StatItemType } from './_components/StatScroller';
 import {
   StyledLandingContainer,
   StyledBrandingWrapper,
@@ -55,7 +55,7 @@ const LandingPage = (): ReactElement => {
             <StyledPolicyNavigate>
               <a href="/">개인정보처리방침</a>&nbsp;및&nbsp;
               <a href="/">이용약관</a>&nbsp;‧&nbsp;
-              <a href="/">소통창구</a>
+              <ContactDialog>소통창구</ContactDialog>
             </StyledPolicyNavigate>
           </StyledLandingSection>
         </StyledLandingSection>

@@ -14,7 +14,6 @@ export type StatItemType = {
 
 type StatScrollerProps = {
   items: StatItemType[];
-
   direction?: 'left' | 'right';
   speed?: number;
 };

@@ -1,6 +1,8 @@
+import { CloseIcon } from '@oechul/icons';
 import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react';
 
 import { useModal } from './Modal.context';
+import { BaseButton, DefaultCloseButton } from './Modal.styles';
 
 type ModalCloseProps<C extends ElementType> = { children: ReactNode } & {
   as?: C;
@@ -8,7 +10,7 @@ type ModalCloseProps<C extends ElementType> = { children: ReactNode } & {
 
 const ModalClose = forwardRef<HTMLButtonElement, ModalCloseProps<ElementType>>(
   (
-    { as: Component = 'button', children, onClick, ...props },
+    { as: Component = BaseButton, children, onClick, ...props },
     ref,
   ): ReactElement => {
     const { setOpen } = useModal();
@@ -28,8 +30,9 @@ const ModalClose = forwardRef<HTMLButtonElement, ModalCloseProps<ElementType>>(
 
     return (
       <Component ref={ref} onClick={handleClick} {...props}>
-        // todo icon
-        <>X</>
+        <DefaultCloseButton>
+          <CloseIcon />
+        </DefaultCloseButton>
       </Component>
     );
   },
