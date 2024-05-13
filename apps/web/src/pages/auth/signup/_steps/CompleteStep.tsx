@@ -35,7 +35,7 @@ const CompleteStep = ({ formData }: CompleteStepProps) => {
       </SignUpCompleteContent>
       <Button
         style={{ marginBottom: rem(30) }}
-        onClick={() => navigate('/auth/login', { replace: true })}
+        onClick={() => navigate('/auth/signin', { replace: true })}
       >
         시작하기
       </Button>

@@ -38,7 +38,7 @@ import {
   ModalHeader,
   ProfileModalItemBox,
   ProfileModalItemsBox,
-} from './dasyboard.styles';
+} from './dashboard.styles.ts';
 
 type ProfileModalItemType = {
   type: string;
