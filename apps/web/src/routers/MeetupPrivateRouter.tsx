@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import ErrorPage from '@/pages/error.tsx';
+import ErrorPage from '@/pages/error';
 import MeetupPage from '@/pages/meetup';
-import MeetupCreatePage from '@/pages/meetup/create.tsx';
+import MeetupCreatePage from '@/pages/meetup/create';
 import MatchedSuccessPage from '@/pages/meetup/matched/success';
 import MatchedMeetupPage from '@/pages/meetup/matched.tsx';
 import NewMeetupPage from '@/pages/meetup/new.tsx';

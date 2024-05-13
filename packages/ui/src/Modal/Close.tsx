@@ -1,4 +1,4 @@
-import React, { ElementType, forwardRef, ReactNode } from 'react';
+import React, { ElementType, forwardRef, ReactElement, ReactNode } from 'react';
 
 import { useModal } from './Modal.context';
 
@@ -7,7 +7,10 @@ type ModalCloseProps<C extends ElementType> = { children: ReactNode } & {
 } & Omit<React.ComponentPropsWithoutRef<C>, keyof { children: ReactNode }>;
 
 const ModalClose = forwardRef<HTMLButtonElement, ModalCloseProps<ElementType>>(
-  ({ as: Component = 'button', children, onClick, ...props }, ref) => {
+  (
+    { as: Component = 'button', children, onClick, ...props },
+    ref,
+  ): ReactElement => {
     const { setOpen } = useModal();
 
     const handleClick = () => {

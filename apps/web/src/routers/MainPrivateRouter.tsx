@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import ErrorPage from '@/pages/error.tsx';
-import LandingPage from '@/pages/landing.tsx';
+import ErrorPage from '@/pages/error';
+import LandingPage from '@/pages/landing';
 
 const MainPrivateRouter = (): ReactElement => {
   const { pathname } = useLocation();

@@ -9,11 +9,11 @@ export const Header = styled.h1`
   font-weight: ${theme.fontWeights.semibold};
 `;
 
-export const LoginContent = styled.div`
+export const SignInContent = styled.div`
   margin-top: ${rem(28)};
 `;
 
-export const LoginNavigationText = styled(Text)`
+export const SignInNavigationText = styled(Text)`
   ${theme.layout.centerX};
   margin-top: ${rem(15)};
   color: ${theme.colors.gray600};
@@ -28,7 +28,7 @@ export const LoginNavigationText = styled(Text)`
   }
 `;
 
-export const RegisterContent = styled.div`
+export const SignUpContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,7 +43,7 @@ export const PrivacyCheckboxContainer = styled.div`
   gap: ${rem(16)};
 `;
 
-export const RegisterCompleteContent = styled.div`
+export const SignUpCompleteContent = styled.div`
   ${theme.layout.center};
   flex-direction: column;
   flex: 1;

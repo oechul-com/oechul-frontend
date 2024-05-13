@@ -8,9 +8,14 @@ import {
   SelectLabel,
 } from './Select.styled';
 
+export type SelectOptionType = {
+  value: string;
+  label: string;
+};
+
 type SelectProps = {
   label: string;
-  options: { value: string; label: string }[];
+  options: SelectOptionType[];
 } & ComponentPropsWithoutRef<'select'>;
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(

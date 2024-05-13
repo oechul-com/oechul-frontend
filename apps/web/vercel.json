@@ -1,0 +1,13 @@
+{
+  "regions": ["icn1"],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://api.oechul.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

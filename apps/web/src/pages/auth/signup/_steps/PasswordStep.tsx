@@ -7,38 +7,22 @@ import Tip from '@/components/Tip';
 import { POLICY } from '@/constants.ts';
 import {
   PrivacyCheckboxContainer,
-  RegisterContent,
+  SignUpContent,
 } from '@/pages/auth/auth.styles.ts';
-import { RegisterForm } from '@/pages/auth/register';
+import { SignUpForm } from '@/pages/auth/signup/types.ts';
+import { validateFormStep } from '@/pages/auth/signup/validation.ts';
 
 interface PasswordStepProps {
-  formData: RegisterForm;
-  handleRegister: (password: string) => void;
+  formData: SignUpForm;
+  handleSignUp: (password: string) => void;
 }
 
-const PasswordStep = ({ formData, handleRegister }: PasswordStepProps) => {
-  const navigate = useNavigate();
-
+const PasswordStep = ({ formData, handleSignUp }: PasswordStepProps) => {
   const [password, setPassword] = useState<string>(formData.password);
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [isTermsAgreed, setIsTermsAgreed] = useState<boolean>(false);
   const [isPrivacyPolicyAgreed, setIsPrivacyPolicyAgreed] =
     useState<boolean>(false);
-
-  useEffect(() => {
-    const { school, major, studentId, gender, name, nickname, email } =
-      formData;
-    if (
-      !school ||
-      !major ||
-      !studentId ||
-      !gender ||
-      !name ||
-      !nickname ||
-      !email
-    )
-      navigate('/auth/register', { replace: true });
-  }, [formData, navigate]);
 
   const isPasswordValid: boolean | undefined = useMemo(() => {
     if (password === '') return undefined;
@@ -67,11 +51,17 @@ const PasswordStep = ({ formData, handleRegister }: PasswordStepProps) => {
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isPasswordStepValid) handleRegister(password);
+    if (isPasswordStepValid) handleSignUp(password);
   };
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'password'))
+      navigate('/auth/signup', { replace: true });
+  }, [formData, navigate]);
+
   return (
-    <RegisterContent as="form" onSubmit={handleFormSubmit}>
+    <SignUpContent as="form" onSubmit={handleFormSubmit}>
       <div>
         <Tip margin={`0 0 ${rem(28)} 0`}>정확한 학교 메일을 입력해주세요.</Tip>
         <Input
@@ -139,7 +129,7 @@ const PasswordStep = ({ formData, handleRegister }: PasswordStepProps) => {
           가입 완료하기
         </Button>
       </div>
-    </RegisterContent>
+    </SignUpContent>
   );
 };
 

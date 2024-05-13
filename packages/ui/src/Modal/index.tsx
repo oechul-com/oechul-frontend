@@ -1,4 +1,10 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import {
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import ModalClose from './Close';
 import ModalContent from './Content';
@@ -17,7 +23,7 @@ const Modal = ({
   isOpen: controlledIsOpen,
   onStateChange,
   children,
-}: ModalProps) => {
+}: ModalProps): ReactElement => {
   const [isOpen, setIsOpen] = useState(!!defaultState);
 
   const setOpen = useCallback(

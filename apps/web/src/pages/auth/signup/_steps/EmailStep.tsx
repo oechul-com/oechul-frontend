@@ -5,19 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import Tip from '@/components/Tip';
 import { emailRegex } from '@/constants.ts';
-import { RegisterContent } from '@/pages/auth/auth.styles.ts';
-import { RegisterStepProps } from '@/pages/auth/register';
+import { SignUpContent } from '@/pages/auth/auth.styles.ts';
+import { SignUpStepProps } from '@/pages/auth/signup/types.ts';
+import { validateFormStep } from '@/pages/auth/signup/validation.ts';
 
-const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
-  const navigate = useNavigate();
-
+const EmailStep = ({ formData, proceed }: SignUpStepProps) => {
   const [email, setEmail] = useState<string>(formData.email);
-
-  useEffect(() => {
-    const { school, major, studentId, gender, name, nickname } = formData;
-    if (!school || !major || !studentId || !gender || !name || !nickname)
-      navigate('/auth/register', { replace: true });
-  }, [formData, navigate]);
 
   const isEmailValid = useMemo(() => {
     if (email.length === 0) return undefined;
@@ -26,11 +19,17 @@ const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isEmailValid) proceedToNextStep({ email });
+    if (isEmailValid) proceed({ email });
   };
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!validateFormStep(formData, 'email'))
+      navigate('/auth/signup', { replace: true });
+  }, [formData, navigate]);
+
   return (
-    <RegisterContent as="form" onSubmit={handleFormSubmit}>
+    <SignUpContent as="form" onSubmit={handleFormSubmit}>
       <div>
         <Tip margin={`0 0 ${rem(28)} 0`}>정확한 학교 메일을 입력해주세요.</Tip>
         <Input
@@ -48,7 +47,7 @@ const EmailStep = ({ formData, proceedToNextStep }: RegisterStepProps) => {
       <Button type="submit" aria-invalid={!isEmailValid}>
         다음
       </Button>
-    </RegisterContent>
+    </SignUpContent>
   );
 };
 
