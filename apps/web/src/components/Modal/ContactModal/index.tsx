@@ -4,9 +4,10 @@ import {
   KakaoTalkIcon,
   MailIcon,
 } from '@oechul/icons';
-import { rem, theme } from '@oechul/styles';
-import { Button, Modal, Text } from '@oechul/ui';
+import { theme } from '@oechul/styles';
+import { Button, ButtonVariantType, Modal, Text } from '@oechul/ui';
 import { ElementType, Fragment, NamedExoticComponent, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   ContactModalContainer,
@@ -19,41 +20,35 @@ interface ContactDialogProps {
 }
 
 type SocialItemType = {
-  Icon: NamedExoticComponent<IconProps> | ElementType;
+  icon: NamedExoticComponent<IconProps> | ElementType;
   description: string;
-  bgColor: string;
-  color: string;
+  variant?: ButtonVariantType;
   link: string;
 };
 
 const SOCIAL_LIST: SocialItemType[] = [
   {
-    Icon: MailIcon,
+    icon: MailIcon,
     description: '이메일로 문의하기',
-    bgColor: `${theme.colors.black}`,
-    color: `${theme.colors.white}`,
     link: 'mailto:manage@oechul.com',
   },
   {
-    Icon: KakaoTalkIcon,
+    icon: KakaoTalkIcon,
     description: '공식 카카오 채널',
-    bgColor: '#F3E24E',
-    color: `${theme.colors.black}`,
-    link: 'https://www.naver.com/',
+    variant: 'yellow',
+    link: 'https://pf.kakao.com/_KVYtxj',
   },
   {
-    Icon: InstagramIcon,
+    icon: InstagramIcon,
     description: '공식 인스타그램',
-    bgColor: `${theme.colors.gray200}`,
-    color: `${theme.colors.black}`,
-    link: '',
+    variant: 'gray',
+    link: 'https://instagram.com/oechul',
   },
   {
-    Icon: Fragment,
+    icon: Fragment,
     description: '외출에 대해 알아보기',
-    bgColor: `${theme.colors.gray200}`,
-    color: `${theme.colors.black}`,
-    link: '',
+    variant: 'gray',
+    link: 'https://instagram.com/oechul',
   },
 ];
 
@@ -63,7 +58,7 @@ const ContactDialog = ({ children }: ContactDialogProps) => {
       <Modal.Trigger as="span">
         <ContactTriggerButton>{children}</ContactTriggerButton>
       </Modal.Trigger>
-      <Modal.Content>
+      <Modal.Content maxWidth={theme.sizes.app}>
         <ContactModalContainer>
           <Modal.Close />
 
@@ -79,26 +74,25 @@ const ContactDialog = ({ children }: ContactDialogProps) => {
           <SocialList>
             {SOCIAL_LIST.map(
               (
-                { Icon, description, bgColor, color, link }: SocialItemType,
+                { icon: Icon, description, variant, link }: SocialItemType,
                 index,
               ) => {
                 return (
-                  <Button
-                    key={index}
-                    bgColor={bgColor}
-                    width="100%"
-                    onClick={() => window.open(link)}
+                  <Link
+                    to={link}
+                    target="_blank"
+                    style={{ textDecoration: 'none' }}
                   >
-                    <Icon />
-                    <Text
-                      fontWeight={theme.fontWeights.semibold}
-                      fontSize={theme.fontSizes.md}
-                      textColor={color}
-                      lineHeight={rem(16)}
-                    >
-                      {description}
-                    </Text>
-                  </Button>
+                    <Button key={index} variant={variant} width="100%">
+                      <Icon />
+                      <Text
+                        fontWeight={theme.fontWeights.semibold}
+                        fontSize={theme.fontSizes.md}
+                      >
+                        {description}
+                      </Text>
+                    </Button>
+                  </Link>
                 );
               },
             )}

@@ -7,3 +7,4 @@ export { default as Select } from './Select';
 export { default as Accordion } from './Accordion';
 
 export type { SelectOptionType } from './Select';
+export type { ButtonVariantType } from './Button';

@@ -2,8 +2,16 @@ import React, { ElementType, ReactNode, forwardRef } from 'react';
 
 import { BaseButton } from './Button.styles';
 
+export type ButtonVariantType =
+  | 'normal'
+  | 'gray'
+  | 'alert'
+  | 'blue'
+  | 'yellow'
+  | 'accent';
+
 type BaseButtonProps = {
-  variant?: 'normal' | 'gray' | 'alert' | 'blue' | 'accent';
+  variant?: ButtonVariantType;
   bgColor?: string;
   hoverBgColor?: string;
   invalidBgColor?: string;
