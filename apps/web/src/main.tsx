@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import AppRouter from '@/routers/AppRouter.tsx';
@@ -25,13 +26,15 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <ResetStyle />
-        <Router>
-          <AppRouter />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </Router>
-      </QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <ResetStyle />
+          <Router>
+            <AppRouter />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Router>
+        </QueryClientProvider>
+      </RecoilRoot>
     </ThemeProvider>
   );
 };

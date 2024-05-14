@@ -73,17 +73,15 @@ const ContactDialog = ({ children }: ContactDialogProps) => {
 
           <SocialList>
             {SOCIAL_LIST.map(
-              (
-                { icon: Icon, description, variant, link }: SocialItemType,
-                index,
-              ) => {
+              ({ icon: Icon, description, variant, link }, index) => {
                 return (
                   <Link
+                    key={index}
                     to={link}
                     target="_blank"
                     style={{ textDecoration: 'none' }}
                   >
-                    <Button key={index} variant={variant} width="100%">
+                    <Button variant={variant} width="100%">
                       <Icon />
                       <Text
                         fontWeight={theme.fontWeights.semibold}

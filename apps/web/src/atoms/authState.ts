@@ -1,7 +1,8 @@
+// atoms/authState.ts
 import { atom } from 'recoil';
 
-export const loggedInState = atom({
-  key: 'loggedInState',
+export const signedInState = atom({
+  key: 'signedInState',
   default: false,
 });
 
