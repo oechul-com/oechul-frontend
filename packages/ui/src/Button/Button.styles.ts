@@ -1,8 +1,10 @@
 import { rem, theme } from '@oechul/styles';
 import styled from 'styled-components';
 
+import { ButtonVariantType } from '.';
+
 interface ButtonStylesProps {
-  $variant: 'normal' | 'gray' | 'alert' | 'blue' | 'accent';
+  $variant: ButtonVariantType;
   $bgColor?: string;
   $hoverBgColor?: string;
   $invalidBgColor?: string;
@@ -44,6 +46,14 @@ const variantStyles = {
     bgColor: theme.colors.blue.bg,
     hoverBgColor: theme.colors.blue.bgHover,
     invalidBgColor: theme.colors.blue.bg,
+  },
+  yellow: {
+    textColor: theme.colors.black,
+    hoverTextColor: theme.colors.black,
+    invalidTextColor: theme.colors.black,
+    bgColor: theme.colors.yellow.bg,
+    hoverBgColor: theme.colors.yellow.bgHover,
+    invalidBgColor: theme.colors.yellow.bg,
   },
   accent: {
     textColor: theme.colors.white,

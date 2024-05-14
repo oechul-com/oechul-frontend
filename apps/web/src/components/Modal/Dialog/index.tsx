@@ -5,8 +5,8 @@ import { ReactNode } from 'react';
 import { DialogContent } from './Dialog.styles.ts';
 
 interface DialogProps {
-  isOpen: boolean;
-  onToggle: () => void;
+  isOpen?: boolean;
+  onToggle?: () => void;
   children: ReactNode;
 }
 

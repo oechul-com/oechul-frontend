@@ -52,6 +52,10 @@ const colors = {
     bg: '#F2F9FF',
     bgHover: '#DCEFFF',
   },
+  yellow: {
+    bg: '#F3E24E',
+    bgHover: '#F5E871',
+  },
 
   white: '#FFFFFF',
   black: '#000000',

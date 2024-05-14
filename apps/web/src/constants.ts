@@ -7,6 +7,9 @@ export const QUERIES = {
     KEY: 'UNIVERSITY_QUERY_KEY',
     DEPARTMENT_KEY: 'UNIVERSITY_DEPARTMENT_QUERY_KEY',
   },
+  MEMBER: {
+    PROFILE_KEY: 'MEMBER_PROFILE_QUERY_KEY',
+  },
 };
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

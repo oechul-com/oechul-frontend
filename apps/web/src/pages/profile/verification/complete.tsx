@@ -4,10 +4,9 @@ import Lottie from 'lottie-react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import completeAnim from 'public/static/assets/animation/l7OJ0tWxvK.json';
-
 import Layout from '@/components/layout/Layout';
 
+import animation from './l7OJ0tWxvK.json';
 import {
   CompleteAnimation,
   CompleteButtonContainer,
@@ -21,7 +20,7 @@ const VerificationCompletePage = (): ReactElement => {
     <Layout close={true}>
       <CompleteContent>
         <CompleteAnimation $size={120}>
-          <Lottie animationData={completeAnim} />
+          <Lottie animationData={animation} />
         </CompleteAnimation>
         <Text
           textColor={theme.colors.black}

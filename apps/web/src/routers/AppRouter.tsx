@@ -1,40 +1,44 @@
-import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 
+import useAuth from '@/hooks/useAuth.ts';
 import useScreenSize from '@/hooks/useScreenSize.ts';
 import AlertPage from '@/pages/alert';
 import SignInPage from '@/pages/auth/signin';
 import SignUpPage from '@/pages/auth/signup';
 import ErrorPage from '@/pages/error.tsx';
-import MainPrivateRouter from '@/routers/MainPrivateRouter.tsx';
-import MeetupPrivateRouter from '@/routers/MeetupPrivateRouter.tsx';
-import ProfilePrivateRouter from '@/routers/ProfilePrivateRouter.tsx';
 
-import DashboardPrivateRouter from './DashboardPrivateRouter';
-
-const pages = [
-  { path: '/', component: MainPrivateRouter },
-  { path: '/auth/signin', component: SignInPage },
-  { path: '/auth/signup', component: SignUpPage },
-  { path: '/dashboard/*', component: DashboardPrivateRouter },
-  { path: '/meetup/*', component: MeetupPrivateRouter },
-  { path: '/profile/*', component: ProfilePrivateRouter },
-  { path: '/alert', component: AlertPage },
-  { path: '*', component: ErrorPage },
-];
+import HomeRedirect from './HomeRedirect';
+import DashboardPrivateRouter from './private/DashboardPrivateRouter.tsx';
+import MeetupPrivateRouter from './private/MeetupPrivateRouter.tsx';
+import PrivateRoute from './private/PrivateRoute.tsx';
+import ProfilePrivateRouter from './private/ProfilePrivateRouter.tsx';
 
 const AppRouter = () => {
+  useAuth();
   useScreenSize();
 
-  const element = useRoutes(
-    pages.map((page, index) => ({
-      path: page.path,
-      element: <page.component key={index} />,
-      key: index,
-    })),
-  );
-
-  return <Suspense fallback={<></>}>{element}</Suspense>;
+  return useRoutes([
+    { path: '/', element: <HomeRedirect /> },
+    { path: '/auth/signin', element: <SignInPage /> },
+    { path: '/auth/signup', element: <SignUpPage /> },
+    {
+      path: '/dashboard/*',
+      element: <PrivateRoute />,
+      children: [{ path: '*', element: <DashboardPrivateRouter /> }],
+    },
+    {
+      path: '/meetup/*',
+      element: <PrivateRoute />,
+      children: [{ path: '*', element: <MeetupPrivateRouter /> }],
+    },
+    {
+      path: '/profile/*',
+      element: <PrivateRoute />,
+      children: [{ path: '*', element: <ProfilePrivateRouter /> }],
+    },
+    { path: '/alert', element: <AlertPage /> },
+    { path: '*', element: <ErrorPage /> },
+  ]);
 };
 
 export default AppRouter;
