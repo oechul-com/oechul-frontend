@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 
+import useAuth from '@/hooks/useAuth.ts';
 import useScreenSize from '@/hooks/useScreenSize.ts';
 import AlertPage from '@/pages/alert';
 import SignInPage from '@/pages/auth/signin';
@@ -13,6 +14,7 @@ import PrivateRoute from './private/PrivateRoute.tsx';
 import ProfilePrivateRouter from './private/ProfilePrivateRouter.tsx';
 
 const AppRouter = () => {
+  useAuth();
   useScreenSize();
 
   return useRoutes([
