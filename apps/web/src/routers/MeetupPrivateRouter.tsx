@@ -12,13 +12,20 @@ const MeetupPrivateRouter = (): ReactElement => {
   const { pathname } = useLocation();
   const _pathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 
+  const match = pathname.match(/\/meetup\/team\/(\d+)/);
+
+  let index = null;
+  if (match) {
+    index = match[1];
+  }
+
   switch (_pathname) {
     case '/meetup':
       return <MeetupPage />;
     case '/meetup/create':
       return <MeetupCreatePage />;
-    case '/meetup/matched':
-      return <MatchedMeetupPage />;
+    case `/meetup/team/${index}`: // 동적 경로 처리
+      return <MatchedMeetupPage index={index} />;
     case '/meetup/matched/success':
       return <MatchedSuccessPage />;
     case '/meetup/new':

@@ -13,6 +13,7 @@ import { ElementType, NamedExoticComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Layout from '@/components/layout/Layout';
+import { MyMeetupTeamsType } from '@/types/meetup';
 
 import {
   ButtonBox,
@@ -39,6 +40,8 @@ import {
   ProfileModalItemBox,
   ProfileModalItemsBox,
 } from './matched.styles';
+// import { getMyTeams } from '@/apis/meetup';
+import { MY_MEETUP_TEAM_LIST } from '../meetup/matched/mockData';
 
 type ProfileModalItemType = {
   type: string;
@@ -59,14 +62,6 @@ type ParticipateMatchingItemType = {
   iconFontSize: string;
   iconLineHeight: string;
   bgColor: string;
-};
-
-type MyMatchingTeamType = {
-  isHost: 'Y' | 'N';
-  teamId: string;
-  teamProfile: string[];
-  teamName: string;
-  university: string;
 };
 
 const PARTICIPATE_MATCHING_LIST: ParticipateMatchingItemType[] = [
@@ -93,40 +88,6 @@ const PARTICIPATE_MATCHING_LIST: ParticipateMatchingItemType[] = [
   },
 ];
 
-const MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
-  {
-    teamId: '1',
-    isHost: 'Y',
-    teamProfile: ['/static/assets/common/image-logo.svg'],
-    teamName: '소통합시다잉',
-    university: '한국외국어대학교 글로벌캠퍼스',
-  },
-  {
-    teamId: '2',
-    isHost: 'N',
-    teamProfile: [
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-    ],
-    teamName: '소통합시다잉',
-    university: '한국외국어대학교 글로벌캠퍼스',
-  },
-  {
-    teamId: '3',
-    isHost: 'N',
-    teamProfile: [
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-      '/static/assets/common/image-logo.svg',
-    ],
-    teamName: '소통합시다잉',
-    university: '한국외국어대학교 글로벌캠퍼스',
-  },
-];
-
 const PROFILE_MODAL_LIST: ProfileModalItemType[] = [
   {
     type: '프로필 및 더보기',
@@ -149,7 +110,7 @@ const DashboardPage = () => {
 
   // 내 매칭 팀 정보
   const [myMatchingTeamList, setMyMatchingTeamList] = useState<
-    MyMatchingTeamType[]
+    MyMeetupTeamsType[]
   >([]);
 
   // 매칭 팀 전부 보여주기 유무
@@ -190,8 +151,11 @@ const DashboardPage = () => {
     setSelectMeetingType(type);
   };
 
-  const _onLoadData = () => {
-    setMyMatchingTeamList(MATCHING_TEAM_LIST);
+  const _onLoadData = async () => {
+    // try {
+    //   const response = await getMyTeams();
+    // } catch (error) {}
+    setMyMatchingTeamList(MY_MEETUP_TEAM_LIST);
   };
 
   useEffect(() => {
@@ -477,9 +441,18 @@ const DashboardPage = () => {
                   teamProfile,
                   teamName,
                   university,
-                }: MyMatchingTeamType) => {
+                }: MyMeetupTeamsType) => {
                   return (
-                    <MatchingTeamItemBox key={teamId}>
+                    <MatchingTeamItemBox
+                      key={teamId}
+                      onClick={() =>
+                        navigate(`/meetup/team/${teamId}`, {
+                          state: {
+                            teamId: teamId,
+                          },
+                        })
+                      }
+                    >
                       <MatchingTeamItemTop>
                         <MatchingMemberProfilesBox>
                           {teamProfile.map((img: string, index: number) => {

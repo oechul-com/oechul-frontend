@@ -6,21 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
+import {
+  ApplyReceivedTeamInfoType,
+  ApplyReceivedTeamListType,
+  MeetupMemberInfoType,
+  MeetupTeamType,
+  NewMeetupTeamInfoType,
+  NewMeetupTeamListType,
+} from '@/types/meetup';
 
 import {
-  APPLY_MATCHING_TEAM_LIST,
-  MY_MATCHING_TEAM_LIST,
+  MY_MEETUP_TEAM_DETAIL_LIST,
   NEW_MATCHING_TEAM_LIST,
-  REQUEST_MATCHING_TEAM_LIST,
+  APPLY_MEETUP_TEAM_LIST,
+  RECEIVED_MEETUP_TEAM_LIST,
 } from './matched/mockData';
-import {
-  MatchingTeamType,
-  MyMatchingTeamType,
-  MatchingModalOpenType,
-  dayDescriptionType,
-  StudentInfoType,
-  RequireApplyMatchingTeamType,
-} from './matched/type';
+import { MatchingModalOpenType, dayDescriptionType } from './matched/type';
 import {
   MatchingTeamItemBox,
   MatchingTeamItemTop,
@@ -34,30 +35,33 @@ import {
 
 const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
 
-type MatchingTeamsType = {
-  myMatchingTeam: MyMatchingTeamType[];
-  newMatchingTeam: MatchingTeamType[];
-  applyMatchingTeam: RequireApplyMatchingTeamType[];
-  requestMatchingTeam: RequireApplyMatchingTeamType[];
+type MatchedMeetupPagePropsType = {
+  index: string | null;
 };
 
-const MatchedMeetupPage = () => {
+type MatchingTeamsType = {
+  myMatchingTeam: MeetupTeamType | null | undefined;
+  newMatchingTeam: NewMeetupTeamListType | null;
+  applyMatchingTeam: ApplyReceivedTeamListType | null;
+  requestMatchingTeam: ApplyReceivedTeamListType | null;
+};
+
+const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [matchingTeam, setMatchingTeam] = useState<
-    MatchingTeamType | MyMatchingTeamType
-  >();
+  const [matchingTeam, setMatchingTeam] = useState<MeetupTeamType | null>();
   const navigate = useNavigate();
 
   ///
 
   const [matchingTeamList, setMatchingTeamList] = useState<MatchingTeamsType>({
-    myMatchingTeam: [],
-    newMatchingTeam: [],
-    applyMatchingTeam: [],
-    requestMatchingTeam: [],
+    myMatchingTeam: null,
+    newMatchingTeam: null,
+    applyMatchingTeam: null,
+    requestMatchingTeam: null,
   });
 
   const [ovrlpDays, setOvrlpDays] = useState<string[]>([]);
+  const [matchState, setMatchState] = useState<string>('');
 
   const [modalState, setModalState] = useState<MatchingModalOpenType>({
     myMatchingModalOpen: false,
@@ -74,8 +78,6 @@ const MatchedMeetupPage = () => {
       '나의 팀과 희망요일이 2개 일치해요!\n🟥: 일치하는 요일 ⬛️: 상대팀이 희망하는 요일',
   };
 
-  const myMatchingTeamDays = ['일', '화', '금'];
-
   const getActiveModalDescription = () => {
     const activeKey =
       Object.keys(modalState).find(key => modalState[key]) ||
@@ -85,12 +87,19 @@ const MatchedMeetupPage = () => {
 
   const onClickModal = (
     key: keyof MatchingModalOpenType,
-    matchingTeam: MatchingTeamType | MyMatchingTeamType,
+    matchingTeam: MeetupTeamType | undefined | null,
+    matchState?: string,
   ) => {
-    const ovlpElements = myMatchingTeamDays.filter(element =>
-      matchingTeam.days.includes(element),
-    );
-    setOvrlpDays(ovlpElements);
+    const teamListDays =
+      matchingTeamList.myMatchingTeam?.selectedDays.split(',');
+    const teamDays = matchingTeam?.selectedDays.split(',');
+
+    const overlappingDays = teamListDays?.filter((day: string) =>
+      teamDays?.includes(day),
+    ) || ['월'];
+
+    setOvrlpDays(overlappingDays);
+    if (matchState) setMatchState(matchState);
     setMatchingTeam(matchingTeam);
     setOpen(open => !open);
     setModalState(prevState => ({
@@ -112,10 +121,12 @@ const MatchedMeetupPage = () => {
 
   const _onLoadData = () => {
     setMatchingTeamList({
-      myMatchingTeam: MY_MATCHING_TEAM_LIST,
+      myMatchingTeam: MY_MEETUP_TEAM_DETAIL_LIST.find((team, index) => {
+        return team.teamId === index;
+      }),
       newMatchingTeam: NEW_MATCHING_TEAM_LIST,
-      applyMatchingTeam: APPLY_MATCHING_TEAM_LIST,
-      requestMatchingTeam: REQUEST_MATCHING_TEAM_LIST,
+      applyMatchingTeam: APPLY_MEETUP_TEAM_LIST,
+      requestMatchingTeam: RECEIVED_MEETUP_TEAM_LIST,
     });
   };
 
@@ -124,10 +135,7 @@ const MatchedMeetupPage = () => {
   }, []);
 
   const renderButton = () => {
-    if (
-      modalState.registerMatchingModalOpen &&
-      matchingTeam?.type === '매칭 중'
-    ) {
+    if (modalState.registerMatchingModalOpen && matchState === 'WAITING') {
       return (
         <Button bgColor="#F5F5F5">
           <Text fontSize="18px" fontWeight="600" textColor="#000">
@@ -137,7 +145,7 @@ const MatchedMeetupPage = () => {
       );
     } else if (
       modalState.requestMatchingModalOpen &&
-      matchingTeam?.type === '확인하기'
+      matchState === '확인하기'
     ) {
       return (
         <div style={{ display: 'flex', gap: '16px' }}>
@@ -191,6 +199,7 @@ const MatchedMeetupPage = () => {
                 right: 26,
                 cursor: 'pointer',
               }}
+              // onClick={() => setOpen(!open)}
             >
               <CloseIcon color="#000" />
             </div>
@@ -202,31 +211,34 @@ const MatchedMeetupPage = () => {
                 textAlign={'center'}
                 style={{ marginBottom: '6px' }}
               >
-                {matchingTeam?.school}
+                {matchingTeam?.teamUniv}
               </Text>
               <Text
                 fontSize={theme.fontSizes.xl}
                 fontWeight={theme.fontWeights.semibold}
                 textAlign={'center'}
               >
-                {matchingTeam?.title}
+                {matchingTeam?.teamName}
               </Text>
             </div>
             <MatchedModalItemsBox>
-              {matchingTeam?.member.map(
+              {matchingTeam?.teamMembers.map(
                 (
                   {
                     name,
-                    studentId,
-                    img,
+                    studentNumber,
+                    profileUri,
                     department,
-                    selfIntroduction,
-                  }: StudentInfoType,
-                  index,
+                    oneLineInfo,
+                  }: MeetupMemberInfoType,
+                  index: number,
                 ) => {
                   return (
                     <MatchedModalItemBox>
-                      <MatchedModalProfileImageBox $image={img} key={index} />
+                      <MatchedModalProfileImageBox
+                        $image={profileUri}
+                        key={index}
+                      />
                       <MatchedModalProfileIntroductionBox>
                         <Text
                           fontSize={theme.fontSizes.md}
@@ -241,13 +253,13 @@ const MatchedMeetupPage = () => {
                           textColor={theme.colors.red.accent}
                           style={{ marginBottom: '12px' }}
                         >
-                          {department + ' • ' + studentId}
+                          {department + ' • ' + studentNumber}
                         </Text>
                         <Text
                           textColor={theme.colors.gray500}
                           lineHeight={'140%'}
                         >
-                          {selfIntroduction}
+                          {oneLineInfo}
                         </Text>
                       </MatchedModalProfileIntroductionBox>
                     </MatchedModalItemBox>
@@ -262,7 +274,7 @@ const MatchedMeetupPage = () => {
                 textAlign={'center'}
                 style={{ marginBottom: '12px' }}
               >
-                {matchingTeam?.title + '팀이 희망하는 요일'}
+                {matchingTeam?.teamName + '팀이 희망하는 요일'}
               </Text>
               <Text
                 fontSize={theme.fontSizes.xs}
@@ -281,7 +293,7 @@ const MatchedMeetupPage = () => {
                     $isCheckGroup={
                       ovrlpDays.includes(week)
                         ? 'ovrlpDay'
-                        : matchingTeam?.days.includes(week)
+                        : matchingTeam?.selectedDays.includes(week)
                           ? 'normal'
                           : 'default'
                     }
@@ -303,52 +315,41 @@ const MatchedMeetupPage = () => {
         {'나의 과팅'}
       </Text>
       <MyMeetupsCol>
-        {matchingTeamList.myMatchingTeam.map(
-          (
-            { member, title, school, days }: MyMatchingTeamType,
-            index: number,
-          ) => {
-            return (
-              <MyMeetupBox key={index}>
-                <MatchingTeamItemBottom>
-                  <MatchedGap>
-                    <Text
-                      fontSize={theme.fontSizes.md}
-                      fontWeight={theme.fontWeights.medium}
-                    >
-                      {title}
-                    </Text>
-                    <Text
-                      fontSize={theme.fontSizes['2xs']}
-                      fontWeight={theme.fontWeights.medium}
-                      textColor={theme.colors.gray500}
-                    >
-                      {member.length}
-                    </Text>
-                  </MatchedGap>
-                </MatchingTeamItemBottom>
-                <CustomButton
-                  onClick={() =>
-                    onClickModal('myMatchingModalOpen', {
-                      member,
-                      title,
-                      school,
-                      days,
-                    })
-                  }
-                >
-                  <Text
-                    fontSize={theme.fontSizes.xs}
-                    fontWeight={theme.fontWeights.semibold}
-                    textColor={theme.colors.white}
-                  >
-                    {'확인하기'}
-                  </Text>
-                </CustomButton>
-              </MyMeetupBox>
-            );
-          },
-        )}
+        <MyMeetupBox key={index}>
+          <MatchingTeamItemBottom>
+            <MatchedGap>
+              <Text
+                fontSize={theme.fontSizes.md}
+                fontWeight={theme.fontWeights.medium}
+              >
+                {matchingTeamList.myMatchingTeam?.teamName}
+              </Text>
+              <Text
+                fontSize={theme.fontSizes['2xs']}
+                fontWeight={theme.fontWeights.medium}
+                textColor={theme.colors.gray500}
+              >
+                {matchingTeamList.myMatchingTeam?.groupType}
+              </Text>
+            </MatchedGap>
+          </MatchingTeamItemBottom>
+          <CustomButton
+            onClick={() =>
+              onClickModal(
+                'myMatchingModalOpen',
+                matchingTeamList.myMatchingTeam,
+              )
+            }
+          >
+            <Text
+              fontSize={theme.fontSizes.xs}
+              fontWeight={theme.fontWeights.semibold}
+              textColor={theme.colors.white}
+            >
+              {'확인하기'}
+            </Text>
+          </CustomButton>
+        </MyMeetupBox>
       </MyMeetupsCol>
       <MatchedMeetupHeader>
         <Text
@@ -366,44 +367,48 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {matchingTeamList.newMatchingTeam.map(
+        {matchingTeamList.newMatchingTeam?.teamList.map(
           (
-            { member, title, school, days }: MatchingTeamType,
+            {
+              opponentTeamId,
+              teamName,
+              teamUniv,
+              isNew,
+              isHot,
+              teamProf,
+            }: NewMeetupTeamInfoType,
             index: number,
           ) => {
             return (
               <MatchingTeamItemBox
                 key={index}
                 onClick={() =>
-                  onClickModal('newMatchingModalOpen', {
-                    member,
-                    title,
-                    school,
-                    days,
-                  })
+                  onClickModal('newMatchingModalOpen', opponentTeamId)
                 }
               >
                 <MatchingTeamItemTop>
                   <MatchingMemberProfilesBox>
-                    {member.map(({ img }, index) => {
+                    {teamProf.map((img: string, index: number) => {
                       return (
                         <MatchingMemberProfileBox
-                          $zIndex={member.length}
+                          $zIndex={teamProf.length}
                           $image={img}
                           key={index}
                         />
                       );
                     })}
                   </MatchingMemberProfilesBox>
-                  <MatchingTypeTag>
-                    <Text
-                      textColor={theme.colors.white}
-                      fontSize={theme.fontSizes['3xs']}
-                      fontWeight={theme.fontWeights.bold}
-                    >
-                      {'NEW'}
-                    </Text>
-                  </MatchingTypeTag>
+                  {isNew && (
+                    <MatchingTypeTag>
+                      <Text
+                        textColor={theme.colors.white}
+                        fontSize={theme.fontSizes['3xs']}
+                        fontWeight={theme.fontWeights.bold}
+                      >
+                        {isHot ? 'HOT' : 'NEW'}
+                      </Text>
+                    </MatchingTypeTag>
+                  )}
                 </MatchingTeamItemTop>
                 <MatchingTeamItemBottom>
                   <MatchedGap>
@@ -412,7 +417,7 @@ const MatchedMeetupPage = () => {
                         fontSize={theme.fontSizes.md}
                         fontWeight={theme.fontWeights.semibold}
                       >
-                        {title}
+                        {teamName}
                       </Text>
                       <CaratRightIcon width={14} />
                     </MatchingTeamTextBox>
@@ -421,7 +426,7 @@ const MatchedMeetupPage = () => {
                       fontWeight={theme.fontWeights.normal}
                       textColor={theme.colors.gray500}
                     >
-                      {school}
+                      {teamUniv}
                     </Text>
                   </MatchedGap>
                 </MatchingTeamItemBottom>
@@ -446,9 +451,14 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {matchingTeamList.applyMatchingTeam.map(
+        {matchingTeamList.applyMatchingTeam?.teamList.map(
           (
-            { title, school, type, member, days }: RequireApplyMatchingTeamType,
+            {
+              opponentTeamId,
+              teamName,
+              teamUniv,
+              matchState,
+            }: ApplyReceivedTeamInfoType,
             index: number,
           ) => {
             return (
@@ -456,13 +466,7 @@ const MatchedMeetupPage = () => {
                 key={index}
                 $isTop={false}
                 onClick={() =>
-                  onClickModal('registerMatchingModalOpen', {
-                    member,
-                    title,
-                    school,
-                    days,
-                    type,
-                  })
+                  onClickModal('registerMatchingModalOpen', opponentTeamId)
                 }
               >
                 <MatchingTeamItemBottom $isTop={false}>
@@ -472,7 +476,7 @@ const MatchedMeetupPage = () => {
                         fontSize={theme.fontSizes.md}
                         fontWeight={theme.fontWeights.semibold}
                       >
-                        {title}
+                        {teamName}
                       </Text>
                       <CaratRightIcon width={14} />
                     </MatchingTeamTextBox>
@@ -481,10 +485,10 @@ const MatchedMeetupPage = () => {
                       fontWeight={theme.fontWeights.normal}
                       textColor={theme.colors.gray500}
                     >
-                      {school}
+                      {teamUniv}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={type} />
+                  <MatchedTag type={matchState} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -507,22 +511,21 @@ const MatchedMeetupPage = () => {
         </Text>
       </MatchedMeetupHeader>
       <NewMeetupsCol>
-        {matchingTeamList.requestMatchingTeam.map(
+        {matchingTeamList.requestMatchingTeam?.teamList.map(
           (
-            { title, school, type, member, days }: RequireApplyMatchingTeamType,
+            {
+              opponentTeamId,
+              teamName,
+              teamUniv,
+              matchState,
+            }: ApplyReceivedTeamInfoType,
             index: number,
           ) => {
             return (
               <MatchingTeamItemBox
                 key={index}
                 onClick={() =>
-                  onClickModal('requestMatchingModalOpen', {
-                    member,
-                    title,
-                    school,
-                    days,
-                    type,
-                  })
+                  onClickModal('requestMatchingModalOpen', opponentTeamId)
                 }
               >
                 <MatchingTeamItemBottom>
@@ -532,7 +535,7 @@ const MatchedMeetupPage = () => {
                         fontSize={theme.fontSizes.md}
                         fontWeight={theme.fontWeights.semibold}
                       >
-                        {title}
+                        {teamName}
                       </Text>
                       <CaratRightIcon width={14} />
                     </MatchingTeamTextBox>
@@ -541,10 +544,10 @@ const MatchedMeetupPage = () => {
                       fontWeight={theme.fontWeights.normal}
                       textColor={theme.colors.gray500}
                     >
-                      {school}
+                      {teamUniv}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={type} />
+                  <MatchedTag type={matchState} />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -667,7 +670,7 @@ const MatchedModalItemBox = styled.div`
   gap: 16px;
 `;
 
-const MatchedModalProfileImageBox = styled.div<{ $image: string }>`
+const MatchedModalProfileImageBox = styled.div<{ $image: string | null }>`
   width: 60px;
   height: 60px;
   border-radius: 75px;

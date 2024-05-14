@@ -1,349 +1,188 @@
-type StudentInfoType = {
-  name: string;
-  img: string;
-  department: string;
-  studentId: string;
-  selfIntroduction: string;
-};
+import {
+  ApplyReceivedTeamListType,
+  MeetupTeamType,
+  MyMeetupTeamsType,
+  NewMeetupTeamListType,
+} from '@/types/meetup';
 
-type MyMatchingTeamType = {
-  member: StudentInfoType[];
-  title: string;
-  school: string;
-  days: string[];
-};
-
-type MatchingTeamType = {
-  member: StudentInfoType[];
-  title: string;
-  school?: string;
-  days: string[];
-};
-
-type RequireApplyMatchingTeamType = MatchingTeamType & {
-  type: string;
-};
-
-export const MY_MATCHING_TEAM_LIST: MyMatchingTeamType[] = [
+export const MY_MEETUP_TEAM_LIST: MyMeetupTeamsType[] = [
   {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교',
-    days: ['월', '화'],
+    teamId: '1',
+    isHost: 'Y',
+    teamProfile: ['/static/assets/common/image-logo.svg'],
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
   },
   {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
+    teamId: '2',
+    isHost: 'N',
+    teamProfile: [
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
     ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교',
-    days: ['수'],
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
+  },
+  {
+    teamId: '3',
+    isHost: 'N',
+    teamProfile: [
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+      '/static/assets/common/image-logo.svg',
+    ],
+    teamName: '소통합시다잉',
+    university: '한국외국어대학교 글로벌캠퍼스',
   },
 ];
 
-export const NEW_MATCHING_TEAM_LIST: MatchingTeamType[] = [
+export const MY_MEETUP_TEAM_DETAIL_LIST: MeetupTeamType[] = [
   {
-    member: [
+    teamId: 3,
+    teamName: '놀사람',
+    teamUniv: '한국외국어대학교',
+    selectedDays: '월,화,금,일',
+    groupType: 2,
+    teamMembers: [
       {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
+        name: 'LEE',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx2',
+        oneLineInfo: null,
+        profileUri: null,
+      },
+      {
+        name: 'KIM',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx1',
+        oneLineInfo: null,
+        profileUri: null,
       },
     ],
-    title: '소통합시다잉',
-    days: ['월', '화'],
   },
   {
-    member: [
+    teamId: 4,
+    teamName: '놀사람',
+    teamUniv: '한국외국어대학교',
+    selectedDays: '월,화,금,일',
+    groupType: 2,
+    teamMembers: [
       {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
+        name: 'LEE',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx2',
+        oneLineInfo: null,
+        profileUri: null,
       },
       {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
+        name: 'KIM',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx1',
+        oneLineInfo: null,
+        profileUri: null,
       },
     ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    days: ['월', '화'],
   },
   {
-    member: [
+    teamId: 5,
+    teamName: '놀사람',
+    teamUniv: '한국외국어대학교',
+    selectedDays: '월,화,금,일',
+    groupType: 2,
+    teamMembers: [
       {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
+        name: 'LEE',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx2',
+        oneLineInfo: null,
+        profileUri: null,
       },
       {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
+        name: 'KIM',
+        department: '컴퓨터공학부',
+        studentNumber: 'xxxxxxxx1',
+        oneLineInfo: null,
+        profileUri: null,
       },
     ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    days: ['월', '화'],
   },
 ];
 
-export const REQUEST_MATCHING_TEAM_LIST: RequireApplyMatchingTeamType[] = [
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    type: '매칭 중',
-    days: ['월', '화'],
-  },
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    type: '매칭 성공',
-    days: ['월', '화'],
-  },
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    type: '확인하기',
-    days: ['월', '화'],
-  },
-];
+export const NEW_MATCHING_TEAM_LIST: NewMeetupTeamListType = {
+  teamList: [
+    {
+      opponentTeamId: '3',
+      teamName: '안녕하세요 소통해요',
+      teamUniv: '경희대학교 서울캠퍼스',
+      isNew: true, // 생성 된지 1일 이내일 경우 true
+      isHot: false, // 매칭 신청 2개 이상 받았을 경우 true
+      teamProf: ['url1', 'url2'],
+    },
+    {
+      opponentTeamId: '3',
+      teamName: '안녕하세요 소통해요',
+      teamUniv: '경희대학교 서울캠퍼스',
+      isNew: true, // 생성 된지 1일 이내일 경우 true
+      isHot: false, // 매칭 신청 2개 이상 받았을 경우 true
+      teamProf: ['url1', 'url2'],
+    },
 
-export const APPLY_MATCHING_TEAM_LIST: RequireApplyMatchingTeamType[] = [
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    type: '매칭 중',
-    days: ['월', '화'],
-  },
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    type: '매칭 성공',
-    days: ['월', '화'],
-  },
-  {
-    member: [
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-      {
-        name: 'student',
-        img: '/static/assets/common/image-logo.svg',
-        department: '컴퓨터공학과',
-        studentId: '20학번',
-        selfIntroduction:
-          '안녕하세요 컴공과 김원정이라는 사람입니다. 말 줄임은 단어 기준으로 ',
-      },
-    ],
-    title: '소통합시다잉',
-    school: '한국외국어대학교 글로벌캠퍼스',
-    type: '확인하기',
-    days: ['월', '화'],
-  },
-];
+    {
+      opponentTeamId: '3',
+      teamName: '안녕하세요 소통해요',
+      teamUniv: '경희대학교 서울캠퍼스',
+      isNew: true, // 생성 된지 1일 이내일 경우 true
+      isHot: false, // 매칭 신청 2개 이상 받았을 경우 true
+      teamProf: ['url1', 'url2'],
+    },
+  ],
+};
+
+export const APPLY_MEETUP_TEAM_LIST: ApplyReceivedTeamListType = {
+  teamList: [
+    {
+      opponentTeamId: '5',
+      teamName: '그냥 좀 나와라',
+      teamUniv: '한국외국어대학교 글로벌캠퍼스',
+      matchState: 'SUCCESS',
+    },
+    {
+      opponentTeamId: '4',
+      teamName: '안녕하세요 소통해요',
+      teamUniv: '단국대학교 죽전캠퍼스',
+      matchState: 'WAITING',
+    },
+    {
+      opponentTeamId: '6',
+      teamName: '무조건 n빵함',
+      teamUniv: '한국외국어대학교 서울캠퍼스',
+      matchState: 'FAILURE',
+    },
+  ],
+};
+
+export const RECEIVED_MEETUP_TEAM_LIST: ApplyReceivedTeamListType = {
+  teamList: [
+    {
+      opponentTeamId: '5',
+      teamName: '그냥 좀 나와라',
+      teamUniv: '한국외국어대학교 글로벌캠퍼스',
+      matchState: 'SUCCESS',
+    },
+    {
+      opponentTeamId: '4',
+      teamName: '안녕하세요 소통해요',
+      teamUniv: '단국대학교 죽전캠퍼스',
+      matchState: 'WAITING',
+    },
+    {
+      opponentTeamId: '6',
+      teamName: '무조건 n빵함',
+      teamUniv: '한국외국어대학교 서울캠퍼스',
+      matchState: 'REJECT',
+    },
+  ],
+};
