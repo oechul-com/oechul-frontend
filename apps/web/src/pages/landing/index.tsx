@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Layout from '@/components/layout/Layout';
 import ContactDialog from '@/components/Modal/ContactModal';
+import { POLICY } from '@/constants.ts';
 
 import StatScroller, { StatItemType } from './_components/StatScroller';
 import {
@@ -53,8 +54,14 @@ const LandingPage = (): ReactElement => {
           <StyledLandingSection $gap={`${rem(16)}`}>
             <Button onClick={onClickStartButton}>시작하기</Button>
             <StyledPolicyNavigate>
-              <a href="/">개인정보처리방침</a>&nbsp;및&nbsp;
-              <a href="/">이용약관</a>&nbsp;‧&nbsp;
+              <a href={POLICY.PRIVACY_POLICY_URL} target="_blank">
+                개인정보처리방침
+              </a>
+              &nbsp;및&nbsp;
+              <a href={POLICY.TERM_OF_SERVICE_URL} target="_blank">
+                이용약관
+              </a>
+              &nbsp;‧&nbsp;
               <ContactDialog>소통창구</ContactDialog>
             </StyledPolicyNavigate>
           </StyledLandingSection>
