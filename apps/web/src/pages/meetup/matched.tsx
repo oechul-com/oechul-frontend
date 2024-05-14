@@ -137,8 +137,12 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
   const renderButton = () => {
     if (modalState.registerMatchingModalOpen && matchState === 'WAITING') {
       return (
-        <Button bgColor="#F5F5F5">
-          <Text fontSize="18px" fontWeight="600" textColor="#000">
+        <Button bgColor={theme.colors.gray200}>
+          <Text
+            fontSize={theme.fontSizes.lg}
+            fontWeight={theme.fontWeights.semibold}
+            textColor={theme.colors.black}
+          >
             {'수락 대기중'}
           </Text>
         </Button>
@@ -148,18 +152,26 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
       matchState === '확인하기'
     ) {
       return (
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <Button bgColor="#F5F5F5" width="100%">
-            <Text fontSize="18px" fontWeight="600" textColor="#000">
+        <div style={{ display: 'flex', gap: `${rem(16)}` }}>
+          <Button bgColor={theme.colors.gray200} width="100%">
+            <Text
+              fontSize={theme.fontSizes.lg}
+              fontWeight={theme.fontWeights.semibold}
+              textColor={theme.colors.black}
+            >
               {'거절하기'}
             </Text>
           </Button>
           <Button
-            bgColor="#FF4B4B"
+            bgColor={theme.colors.red.accent}
             width="100%"
             onClick={() => navigate('/meetup/matched/success')}
           >
-            <Text fontSize="18px" fontWeight="600" textColor="#ffffff">
+            <Text
+              fontSize={theme.fontSizes.lg}
+              fontWeight={theme.fontWeights.semibold}
+              textColor={theme.colors.white}
+            >
               {'수락하기'}
             </Text>
           </Button>
@@ -167,19 +179,24 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
       );
     } else if (modalState.newMatchingModalOpen) {
       return (
-        <Button
-          bgColor="#FF4B4B"
-          onClick={() => navigate('/meetup/matched/success')}
-        >
-          <Text fontSize="18px" fontWeight="600" textColor="#fff">
+        <Button bgColor={theme.colors.red.accent}>
+          <Text
+            fontSize={theme.fontSizes.lg}
+            fontWeight={theme.fontWeights.semibold}
+            textColor={theme.colors.white}
+          >
             {'신청하기'}
           </Text>
         </Button>
       );
     } else {
       return (
-        <Button bgColor="#000000" onClick={() => setOpen(!open)}>
-          <Text fontSize="18px" fontWeight="600" textColor="#fff">
+        <Button bgColor={theme.colors.black} onClick={() => setOpen(!open)}>
+          <Text
+            fontSize={theme.fontSizes.lg}
+            fontWeight={theme.fontWeights.semibold}
+            textColor={theme.colors.white}
+          >
             {'확인'}
           </Text>
         </Button>
@@ -203,13 +220,13 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
             >
               <CloseIcon color="#000" />
             </div>
-            <div style={{ marginBottom: '40px' }}>
+            <div style={{ marginBottom: `${rem(40)}` }}>
               <Text
                 fontSize={theme.fontSizes.xs}
                 fontWeight={theme.fontWeights.normal}
                 textColor={theme.colors.gray500}
                 textAlign={'center'}
-                style={{ marginBottom: '6px' }}
+                style={{ marginBottom: `${rem(6)}` }}
               >
                 {matchingTeam?.teamUniv}
               </Text>
@@ -243,7 +260,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                         <Text
                           fontSize={theme.fontSizes.md}
                           fontWeight={theme.fontWeights.medium}
-                          style={{ marginBottom: '6px' }}
+                          style={{ marginBottom: `${rem(6)}` }}
                         >
                           {name}
                         </Text>
@@ -251,7 +268,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                           fontSize={theme.fontSizes.xs}
                           fontWeight={theme.fontWeights.medium}
                           textColor={theme.colors.red.accent}
-                          style={{ marginBottom: '12px' }}
+                          style={{ marginBottom: `${rem(12)}` }}
                         >
                           {department + ' • ' + studentNumber}
                         </Text>
@@ -272,7 +289,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                 fontSize={theme.fontSizes.xl}
                 fontWeight={theme.fontWeights.semibold}
                 textAlign={'center'}
-                style={{ marginBottom: '12px' }}
+                style={{ marginBottom: `${rem(12)}` }}
               >
                 {matchingTeam?.teamName + '팀이 희망하는 요일'}
               </Text>
@@ -281,7 +298,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                 fontWeight={theme.fontWeights.medium}
                 textColor={theme.colors.gray500}
                 textAlign={'center'}
-                style={{ marginBottom: '26px' }}
+                style={{ marginBottom: `${rem(26)}` }}
               >
                 {getActiveModalDescription()}
               </Text>
@@ -310,7 +327,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
       <Text
         fontSize={theme.fontSizes.xl}
         fontWeight={theme.fontWeights.semibold}
-        style={{ marginTop: '28px' }}
+        style={{ marginTop: `${rem(28)}` }}
       >
         {'나의 과팅'}
       </Text>
@@ -655,25 +672,22 @@ const MatchedGap = styled.div`
 ///
 
 const MatchedModalItemsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${theme.layout.columnCenter};
 
-  gap: 44px;
-  margin-bottom: 64px;
+  gap: ${rem(44)};
+  margin-bottom: ${rem(64)};
 `;
 
 const MatchedModalItemBox = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: ${rem(16)};
 `;
 
 const MatchedModalProfileImageBox = styled.div<{ $image: string | null }>`
-  width: 60px;
-  height: 60px;
-  border-radius: 75px;
+  width: ${rem(60)};
+  height: ${rem(60)};
+  border-radius: ${rem(75)};
   border: ${rem(1)} solid ${theme.colors.gray250};
   background-image: url(${props => props.$image});
   background-color: ${theme.colors.gray200};
@@ -685,22 +699,21 @@ const MatchedModalProfileImageBox = styled.div<{ $image: string | null }>`
 `;
 
 const MatchedModalProfileIntroductionBox = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${theme.layout.column};
 `;
 
 const MatchedMeetupModalLayout = styled.div`
   padding: ${rem(48)} ${rem(30)} ${rem(30)};
   background-color: #fff;
-  height: 400px;
+  height: ${rem(400)};
   overflow-y: scroll;
 
   display: flex;
   flex-direction: column;
 
-  border-radius: 10px;
+  border-radius: ${rem(10)};
 
-  margin: -30px;
+  margin: ${rem(-30)};
 
   position: relative;
 `;

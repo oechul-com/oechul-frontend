@@ -18,19 +18,6 @@ type StudentInfoType = {
   selfIntroduction: string;
 };
 
-// type MatchedSuccessProps = {
-//   matchingTeam: MatchingTeamType;
-// };
-
-// type MatchingTeamType = {
-//   type: 'HOST' | 'MEMBER';
-//   member: StudentInfoType[];
-//   title: string;
-//   school?: string;
-//   current: string;
-//   days: string[];
-// };
-
 const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
 
 const MatchedSuccessPage = () => {
@@ -97,18 +84,18 @@ const MatchedSuccessPage = () => {
       <div style={{ touchAction: `${isBlur ? 'none' : 'auto'}` }}>
         <div>
           <Text
-            fontSize="96px"
-            fontWeight="600"
+            fontSize={theme.fontSizes['6xl']}
+            fontWeight={theme.fontWeights.semibold}
             textAlign="center"
-            style={{ marginBottom: '16px' }}
+            style={{ marginBottom: `${rem(16)}` }}
           >
             {'🍻'}
           </Text>
           <Text
-            fontSize="32px"
+            fontSize={theme.fontSizes['2xl']}
             textAlign="center"
-            fontWeight="600"
-            style={{ marginBottom: '64px' }}
+            fontWeight={theme.fontWeights.semibold}
+            style={{ marginBottom: `${rem(64)}` }}
           >
             {'과팅매칭 성공!'}
           </Text>
@@ -117,24 +104,28 @@ const MatchedSuccessPage = () => {
           {isBlur && (
             <MatchedBlurBox>
               <Button
-                bgColor="#FF4B4B"
+                bgColor={theme.colors.red.accent}
                 width="100%"
                 onClick={() => setIsBlur(!isBlur)}
-                style={{ marginTop: '297px' }}
+                style={{ marginTop: `${rem(297)}` }}
               >
-                <Text fontSize="18px" fontWeight="600" textColor="#fff">
+                <Text
+                  fontSize={theme.fontSizes.lg}
+                  fontWeight={theme.fontWeights.semibold}
+                  textColor={theme.colors.white}
+                >
                   {'매칭 결과 확인하기'}
                 </Text>
               </Button>
             </MatchedBlurBox>
           )}
-          <div style={{ marginBottom: '40px' }}>
+          <div style={{ marginBottom: `${rem(40)}` }}>
             <Text
               fontSize={theme.fontSizes.xs}
               fontWeight={theme.fontWeights.normal}
               textColor={theme.colors.gray500}
               textAlign={'center'}
-              style={{ marginBottom: '6px' }}
+              style={{ marginBottom: `${rem(6)}` }}
             >
               {matchingTeam?.school}
             </Text>
@@ -165,7 +156,7 @@ const MatchedSuccessPage = () => {
                       <Text
                         fontSize={theme.fontSizes.md}
                         fontWeight={theme.fontWeights.medium}
-                        style={{ marginBottom: '6px' }}
+                        style={{ marginBottom: `${rem(6)}` }}
                       >
                         {name}
                       </Text>
@@ -173,7 +164,7 @@ const MatchedSuccessPage = () => {
                         fontSize={theme.fontSizes.xs}
                         fontWeight={theme.fontWeights.medium}
                         textColor={theme.colors.red.accent}
-                        style={{ marginBottom: '12px' }}
+                        style={{ marginBottom: `${rem(12)}` }}
                       >
                         {department + ' • ' + studentId}
                       </Text>
@@ -195,7 +186,7 @@ const MatchedSuccessPage = () => {
             fontSize={theme.fontSizes.xl}
             fontWeight={theme.fontWeights.semibold}
             textAlign={'center'}
-            style={{ marginBottom: '12px' }}
+            style={{ marginBottom: `${rem(12)}` }}
           >
             {matchingTeam?.title + '팀이 희망하는 요일'}
           </Text>
@@ -204,7 +195,7 @@ const MatchedSuccessPage = () => {
             fontWeight={theme.fontWeights.medium}
             textColor={theme.colors.gray500}
             textAlign={'center'}
-            style={{ marginBottom: '26px' }}
+            style={{ marginBottom: `${rem(26)}` }}
           >
             {'나의 팀과 희망요일이 2개 일치해요!'}
           </Text>
@@ -227,17 +218,17 @@ const MatchedSuccessPage = () => {
           })}
         </MatchedWeeksBox>
         <Text
-          fontSize={'20px'}
-          fontWeight={'600'}
+          fontSize={theme.fontSizes.xl}
+          fontWeight={theme.fontWeights.semibold}
           textAlign={'center'}
-          style={{ marginBottom: '26px' }}
+          style={{ marginBottom: `${rem(26)}` }}
         >
           {'대표연락처'}
         </Text>
         <ContactBox>
           <div style={{ display: 'flex' }}>
             <CallIcon />
-            <Text style={{ marginLeft: '10px' }}>{phoneNumber}</Text>
+            <Text style={{ marginLeft: `${rem(10)}` }}>{phoneNumber}</Text>
           </div>
           <ContactCopyBox
             onClick={() => {
@@ -247,10 +238,10 @@ const MatchedSuccessPage = () => {
             {'복사'}
           </ContactCopyBox>
         </ContactBox>
-        <ContactBox style={{ marginTop: '16px' }}>
+        <ContactBox style={{ marginTop: `${rem(16)}` }}>
           <div style={{ display: 'flex' }}>
             <InstagramIcon />
-            <Text style={{ marginLeft: '10px' }}>{instagramId}</Text>
+            <Text style={{ marginLeft: `${rem(10)}` }}>{instagramId}</Text>
           </div>
           <ContactCopyBox
             onClick={() => {
@@ -300,8 +291,16 @@ const MatchedSuccessPage = () => {
             </Text>
           </MatchingSuccessDescriptionBoxBottom>
         )}
-        <Button bgColor={'#000'} width={'100%'} style={{ margin: '49px 0' }}>
-          <Text fontSize={'18px'} fontWeight={600} textColor={'#f8f8f8'}>
+        <Button
+          bgColor={theme.colors.black}
+          width={'100%'}
+          style={{ margin: `${rem(49)} 0` }}
+        >
+          <Text
+            fontSize={theme.fontSizes.lg}
+            fontWeight={theme.fontWeights.semibold}
+            textColor={theme.colors.gray150}
+          >
             {'확인'}
           </Text>
         </Button>
@@ -313,25 +312,22 @@ const MatchedSuccessPage = () => {
 export default MatchedSuccessPage;
 
 const MatchedModalItemsBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${theme.layout.columnCenter};
 
-  gap: 44px;
-  margin-bottom: 40px;
+  gap: ${rem(44)};
+  margin-bottom: ${rem(40)};
 `;
 
 const MatchedModalItemBox = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: ${rem(16)};
 `;
 
 const MatchedModalProfileImageBox = styled.div<{ $image: string }>`
-  width: 60px;
-  height: 60px;
-  border-radius: 75px;
+  width: ${rem(60)};
+  height: ${rem(60)};
+  border-radius: ${rem(75)};
   border: ${rem(1)} solid ${theme.colors.gray250};
   background-image: url(${props => props.$image});
   background-color: ${theme.colors.gray200};
@@ -343,45 +339,41 @@ const MatchedModalProfileImageBox = styled.div<{ $image: string }>`
 `;
 
 const MatchedModalProfileIntroductionBox = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${theme.layout.column};
 `;
 
 const MatchedBlurBox = styled.div`
   position: absolute;
-  width: 339px;
+  width: ${rem(339)};
   height: 100%;
-  backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(${rem(1.5)});
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, #fff 100%);
 `;
 
 const ContactBox = styled.div`
-  display: flex;
-  align-items: center;
+  ${theme.layout.centerY};
   justify-content: space-between;
 
-  padding: 0 15.5px 0 24px;
+  padding: 0 ${rem(15.5)} 0 ${rem(24)};
 
   width: 100%;
-  height: 68px;
+  height: ${rem(68)};
 
-  border-radius: 10px;
-  border: 1px solid var(--gray-gray250, #f0f0f0);
-  background: var(--white, #fff);
+  border-radius: ${rem(10)};
+  border: ${rem(1)} solid ${theme.colors.gray250};
+  background: ${theme.colors.white};
 `;
 
 const ContactCopyBox = styled.div`
-  display: flex;
-  padding: 10px 14px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
+  ${theme.layout.center};
+  padding: ${rem(10)} ${rem(14)};
+  gap: ${rem(4)};
 
-  border-radius: 10px;
-  background: var(--gray-gray200, #f5f5f5);
+  border-radius: ${rem(10)};
+  background: ${theme.colors.gray200};
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size: ${theme.fontSizes.xs};
+  font-weight: ${theme.fontWeights.semibold};
 
   cursor: pointer;
 `;

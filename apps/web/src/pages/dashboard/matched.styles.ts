@@ -13,7 +13,7 @@ type MatchingMemberProfileBoxType = {
 
 export const DashboardHeader = styled.div`
   width: 100%;
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   justify-content: space-between;
   height: ${rem(70)};
   padding: ${rem(30)} 0;
@@ -53,14 +53,14 @@ export const DashboardCol = styled.div`
 `;
 
 export const ParticipateMatchingItemsBox = styled.div`
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   gap: ${rem(10)};
   margin-top: ${rem(18)};
   margin-bottom: ${rem(24)};
 `;
 
 export const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxType>`
-  ${props => props.theme.layout.centerX};
+  ${theme.layout.centerX};
   position: relative;
   flex: 1;
 
@@ -83,7 +83,7 @@ export const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxT
 `;
 
 export const ParticipateMatchingTitleBox = styled.div`
-  ${props => props.theme.layout.center};
+  ${theme.layout.center};
   padding: ${rem(7)} ${rem(13)};
   border-radius: ${rem(20)};
   border: ${rem(1)} solid ${theme.colors.gray200};
@@ -94,35 +94,35 @@ export const ParticipateMatchingTitleBox = styled.div`
 `;
 
 export const MatchingTeamHeader = styled.div`
-  ${props => props.theme.layout.center};
+  ${theme.layout.center};
   justify-content: space-between;
   height: ${rem(45)};
 `;
 
 export const MatchingTeamItemsBox = styled.div`
-  ${props => props.theme.layout.columnCenterY};
+  ${theme.layout.columnCenterY};
   gap: ${rem(8)};
 `;
 
 export const MatchingTeamItemBox = styled.div<{ $isTop?: boolean }>`
-  ${props => props.theme.layout.columnCenterX};
+  ${theme.layout.columnCenterX};
   width: 100%;
   padding: ${props => (props.$isTop ? `${rem(16)}` : `${rem(20)} ${rem(16)}`)};
   gap: ${rem(10)};
   border-radius: ${rem(10)};
-  background: ${props => props.theme.colors.gray100};
+  background: ${theme.colors.gray100};
 
   cursor: pointer;
 `;
 
 export const MatchingTeamItemTop = styled.div`
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   justify-content: space-between;
   width: 100%;
 `;
 
 export const MatchingTeamItemBottom = styled.div<{ $isTop?: boolean }>`
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   justify-content: space-between;
 
   width: 100%;
@@ -158,7 +158,7 @@ export const MatchingTypeTag = styled.div<{ $isHost?: string }>`
         ? '#4B88FF'
         : `${theme.colors.orange.bg}`};
 
-  ${props => props.theme.layout.center};
+  ${theme.layout.center};
 
   padding: ${rem(3.5)} ${rem(4)};
   gap: ${rem(3)};
@@ -166,18 +166,18 @@ export const MatchingTypeTag = styled.div<{ $isHost?: string }>`
 `;
 
 export const DefaultMatchingTeamBox = styled.div`
-  ${props => props.theme.layout.columnCenter};
+  ${theme.layout.columnCenter};
   padding: ${rem(26)} 0 ${rem(4)};
 `;
 
 export const ButtonBox = styled.div`
-  ${props => props.theme.layout.columnCenter};
+  ${theme.layout.columnCenter};
   width: 100%;
   gap: ${rem(16)};
 `;
 
 export const ModalLayout = styled.div`
-  ${props => props.theme.layout.columnCenter};
+  ${theme.layout.columnCenter};
   width: 100%;
   padding: ${rem(48)} ${rem(30)} ${rem(30)};
 
@@ -211,7 +211,7 @@ export const ModalButtonsBox = styled.div`
 `;
 
 export const ProfileModalItemsBox = styled.div`
-  ${props => props.theme.layout.column};
+  ${theme.layout.column};
 
   position: absolute;
   right: ${rem(0)};
@@ -229,7 +229,7 @@ export const ProfileModalItemsBox = styled.div`
 `;
 
 export const ProfileModalItemBox = styled.div<{ $isLast: boolean }>`
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   width: ${rem(250)};
   padding: ${rem(16)} ${rem(18)};
   justify-content: space-between;
@@ -252,11 +252,11 @@ export const ProfileModalItemBox = styled.div<{ $isLast: boolean }>`
 ///
 
 export const DescriptionBox = styled.div`
-  ${props => props.theme.layout.centerY};
+  ${theme.layout.centerY};
   padding: ${rem(10)};
   gap: ${rem(8)};
   border-radius: ${rem(10)};
-  background: ${props => props.theme.colors.gray150};
+  background: ${theme.colors.gray150};
 
   margin: ${rem(19)} 0 ${rem(28)};
 `;
@@ -264,7 +264,7 @@ export const DescriptionBox = styled.div`
 export const MatchingSuccessDescriptionBoxTop = styled.div<{
   $isExpanded: boolean;
 }>`
-  ${props => props.theme.layout.centerY}
+  ${theme.layout.centerY}
   width: 100%;
   padding: ${rem(16)};
 
@@ -278,7 +278,7 @@ export const MatchingSuccessDescriptionBoxTop = styled.div<{
 `;
 
 export const MatchingSuccessDescriptionBoxBottom = styled.div`
-  ${props => props.theme.layout.center}
+  ${theme.layout.center}
   width: 100%;
   padding: ${rem(10)} ${rem(16)} ${rem(10)} ${rem(36)};
   gap: ${rem(10)};
@@ -291,28 +291,29 @@ export const MatchingSuccessDescriptionBoxBottom = styled.div`
 
 export const MatchedWeeksBox = styled.div`
   display: flex;
-  gap: 6px;
-  margin-bottom: 40px;
+  gap: ${rem(6)};
+  margin-bottom: ${rem(40)};
 `;
 
 export const MatchedWeekBox = styled.div<{ $isCheckGroup: string }>`
-  display: flex;
-  height: 42px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  ${theme.layout.center};
+
+  height: ${rem(42)};
+  border-radius: ${rem(10)};
   background: ${({ $isCheckGroup }) =>
     $isCheckGroup === 'ovrlpDay'
-      ? 'var(--accent, #ff4b4b)'
+      ? `${theme.colors.red.accent}`
       : $isCheckGroup === 'normal'
-        ? '#000'
-        : '#FCFCFC'};
+        ? `${theme.colors.black}`
+        : `${theme.colors.gray100}`};
 
-  flex: 1 1 auto; /* 여기에 추가 */
-  min-width: 4px; /* 너비가 0보다 작아지지 않도록 설정 */
+  flex: 1 1 auto;
+  min-width: ${rem(4)};
 
   & > span {
     color: ${({ $isCheckGroup }) =>
-      $isCheckGroup === 'default' ? '#d9d9d9' : '#fff'};
+      $isCheckGroup === 'default'
+        ? `${theme.colors.gray300}`
+        : `${theme.colors.white}`};
   }
 `;
