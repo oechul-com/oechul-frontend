@@ -1,5 +1,6 @@
-// atoms/authState.ts
 import { atom } from 'recoil';
+
+import { MemberType } from '@/types/member.ts';
 
 export const signedInState = atom({
   key: 'signedInState',
@@ -11,7 +12,7 @@ export const authLoadingState = atom<boolean>({
   default: true,
 });
 
-export const userState = atom<unknown | null>({
+export const userState = atom<MemberType | null>({
   key: 'userState',
   default: null,
 });

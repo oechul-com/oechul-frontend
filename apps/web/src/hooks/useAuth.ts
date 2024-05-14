@@ -19,12 +19,12 @@ export default function useAuth() {
 
     setAuthLoading(false);
 
-    if (isError || !data) {
+    if (isError || !data || !data.isSuccess) {
       setSignedIn(false);
       setUser(null);
     } else {
       setSignedIn(true);
-      setUser(data);
+      setUser(data.result);
     }
   }, [data, isLoading, isError, setSignedIn, setAuthLoading, setUser]);
 }
