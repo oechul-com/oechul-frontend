@@ -3,7 +3,6 @@ import { rem, theme } from '@oechul/styles';
 import { Button, Modal, Text } from '@oechul/ui';
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 import Layout from '@/components/layout/Layout';
 import {
@@ -15,13 +14,29 @@ import {
   NewMeetupTeamListType,
 } from '@/types/meetup';
 
+import { renderText } from './\bshared/renderText';
 import {
-  MY_MEETUP_TEAM_DETAIL_LIST,
+  MEETUP_TEAM_DETAIL_LIST,
   NEW_MATCHING_TEAM_LIST,
   APPLY_MEETUP_TEAM_LIST,
   RECEIVED_MEETUP_TEAM_LIST,
 } from './matched/mockData';
 import { MatchingModalOpenType, dayDescriptionType } from './matched/type';
+import {
+  MyMeetupsCol,
+  MyMeetupBox,
+  CustomButton,
+  MatchedMeetupHeader,
+  NewMeetupsCol,
+  MatchingTeamTextBox,
+  MatchedColorTagBox,
+  MatchedGap,
+  MatchedMeetupModalLayout,
+  MatchedModalItemBox,
+  MatchedModalItemsBox,
+  MatchedModalProfileImageBox,
+  MatchedModalProfileIntroductionBox,
+} from './meetup.styles';
 import {
   MatchingTeamItemBox,
   MatchingTeamItemTop,
@@ -36,7 +51,7 @@ import {
 const DAYWEEKS = ['월', '화', '수', '목', '금', '토', '일'];
 
 type MatchedMeetupPagePropsType = {
-  index: string | null;
+  teamId: string | null;
 };
 
 type MatchingTeamsType = {
@@ -46,7 +61,7 @@ type MatchingTeamsType = {
   requestMatchingTeam: ApplyReceivedTeamListType | null;
 };
 
-const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
+const MeetupTeamPage = ({ teamId }: MatchedMeetupPagePropsType) => {
   const [open, setOpen] = useState<boolean>(false);
   const [matchingTeam, setMatchingTeam] = useState<MeetupTeamType | null>();
   const navigate = useNavigate();
@@ -61,6 +76,8 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
   });
 
   const [ovrlpDays, setOvrlpDays] = useState<string[]>([]);
+  const [nonOvrlpDays, setNonOvrlpDays] = useState<string[]>([]);
+
   const [matchState, setMatchState] = useState<string>('');
 
   const [modalState, setModalState] = useState<MatchingModalOpenType>({
@@ -71,18 +88,24 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
   });
 
   const dayDescription: dayDescriptionType = {
-    myMatchingModalOpen: '일치하는 요일이 많을 수록 매칭 확률이 높아요',
-    newMatchingModalOpen: `나의 팀과 희망요일이 ${ovrlpDays.length}개 일치해요!`,
-    registerMatchingModalOpen: `나의 팀과 희망요일이 ${ovrlpDays.length}개 일치해요!`,
-    requestMatchingModalOpen:
-      '나의 팀과 희망요일이 2개 일치해요!\n🟥: 일치하는 요일 ⬛️: 상대팀이 희망하는 요일',
+    myMatchingModalOpen: ['일치하는 요일이 많을 수록 매칭 확률이 높아요.'],
+    newMatchingModalOpen: [
+      `나의 팀과 희망요일이 ${ovrlpDays.length}개 일치해요!\n\n🟥: 일치하는 요일 ⬛️: 상대팀이 희망하는 요일`,
+      '일치하는 요일이 많을 수록 매칭 확률이 높아요.\n희망하는 요일을 선택해주세요.',
+    ],
+    applyMatchingModalOpen: [
+      `나의 팀과 희망요일이 ${ovrlpDays.length}개 일치해요!`,
+    ],
+    requestMatchingModalOpen: [
+      `나의 팀과 희망요일이 ${ovrlpDays.length}개 일치해요!\n\n🟥: 일치하는 요일 ⬛️: 상대팀이 희망하는 요일`,
+    ],
   };
 
   const getActiveModalDescription = () => {
     const activeKey =
       Object.keys(modalState).find(key => modalState[key]) ||
       'myMatchingModalOpen';
-    return dayDescription[activeKey];
+    return dayDescription[activeKey][0];
   };
 
   const onClickModal = (
@@ -91,14 +114,21 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
     matchState?: string,
   ) => {
     const teamListDays =
-      matchingTeamList.myMatchingTeam?.selectedDays.split(',');
-    const teamDays = matchingTeam?.selectedDays.split(',');
+      matchingTeamList.myMatchingTeam?.selectedDays.split(',') || [];
+    const teamDays = matchingTeam?.selectedDays.split(',') || [];
 
-    const overlappingDays = teamListDays?.filter((day: string) =>
-      teamDays?.includes(day),
-    ) || ['월'];
+    const overlappingDays = teamListDays.filter((day: string) =>
+      teamDays.includes(day),
+    );
+
+    const unionDays = [...new Set([...teamListDays, ...teamDays])];
+
+    const nonOverlappingDays = unionDays.filter(
+      (day: string) => !overlappingDays.includes(day),
+    );
 
     setOvrlpDays(overlappingDays);
+    setNonOvrlpDays(nonOverlappingDays);
     if (matchState) setMatchState(matchState);
     setMatchingTeam(matchingTeam);
     setOpen(open => !open);
@@ -119,10 +149,36 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
     }
   }, [open]);
 
+  const _onLoadModalData = async (
+    key: keyof MatchingModalOpenType,
+    teamId: number,
+    matchState?: string,
+  ) => {
+    // try {
+    //   const response = await getMeetupTeam();
+    // } catch (error) {}
+
+    if (matchState === 'SUCCESS') {
+      navigate('/meetup/matched/success');
+      return;
+    }
+    onClickModal(
+      key,
+      MEETUP_TEAM_DETAIL_LIST.find((team: MeetupTeamType) => {
+        return team.teamId === Number(teamId);
+      }),
+      matchState,
+    );
+  };
+
   const _onLoadData = () => {
+    // try {
+    //   const response = await getMyTeams();
+    // } catch (error) {}
+
     setMatchingTeamList({
-      myMatchingTeam: MY_MEETUP_TEAM_DETAIL_LIST.find((team, index) => {
-        return team.teamId === index;
+      myMatchingTeam: MEETUP_TEAM_DETAIL_LIST.find((team: MeetupTeamType) => {
+        return team.teamId === Number(teamId);
       }),
       newMatchingTeam: NEW_MATCHING_TEAM_LIST,
       applyMatchingTeam: APPLY_MEETUP_TEAM_LIST,
@@ -132,7 +188,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
 
   useEffect(() => {
     _onLoadData();
-  }, []);
+  });
 
   const renderButton = () => {
     if (modalState.registerMatchingModalOpen && matchState === 'WAITING') {
@@ -149,7 +205,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
       );
     } else if (
       modalState.requestMatchingModalOpen &&
-      matchState === '확인하기'
+      matchState === 'WAITING'
     ) {
       return (
         <div style={{ display: 'flex', gap: `${rem(16)}` }}>
@@ -212,8 +268,8 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
             <div
               style={{
                 position: 'absolute',
-                top: 26,
-                right: 26,
+                top: `${rem(26)}`,
+                right: `${rem(26)}`,
                 cursor: 'pointer',
               }}
               // onClick={() => setOpen(!open)}
@@ -310,7 +366,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                     $isCheckGroup={
                       ovrlpDays.includes(week)
                         ? 'ovrlpDay'
-                        : matchingTeam?.selectedDays.includes(week)
+                        : nonOvrlpDays.includes(week)
                           ? 'normal'
                           : 'default'
                     }
@@ -320,6 +376,44 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                 );
               })}
             </MatchedWeeksBox>
+            {modalState.newMatchingModalOpen && (
+              <Fragment>
+                <Text
+                  fontSize={theme.fontSizes.xl}
+                  fontWeight={theme.fontWeights.normal}
+                  textAlign={'center'}
+                  style={{ marginBottom: `${rem(12)}` }}
+                >
+                  {'우리팀이 희망하는 요일'}
+                </Text>
+                <Text
+                  fontSize={theme.fontSizes.xs}
+                  fontWeight={theme.fontWeights.normal}
+                  textColor={theme.colors.gray500}
+                  textAlign={'center'}
+                  style={{ marginBottom: `${rem(26)}` }}
+                >
+                  {dayDescription['newMatchingModalOpen'][1]}
+                </Text>
+                <MatchedWeeksBox>
+                  {DAYWEEKS.map(week => {
+                    return (
+                      <MatchedWeekBox
+                        $isCheckGroup={
+                          matchingTeamList.myMatchingTeam?.selectedDays
+                            .split(',')
+                            .includes(week)
+                            ? 'normal'
+                            : 'default'
+                        }
+                      >
+                        <Text>{week}</Text>
+                      </MatchedWeekBox>
+                    );
+                  })}
+                </MatchedWeeksBox>
+              </Fragment>
+            )}
             {renderButton()}
           </MatchedMeetupModalLayout>
         </Modal.Content>
@@ -332,7 +426,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
         {'나의 과팅'}
       </Text>
       <MyMeetupsCol>
-        <MyMeetupBox key={index}>
+        <MyMeetupBox>
           <MatchingTeamItemBottom>
             <MatchedGap>
               <Text
@@ -346,7 +440,10 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                 fontWeight={theme.fontWeights.medium}
                 textColor={theme.colors.gray500}
               >
-                {matchingTeamList.myMatchingTeam?.groupType}
+                {matchingTeamList.myMatchingTeam?.teamMembers[0].name +
+                  '외 ' +
+                  matchingTeamList.myMatchingTeam?.groupType +
+                  '명'}
               </Text>
             </MatchedGap>
           </MatchingTeamItemBottom>
@@ -379,6 +476,15 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
           fontSize={theme.fontSizes.xs}
           fontWeight={theme.fontWeights.medium}
           textColor={theme.colors.gray500}
+          onClick={() =>
+            navigate(`/meetup/team/${teamId}/new`, {
+              state: {
+                team: matchingTeamList.newMatchingTeam,
+                myTeam: matchingTeamList.myMatchingTeam,
+                title: '새로 올라온 과팅',
+              },
+            })
+          }
         >
           {'전체 보기'}
         </Text>
@@ -400,7 +506,7 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
               <MatchingTeamItemBox
                 key={index}
                 onClick={() =>
-                  onClickModal('newMatchingModalOpen', opponentTeamId)
+                  _onLoadModalData('newMatchingModalOpen', opponentTeamId)
                 }
               >
                 <MatchingTeamItemTop>
@@ -463,6 +569,15 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
           fontSize={theme.fontSizes.xs}
           fontWeight={theme.fontWeights.medium}
           textColor={theme.colors.gray500}
+          onClick={() =>
+            navigate(`/meetup/team/${teamId}/apply`, {
+              state: {
+                team: matchingTeamList.applyMatchingTeam,
+                myTeam: matchingTeamList.myMatchingTeam,
+                title: '신청한 과팅',
+              },
+            })
+          }
         >
           {'전체 보기'}
         </Text>
@@ -483,7 +598,11 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                 key={index}
                 $isTop={false}
                 onClick={() =>
-                  onClickModal('registerMatchingModalOpen', opponentTeamId)
+                  _onLoadModalData(
+                    'applyMatchingModalOpen',
+                    opponentTeamId,
+                    matchState,
+                  )
                 }
               >
                 <MatchingTeamItemBottom $isTop={false}>
@@ -505,7 +624,9 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                       {teamUniv}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={matchState} />
+                  <MatchedTag
+                    type={renderText('applyMatchingModalOpen', matchState)}
+                  />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -523,6 +644,15 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
           fontSize={theme.fontSizes.xs}
           fontWeight={theme.fontWeights.medium}
           textColor={theme.colors.gray500}
+          onClick={() =>
+            navigate(`/meetup/team/${teamId}/received`, {
+              state: {
+                team: matchingTeamList.requestMatchingTeam,
+                myTeam: matchingTeamList.myMatchingTeam,
+                title: '요청받은 과팅',
+              },
+            })
+          }
         >
           {'전체 보기'}
         </Text>
@@ -542,7 +672,11 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
               <MatchingTeamItemBox
                 key={index}
                 onClick={() =>
-                  onClickModal('requestMatchingModalOpen', opponentTeamId)
+                  _onLoadModalData(
+                    'requestMatchingModalOpen',
+                    opponentTeamId,
+                    matchState,
+                  )
                 }
               >
                 <MatchingTeamItemBottom>
@@ -564,7 +698,9 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
                       {teamUniv}
                     </Text>
                   </MatchedGap>
-                  <MatchedTag type={matchState} />
+                  <MatchedTag
+                    type={renderText('requestMatchingModalOpen', matchState)}
+                  />
                 </MatchingTeamItemBottom>
               </MatchingTeamItemBox>
             );
@@ -575,59 +711,9 @@ const MatchedMeetupPage = ({ index }: MatchedMeetupPagePropsType) => {
   );
 };
 
-export default MatchedMeetupPage;
+export default MeetupTeamPage;
 
-const MatchedMeetupHeader = styled.div`
-  ${props => props.theme.layout.centerY}
-  justify-content: space-between;
-`;
-
-const MyMeetupBox = styled.div`
-  ${theme.layout.centerY}
-  justify-content: space-between;
-  width: 100%;
-  height: ${rem(70)};
-  padding: ${rem(16)} ${rem(17)} ${rem(16)} ${rem(16)};
-
-  border-radius: ${rem(10)};
-  border: ${rem(1)} solid ${theme.colors.gray250};
-  background: ${theme.colors.white};
-`;
-
-const CustomButton = styled.div`
-  ${theme.layout.center}
-  height: ${rem(38)};
-  padding: ${rem(12)} ${rem(10)};
-
-  border-radius: ${rem(6)};
-  background: ${theme.colors.black};
-
-  cursor: pointer;
-`;
-
-const MyMeetupsCol = styled.div`
-  ${theme.layout.columnCenter}
-
-  margin: ${rem(17)} 0 ${rem(38)} 0;
-  gap: ${rem(16)};
-`;
-
-const NewMeetupsCol = styled.div`
-  ${theme.layout.columnCenter}
-  margin: ${rem(16)} 0 ${rem(36)} 0;
-  gap: ${rem(16)};
-`;
-
-const MatchingTeamTextBox = styled.div`
-  ${theme.layout.centerY}
-  gap: ${rem(6)};
-`;
-
-type MatchedType = {
-  type: string;
-};
-
-const MatchedTag = ({ type }: MatchedType) => {
+export const MatchedTag = ({ type }: { type: string }) => {
   return (
     <Fragment>
       <MatchedColorTagBox $type={type}>
@@ -647,73 +733,3 @@ const MatchedTag = ({ type }: MatchedType) => {
     </Fragment>
   );
 };
-
-const MatchedColorTagBox = styled.div<{ $type: string }>`
-  ${theme.layout.centerY}
-  padding: ${rem(6)} ${rem(8)};
-  gap: ${rem(4)};
-
-  border-radius: ${rem(100)};
-  background: ${({ $type }) =>
-    $type === '매칭 성공'
-      ? `${theme.colors.red.accent}`
-      : $type === '확인하기'
-        ? `${theme.colors.black}`
-        : `${theme.colors.white}`};
-
-  cursor: pointer;
-`;
-
-const MatchedGap = styled.div`
-  ${theme.layout.column}
-  gap: ${rem(4)};
-`;
-
-///
-
-const MatchedModalItemsBox = styled.div`
-  ${theme.layout.columnCenter};
-
-  gap: ${rem(44)};
-  margin-bottom: ${rem(64)};
-`;
-
-const MatchedModalItemBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: ${rem(16)};
-`;
-
-const MatchedModalProfileImageBox = styled.div<{ $image: string | null }>`
-  width: ${rem(60)};
-  height: ${rem(60)};
-  border-radius: ${rem(75)};
-  border: ${rem(1)} solid ${theme.colors.gray250};
-  background-image: url(${props => props.$image});
-  background-color: ${theme.colors.gray200};
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  flex-shrink: 0;
-`;
-
-const MatchedModalProfileIntroductionBox = styled.div`
-  ${theme.layout.column};
-`;
-
-const MatchedMeetupModalLayout = styled.div`
-  padding: ${rem(48)} ${rem(30)} ${rem(30)};
-  background-color: #fff;
-  height: ${rem(400)};
-  overflow-y: scroll;
-
-  display: flex;
-  flex-direction: column;
-
-  border-radius: ${rem(10)};
-
-  margin: ${rem(-30)};
-
-  position: relative;
-`;

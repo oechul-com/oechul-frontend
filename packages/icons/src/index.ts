@@ -36,4 +36,6 @@ export { default as DefaultProfileIcon } from './components/profile/DefaultProfi
 export { default as AlertIcon } from './components/action/AlertIcon';
 export { default as AccountIcon } from './components/action/AccountIcon';
 
+export { default as FilterIcon } from './components/action/FilterIcon';
+
 export type { IconProps } from './types';

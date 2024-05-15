@@ -7,7 +7,7 @@ export type MeetupMemberInfoType = {
 };
 
 export type NewMeetupTeamInfoType = {
-  opponentTeamId: string;
+  opponentTeamId: number;
   teamName: string;
   teamUniv: string;
   isNew: boolean; // 생성 된지 1일 이내일 경우 true
@@ -16,7 +16,7 @@ export type NewMeetupTeamInfoType = {
 };
 
 export type ApplyReceivedTeamInfoType = {
-  opponentTeamId: string;
+  opponentTeamId: number;
   teamName: string;
   teamUniv: string;
   matchState: 'SUCCESS' | 'WAITING' | 'FAILURE' | 'REJECT';
@@ -24,7 +24,7 @@ export type ApplyReceivedTeamInfoType = {
 
 export type MyMeetupTeamsType = {
   isHost: 'Y' | 'N';
-  teamId: string;
+  teamId: number;
   teamProfile: string[];
   teamName: string;
   university: string;
