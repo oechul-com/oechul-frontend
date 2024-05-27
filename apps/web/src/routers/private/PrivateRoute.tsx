@@ -9,9 +9,7 @@ const PrivateRoute = (): ReactElement => {
   const isSignedIn = useRecoilValue(signedInState);
   const isLoading = useRecoilValue(authLoadingState);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return isSignedIn ? <Outlet /> : <Navigate to="/" />;
 };

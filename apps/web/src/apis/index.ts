@@ -14,7 +14,7 @@ instance.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
       return refreshAccessToken(originalRequest);
     }
@@ -25,7 +25,7 @@ instance.interceptors.response.use(
 async function refreshAccessToken(requestConfig: AxiosRequestConfig) {
   try {
     const response = await instance.post<HttpResponse<string>>('/v1/token');
-    if (response.data.code.startsWith('2')) {
+    if (String(response.data.code).startsWith('2')) {
       return instance(requestConfig);
     }
   } catch (error) {

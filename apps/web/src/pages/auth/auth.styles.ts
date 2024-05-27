@@ -20,7 +20,7 @@ export const SignInNavigationText = styled(Text)`
   font-size: ${theme.fontSizes.xs};
   font-weight: ${theme.fontWeights.medium};
   text-align: center;
-  gap: ${rem(8)};
+  gap: ${rem(6)};
 
   & a {
     color: ${theme.colors.black};
