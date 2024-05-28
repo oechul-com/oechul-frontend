@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 import animation from './l7OJ0tWxvK.json';
 import {

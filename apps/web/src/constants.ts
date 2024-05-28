@@ -23,3 +23,11 @@ export const COPY_MESSAGE = {
   SUCCESS: '복사되었습니다.',
   FAILURE: '복사에 실패했습니다. 다시 시도해주세요.',
 };
+
+export const URL_PATHS = {
+  AUTH: {
+    SIGN_IN: '/auth/signin',
+    SIGN_UP: '/auth/signup',
+    RECOVER: '/auth/recover',
+  },
+};

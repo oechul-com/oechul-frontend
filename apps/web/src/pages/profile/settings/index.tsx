@@ -3,7 +3,7 @@ import { rem, theme } from '@oechul/styles';
 import { Input, Text } from '@oechul/ui';
 import { useState, ReactElement } from 'react';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 import {
   ProfileImageContainer,

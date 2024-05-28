@@ -4,6 +4,7 @@ import { FormEvent, ReactElement, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Tip from '@/components/Tip';
+import { URL_PATHS } from '@/constants.ts';
 import { SignUpContent } from '@/pages/auth/auth.styles.ts';
 import { SignUpStepProps } from '@/pages/auth/signup/types.ts';
 import { validateFormStep } from '@/pages/auth/signup/validation.ts';
@@ -30,7 +31,7 @@ const PersonalStep = ({ formData, proceed }: SignUpStepProps): ReactElement => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!validateFormStep(formData, 'personal'))
-      navigate('/auth/signup', { replace: true });
+      navigate(URL_PATHS.AUTH.SIGN_UP, { replace: true });
   }, [formData, navigate]);
 
   return (

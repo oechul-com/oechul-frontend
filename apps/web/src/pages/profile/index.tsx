@@ -3,7 +3,7 @@ import { theme } from '@oechul/styles';
 import { Text } from '@oechul/ui';
 import { ReactElement } from 'react';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 import MatchingStatus from './_components/MatchingStatus';
 import PreferenceList from './_components/Preference/List.tsx';

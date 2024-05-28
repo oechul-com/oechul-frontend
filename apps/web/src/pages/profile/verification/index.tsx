@@ -3,7 +3,7 @@ import { theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 import CloseDialog from './_components/CloseDialog.tsx';
 import ConfirmDialog from './_components/ConfirmDialog.tsx';

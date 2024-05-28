@@ -2,14 +2,7 @@ import { ArrowLeftIcon, CloseIcon } from '@oechul/icons';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Branding,
-  HeaderIconButton,
-  HeaderInner,
-  HeaderRoot,
-  HeaderTitle,
-  ProgressBar,
-} from './Header.styles.ts';
+import * as styles from './Header.styles.ts';
 
 interface HeaderProps {
   arrow?: boolean;
@@ -38,23 +31,25 @@ const Header = ({
   };
 
   return (
-    <HeaderRoot $borderline={borderline}>
-      <HeaderInner>
+    <styles.HeaderRoot $borderline={borderline}>
+      <styles.HeaderInner>
         {!!arrow && (
-          <HeaderIconButton onClick={() => navigate(-1)}>
+          <styles.HeaderIconButton onClick={() => navigate(-1)}>
             <ArrowLeftIcon width={16} height={16} stroke="black" />
-          </HeaderIconButton>
+          </styles.HeaderIconButton>
         )}
         {!!close && (
-          <HeaderIconButton onClick={handleClose}>
+          <styles.HeaderIconButton onClick={handleClose}>
             <CloseIcon width={16} height={16} stroke="black" />
-          </HeaderIconButton>
+          </styles.HeaderIconButton>
         )}
-        {!!branding && <Branding src="/static/assets/common/image-logo.svg" />}
-        {title && <HeaderTitle>{title}</HeaderTitle>}
-      </HeaderInner>
-      {progress && <ProgressBar $width={progress} />}
-    </HeaderRoot>
+        {!!branding && (
+          <styles.Branding src="/static/assets/common/image-logo.svg" />
+        )}
+        {title && <styles.HeaderTitle>{title}</styles.HeaderTitle>}
+      </styles.HeaderInner>
+      {progress && <styles.ProgressBar $width={progress} />}
+    </styles.HeaderRoot>
   );
 };
 

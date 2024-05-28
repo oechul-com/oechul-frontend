@@ -12,7 +12,7 @@ export const ModalContext = createContext<ModalControls>({
   toggle: () => {},
 });
 
-export const useModal = () => {
+export const useModal = (): ModalControls => {
   const context = useContext(ModalContext);
   if (!context) throw new Error('useModal must be used within a ModalProvider');
   return context;

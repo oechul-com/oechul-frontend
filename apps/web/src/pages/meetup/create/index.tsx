@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 import { steps } from '@/pages/meetup/create/validation.ts';
 
 import CompleteStep from './_steps/CompleteStep.tsx';

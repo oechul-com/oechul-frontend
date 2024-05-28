@@ -3,6 +3,7 @@ import { Button, Text } from '@oechul/ui';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { URL_PATHS } from '@/constants.ts';
 import { SignUpCompleteContent } from '@/pages/auth/auth.styles.ts';
 import { SignUpForm } from '@/pages/auth/signup/types.ts';
 import { validateFormStep } from '@/pages/auth/signup/validation.ts';
@@ -15,7 +16,7 @@ const CompleteStep = ({ formData }: CompleteStepProps) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!validateFormStep(formData, 'complete'))
-      navigate('/auth/signup', { replace: true });
+      navigate(URL_PATHS.AUTH.SIGN_UP, { replace: true });
   }, [formData, navigate]);
 
   return (
@@ -35,7 +36,7 @@ const CompleteStep = ({ formData }: CompleteStepProps) => {
       </SignUpCompleteContent>
       <Button
         style={{ marginBottom: rem(30) }}
-        onClick={() => navigate('/auth/signin', { replace: true })}
+        onClick={() => navigate(URL_PATHS.AUTH.SIGN_IN, { replace: true })}
       >
         시작하기
       </Button>

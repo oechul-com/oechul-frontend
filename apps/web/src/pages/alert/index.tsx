@@ -3,7 +3,7 @@ import { Text } from '@oechul/ui';
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 type MessageType = {
   content: string;

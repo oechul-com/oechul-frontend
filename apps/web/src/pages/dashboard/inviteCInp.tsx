@@ -3,7 +3,7 @@ import { rem, theme } from '@oechul/styles';
 import { Button, Input, Text } from '@oechul/ui';
 import { Fragment, useEffect, useState } from 'react';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 
 import {
   MatchingSuccessDescriptionBoxTop,

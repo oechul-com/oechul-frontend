@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import useAuth from '@/hooks/useAuth.ts';
+import { URL_PATHS } from '@/constants.ts';
 import useScreenSize from '@/hooks/useScreenSize.ts';
 import AlertPage from '@/pages/alert';
 import SignInPage from '@/pages/auth/signin';
@@ -15,13 +15,12 @@ import PrivateRoute from './private/PrivateRoute.tsx';
 import ProfilePrivateRouter from './private/ProfilePrivateRouter.tsx';
 
 const AppRouter = (): ReactElement | null => {
-  useAuth();
   useScreenSize();
 
   return useRoutes([
     { path: '/', element: <HomeRedirect /> },
-    { path: '/auth/signin', element: <SignInPage /> },
-    { path: '/auth/signup', element: <SignUpPage /> },
+    { path: URL_PATHS.AUTH.SIGN_IN, element: <SignInPage /> },
+    { path: URL_PATHS.AUTH.SIGN_UP, element: <SignUpPage /> },
     {
       path: '/dashboard/*',
       element: <PrivateRoute />,
