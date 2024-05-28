@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { memo, ReactNode, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const useFunnel = (
     goToStep,
     Funnel: ({ children }: { children: ReactNode }) => (
       <FunnelContext.Provider value={{ currentStep, goToStep }}>
-        {children}
+        <AnimatePresence>{children}</AnimatePresence>
       </FunnelContext.Provider>
     ),
     Step: memo(({ name, children }: { name: Step; children: ReactNode }) => {
@@ -37,6 +37,7 @@ const useFunnel = (
       if (context?.currentStep !== name) return null;
       return (
         <motion.section
+          style={{ width: '100%', height: '100%' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

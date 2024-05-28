@@ -48,17 +48,19 @@ const SignInPage = (): ReactElement => {
   return (
     <Layout arrow={true}>
       <Header>로그인</Header>
-      <Funnel>
-        <Step name="email">
-          <EmailStep
-            formData={signInForm}
-            proceedToNextStep={handleEmailNextStep}
-          />
-        </Step>
-        <Step name="password">
-          <PasswordStep formData={signInForm} handleSignIn={handleSignIn} />
-        </Step>
-      </Funnel>
+      <div>
+        <Funnel>
+          <Step name="email">
+            <EmailStep
+              formData={signInForm}
+              proceedToNextStep={handleEmailNextStep}
+            />
+          </Step>
+          <Step name="password">
+            <PasswordStep formData={signInForm} handleSignIn={handleSignIn} />
+          </Step>
+        </Funnel>
+      </div>
       <SignInNavigationText>
         <Link to={URL_PATHS.AUTH.SIGN_UP}>가입하기</Link>또는
         <Link to={URL_PATHS.AUTH.RECOVER}>계정찾기</Link>
