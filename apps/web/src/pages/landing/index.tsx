@@ -4,7 +4,7 @@ import { Text, Button } from '@oechul/ui';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 import ContactDialog from '@/components/Modal/ContactModal';
 import { POLICY } from '@/constants.ts';
 

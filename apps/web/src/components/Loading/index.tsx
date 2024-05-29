@@ -6,7 +6,7 @@ import { StyledLoadingWrapper } from './Loading.styles.ts';
 const Loading = (): ReactElement => {
   return (
     <StyledLoadingWrapper>
-      <Spinner />
+      <Spinner size={96} width={6} />
     </StyledLoadingWrapper>
   );
 };

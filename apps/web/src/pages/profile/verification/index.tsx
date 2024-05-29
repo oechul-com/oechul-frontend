@@ -2,32 +2,44 @@ import { IDCard, UploadIcon } from '@oechul/icons';
 import { theme } from '@oechul/styles';
 import { Button, Text } from '@oechul/ui';
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
-import Layout from '@/components/layout/Layout';
+import { userState } from '@/atoms/authState.ts';
+import Layout from '@/components/layouts/Layout';
+import useMemberVerificationMutation from '@/hooks/mutations/useMemberVerificationMutation.ts';
 
 import CloseDialog from './_components/CloseDialog.tsx';
 import ConfirmDialog from './_components/ConfirmDialog.tsx';
-import {
-  VerificationButtonContainer,
-  VerificationContent,
-  VerificationGuideContainer,
-} from './verification.styles.ts';
+import * as styles from './verification.styles.ts';
 
 const VerificationPage = (): ReactElement => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const [isCloseDialogOpen, setIsCloseDialogOpen] = useState<boolean>(false);
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] =
-    useState<boolean>(false);
-  const [image, setImage] = useState<File | null>(null);
+  const [isCloseDialogOpen, setCloseDialogOpen] = useState<boolean>(false);
+  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-  const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-
     if (file) {
-      setImage(file);
-      setIsConfirmDialogOpen(true);
+      setSelectedImage(file);
+      setConfirmDialogOpen(true);
     }
+  };
+
+  const user = useRecoilValue(userState);
+  const { mutate: verificationMutate } = useMemberVerificationMutation();
+
+  const handleVerificationSubmit = (image: File) => {
+    if (!image || !user) return;
+
+    verificationMutate(
+      { memberId: user.id.toString(), image },
+      {
+        onSuccess: () => alert('성공적으로 인증되었습니다.'),
+        onError: () => alert('인증에 실패했습니다.'),
+      },
+    );
   };
 
   return (
@@ -35,10 +47,10 @@ const VerificationPage = (): ReactElement => {
       <Layout
         title="재학생 인증하기"
         close={true}
-        closeAction={() => setIsCloseDialogOpen(true)}
+        closeAction={() => setCloseDialogOpen(true)}
       >
-        <VerificationContent>
-          <VerificationGuideContainer>
+        <styles.VerificationContent>
+          <styles.VerificationGuideContainer>
             <Text
               fontSize={theme.fontSizes.xl}
               fontWeight={theme.fontWeights.semibold}
@@ -49,7 +61,7 @@ const VerificationPage = (): ReactElement => {
             <Text
               textColor={theme.colors.gray500}
               fontSize={theme.fontSizes.xs}
-              lineHeight="140%"
+              lineHeight="180%"
             >
               &middot; 본인의 이름/학번/학과명을 식별할 수 있는 재학 증명서 또는
               실물 학생증(모바일 학생증)을 업로드해 주세요.
@@ -58,19 +70,19 @@ const VerificationPage = (): ReactElement => {
               <br />
               &middot; 업로드된 개인정보는 인증 절차를 마친 후 즉시 파기됩니다.
             </Text>
-          </VerificationGuideContainer>
-          <VerificationButtonContainer>
+          </styles.VerificationGuideContainer>
+          <styles.VerificationButtonContainer>
             <input
-              ref={inputRef}
+              ref={inputFileRef}
               type="file"
-              onChange={handleUpload}
+              onChange={handleImageChange}
               accept="image/jpeg, image/png"
               style={{ display: 'none' }}
             />
             <Button
               variant="blue"
               width="100%"
-              onClick={() => inputRef.current?.click()}
+              onClick={() => inputFileRef.current?.click()}
             >
               <UploadIcon fill="#0085FF" /> 이미지 파일 업로드
             </Button>
@@ -80,20 +92,20 @@ const VerificationPage = (): ReactElement => {
             >
               실물 학생증(모바일) 스크린캡쳐 또는 이미지
             </Text>
-          </VerificationButtonContainer>
-        </VerificationContent>
+          </styles.VerificationButtonContainer>
+        </styles.VerificationContent>
       </Layout>
 
       <CloseDialog
         isOpen={isCloseDialogOpen}
-        onToggle={() => setIsCloseDialogOpen(false)}
+        onToggle={() => setCloseDialogOpen(false)}
       />
 
       <ConfirmDialog
         isOpen={isConfirmDialogOpen}
-        onToggle={() => setIsConfirmDialogOpen(false)}
-        onConfirm={() => alert('confirm')}
-        image={image}
+        onToggle={() => setConfirmDialogOpen(false)}
+        onConfirm={handleVerificationSubmit}
+        image={selectedImage}
       />
     </>
   );

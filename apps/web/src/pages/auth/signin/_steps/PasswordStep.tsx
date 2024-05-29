@@ -3,6 +3,7 @@ import { Button, Input } from '@oechul/ui';
 import { ReactElement, useEffect, useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { URL_PATHS } from '@/constants.ts';
 import { SignInContent } from '@/pages/auth/auth.styles.ts';
 import { SignInForm } from '@/pages/auth/signin/types.ts';
 
@@ -19,7 +20,7 @@ const PasswordStep = ({
   const [password, setPassword] = useState<string>(formData.password);
 
   useEffect(() => {
-    if (!formData.email) navigate('/auth/signin', { replace: true });
+    if (!formData.email) navigate(URL_PATHS.AUTH.SIGN_IN, { replace: true });
   }, [formData.email, navigate]);
 
   if (!formData.email) return null;

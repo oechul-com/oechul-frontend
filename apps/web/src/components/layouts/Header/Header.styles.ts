@@ -1,4 +1,5 @@
 import { rem, theme } from '@oechul/styles';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HeaderRoot = styled.header<{ $borderline: boolean }>`
@@ -20,6 +21,15 @@ export const HeaderInner = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-inline: ${rem(30)};
+`;
+
+export const BrandingWrapper = styled(Link)`
+  ${theme.layout.center};
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  text-decoration: none;
 `;
 
 export const Branding = styled.img`
@@ -53,4 +63,22 @@ export const ProgressBar = styled.div<{ $width: number }>`
   appearance: none;
   background-color: ${theme.colors.black};
   transition: width 0.3s;
+`;
+
+export const ProfileImageWrapper = styled(Link)`
+  ${theme.layout.center};
+  position: relative;
+  width: ${rem(40)};
+  height: ${rem(40)};
+  cursor: pointer;
+  outline: none;
+  border: ${rem(0.5)} solid ${theme.colors.gray200};
+  border-radius: 50%;
+  background-color: ${theme.colors.gray100};
+`;
+
+export const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

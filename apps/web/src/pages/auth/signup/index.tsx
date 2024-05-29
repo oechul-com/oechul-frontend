@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react';
 
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layouts/Layout';
 import useSignUpMutation from '@/hooks/mutations/useSignUpMutation.ts';
 import { Header } from '@/pages/auth/auth.styles.ts';
 import { SignUpForm, initialSignUpForm } from '@/pages/auth/signup/types.ts';

@@ -10,6 +10,13 @@ export const QUERIES = {
   MEMBER: {
     PROFILE_KEY: 'MEMBER_PROFILE_QUERY_KEY',
   },
+  GWATING: {
+    TEAMS_KEY: 'GWATING_TEAMS_QUERY_KEY',
+    TEAM_KEY: 'GWATING_TEAM_QUERY_KEY',
+  },
+  VERIFICATION: {
+    KEY: 'VERIFICATION_MEMBER_QUERY_KEY',
+  },
 };
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,4 +29,12 @@ export const POLICY = {
 export const COPY_MESSAGE = {
   SUCCESS: '복사되었습니다.',
   FAILURE: '복사에 실패했습니다. 다시 시도해주세요.',
+};
+
+export const URL_PATHS = {
+  AUTH: {
+    SIGN_IN: '/auth/signin',
+    SIGN_UP: '/auth/signup',
+    RECOVER: '/auth/recover',
+  },
 };

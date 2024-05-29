@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { Step } from '@/components/Funnel/Funnel.types.ts';
+export type Step = string;
 
 interface FunnelContextType {
   currentStep: Step;

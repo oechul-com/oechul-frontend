@@ -1,17 +1,19 @@
 import React, { ReactElement } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { signedInState } from '@/atoms/authState';
+import { authLoadingState, signedInState } from '@/atoms/authState.ts';
+import Loading from '@/components/Loading';
+import useAuth from '@/hooks/useAuth.ts';
 import DashboardPage from '@/pages/dashboard';
 import LandingPage from '@/pages/landing';
 
-const HomeRedirect: React.FC = (): ReactElement => {
-  const isSignedIn = useRecoilValue(signedInState);
-  // const isLoading = useRecoilValue(authLoadingState);
+const HomeRedirect = (): ReactElement => {
+  useAuth();
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  const isSignedIn = useRecoilValue(signedInState);
+  const isLoading = useRecoilValue(authLoadingState);
+
+  if (isLoading) return <Loading />;
 
   return isSignedIn ? <DashboardPage /> : <LandingPage />;
 };

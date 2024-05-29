@@ -109,6 +109,15 @@ const layout = {
     justifyContent: 'center',
     'flex-direction': 'column',
   },
+  rowBetween: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  columnBetween: {
+    display: 'flex',
+    'flex-direction': 'column',
+    justifyContent: 'space-between',
+  },
 };
 
 const responsive = {

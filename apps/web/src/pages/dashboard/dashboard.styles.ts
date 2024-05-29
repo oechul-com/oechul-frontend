@@ -1,66 +1,23 @@
 import { rem, theme } from '@oechul/styles';
 import styled from 'styled-components';
 
-type ParticipateMatchingItemBoxType = {
-  $selected: boolean;
-  $bgColor: string;
-};
-
 type MatchingMemberProfileBoxType = {
   $zIndex: number;
   $image: string;
 };
 
-export const DashboardHeader = styled.div`
-  width: 100%;
-  ${props => props.theme.layout.centerY};
-  justify-content: space-between;
-  height: ${rem(70)};
-  padding: ${rem(30)} 0;
-  position: relative;
-`;
-
-export const ImageLogo = styled.img`
-  height: ${rem(23)};
-`;
-
-export const ProfileImage = styled.div<{ $image?: string }>`
-  width: ${rem(40)};
-  height: ${rem(40)};
-  border-radius: ${rem(40)};
-  background-image: url(${props => props.$image}),
-    linear-gradient(lightgray, lightgray);
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  border: ${rem(1)} solid ${theme.colors.gray200};
-
-  cursor: pointer;
-`;
-
-export const AdvertisementBox = styled.div`
-  margin-top: ${rem(11)};
-  width: calc(100% + ${rem(60)});
-  margin-left: ${rem(-30)};
-  margin-right: ${rem(-30)};
-  height: ${rem(78)};
-
-  background-color: ${theme.colors.gray200};
-`;
-
-export const DashboardCol = styled.div`
-  padding-bottom: ${rem(27)};
-`;
-
-export const ParticipateMatchingItemsBox = styled.div`
-  ${props => props.theme.layout.centerY};
+export const ParticipateMatchingList = styled.div`
+  ${theme.layout.centerY};
   gap: ${rem(10)};
   margin-top: ${rem(18)};
-  margin-bottom: ${rem(24)};
+  margin-bottom: ${rem(35)};
 `;
 
-export const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxType>`
-  ${props => props.theme.layout.centerX};
+export const ParticipateMatchingItem = styled.div<{
+  $selected: boolean;
+  $bgColor: string;
+}>`
+  ${theme.layout.centerX};
   position: relative;
   flex: 1;
 
@@ -69,39 +26,36 @@ export const ParticipateMatchingItemBox = styled.div<ParticipateMatchingItemBoxT
 
   border-radius: ${rem(10)};
   border: ${rem(1)} solid rgba(0, 0, 0, 0.02);
-  background: ${props => props.$bgColor};
-  opacity: ${props => (props.$selected ? '1' : `0.5`)};
+  background: ${({ $bgColor }) => $bgColor};
+  opacity: ${({ $selected }) => ($selected ? '1' : `0.5`)};
 
   cursor: pointer;
-  color: ${props =>
-    props.$selected ? 'rgba(0, 0, 0, 1)' : `rgba(0, 0, 0, 0.5)`};
+  transition: all 0.2s ease;
 
   & > div > span {
-    color: ${props =>
-      props.$selected ? 'rgba(0, 0, 0, 1)' : `${theme.colors.gray300}`};
+    color: ${({ $selected }) =>
+      $selected ? theme.colors.black : theme.colors.gray300};
   }
 `;
 
-export const ParticipateMatchingTitleBox = styled.div`
-  ${props => props.theme.layout.center};
+export const ParticipateMatchingItemIcon = styled.span`
+  color: ${theme.colors.gray200};
+  font-size: ${theme.fontSizes['4xl']};
+  font-weight: ${theme.fontWeights.semibold};
+  line-height: ${rem(64)};
+  text-align: center;
+`;
+
+export const ParticipateMatchingTitle = styled.p`
+  ${theme.layout.center};
   padding: ${rem(7)} ${rem(13)};
+  font-weight: ${theme.fontWeights.semibold};
+  font-size: ${theme.fontSizes.md};
   border-radius: ${rem(20)};
   border: ${rem(1)} solid ${theme.colors.gray200};
-
   background-color: ${theme.colors.white};
   position: absolute;
   bottom: ${rem(-16)};
-`;
-
-export const MatchingTeamHeader = styled.div`
-  ${props => props.theme.layout.center};
-  justify-content: space-between;
-  height: ${rem(45)};
-`;
-
-export const MatchingTeamItemsBox = styled.div`
-  ${props => props.theme.layout.columnCenterY};
-  gap: ${rem(8)};
 `;
 
 export const MatchingTeamItemBox = styled.div`

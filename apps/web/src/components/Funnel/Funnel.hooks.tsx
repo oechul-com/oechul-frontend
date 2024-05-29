@@ -1,11 +1,11 @@
-import { memo, ReactNode, useContext, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { memo, ReactNode, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import FunnelContext from '@/components/Funnel/Funnel.contexts.tsx';
-import { Step } from '@/components/Funnel/Funnel.types.ts';
+import FunnelContext, { Step } from './Funnel.contexts.tsx';
 
 const useFunnel = (
-  steps: ReadonlyArray<Step>,
+  steps: readonly Step[],
   options?: {
     stepQueryKey?: string;
     initialStep?: Step;
@@ -15,25 +15,13 @@ const useFunnel = (
   const [searchParams, setSearchParams] = useSearchParams();
   const stepQueryKey = options?.stepQueryKey ?? 'funnel-step';
   const initialStep = options?.initialStep ?? steps[0];
-  const currentStep = searchParams.get(stepQueryKey) ?? initialStep;
-
-  useEffect(() => {
-    const step = searchParams.get(stepQueryKey) || initialStep;
-    if (step && steps.includes(step)) {
-      options?.onStepChange?.(step);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    searchParams,
-    steps,
-    stepQueryKey,
-    initialStep,
-    options?.onStepChange,
-    setSearchParams,
-  ]);
+  const currentStep = (searchParams.get(stepQueryKey) as Step) ?? initialStep;
 
   const goToStep = (step: Step) => {
     setSearchParams({ [stepQueryKey]: step });
+    if (options?.onStepChange) {
+      options.onStepChange(step);
+    }
   };
 
   return {
@@ -41,13 +29,23 @@ const useFunnel = (
     goToStep,
     Funnel: ({ children }: { children: ReactNode }) => (
       <FunnelContext.Provider value={{ currentStep, goToStep }}>
-        {children}
+        <AnimatePresence>{children}</AnimatePresence>
       </FunnelContext.Provider>
     ),
     Step: memo(({ name, children }: { name: Step; children: ReactNode }) => {
       const context = useContext(FunnelContext);
       if (context?.currentStep !== name) return null;
-      return <>{children}</>;
+      return (
+        <motion.section
+          style={{ width: '100%', height: '100%' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {children}
+        </motion.section>
+      );
     }),
   };
 };

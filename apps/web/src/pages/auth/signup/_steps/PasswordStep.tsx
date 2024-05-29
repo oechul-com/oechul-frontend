@@ -4,7 +4,7 @@ import { useState, useMemo, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Tip from '@/components/Tip';
-import { POLICY } from '@/constants.ts';
+import { POLICY, URL_PATHS } from '@/constants.ts';
 import {
   PrivacyCheckboxContainer,
   SignUpContent,
@@ -57,7 +57,7 @@ const PasswordStep = ({ formData, handleSignUp }: PasswordStepProps) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!validateFormStep(formData, 'password'))
-      navigate('/auth/signup', { replace: true });
+      navigate(URL_PATHS.AUTH.SIGN_UP, { replace: true });
   }, [formData, navigate]);
 
   return (
