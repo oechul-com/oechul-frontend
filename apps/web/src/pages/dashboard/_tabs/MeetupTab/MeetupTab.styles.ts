@@ -21,7 +21,7 @@ export const TabTitleContainer = styled.div`
 
 export const MatchingTeamList = styled.ul`
   ${theme.layout.column};
-  margin-top: ${rem(16)};
+  margin-top: ${rem(26)};
   gap: ${rem(8)};
 `;
 

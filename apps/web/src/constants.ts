@@ -14,6 +14,9 @@ export const QUERIES = {
     TEAMS_KEY: 'GWATING_TEAMS_QUERY_KEY',
     TEAM_KEY: 'GWATING_TEAM_QUERY_KEY',
   },
+  VERIFICATION: {
+    KEY: 'VERIFICATION_MEMBER_QUERY_KEY',
+  },
 };
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
