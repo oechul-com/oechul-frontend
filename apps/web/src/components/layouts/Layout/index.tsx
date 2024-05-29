@@ -33,7 +33,7 @@ const Layout = ({
     <LayoutRoot>
       {visibleHeader &&
         (dashboardHeader ? (
-          <DashboardHeader />
+          <DashboardHeader borderline={borderline} />
         ) : (
           <Header
             {...{

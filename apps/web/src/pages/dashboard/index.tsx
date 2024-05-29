@@ -28,6 +28,9 @@ const DashboardPage = (): ReactElement => {
 
   return (
     <Layout dashboardHeader={true}>
+      <div style={{ marginInline: rem(-30) }}>
+        <img src="/static/assets/ad.png" width="100%" alt="AD" />
+      </div>
       <Text
         fontSize={theme.fontSizes.xl}
         fontWeight={theme.fontWeights.semibold}

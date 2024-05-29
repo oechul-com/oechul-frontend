@@ -11,11 +11,17 @@ import * as styles from './Header.styles.ts';
 //   { type: '알림', Icon: AlertIcon, locate: '/alert' },
 // ];
 
-const DashboardHeader = (): ReactElement => {
+interface DashboardHeaderProps {
+  borderline: boolean;
+}
+
+const DashboardHeader = ({
+  borderline,
+}: DashboardHeaderProps): ReactElement => {
   const user = useRecoilValue(userState);
 
   return (
-    <styles.HeaderRoot $borderline={true}>
+    <styles.HeaderRoot $borderline={borderline}>
       <styles.HeaderInner>
         <styles.BrandingWrapper to="/">
           <Logo width={90} height={20} />
