@@ -10,7 +10,7 @@ export const ParticipateMatchingList = styled.div`
   ${theme.layout.centerY};
   gap: ${rem(10)};
   margin-top: ${rem(18)};
-  margin-bottom: ${rem(24)};
+  margin-bottom: ${rem(35)};
 `;
 
 export const ParticipateMatchingItem = styled.div<{
@@ -56,17 +56,6 @@ export const ParticipateMatchingTitle = styled.p`
   background-color: ${theme.colors.white};
   position: absolute;
   bottom: ${rem(-16)};
-`;
-
-export const MatchingTeamHeader = styled.div`
-  ${props => props.theme.layout.center};
-  justify-content: space-between;
-  height: ${rem(45)};
-`;
-
-export const MatchingTeamItemsBox = styled.div`
-  ${props => props.theme.layout.columnCenterY};
-  gap: ${rem(8)};
 `;
 
 export const MatchingTeamItemBox = styled.div`

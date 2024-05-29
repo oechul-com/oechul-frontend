@@ -4,25 +4,40 @@ import {
   PolicyIcon,
   VerificationIcon,
 } from '@oechul/icons';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import Badge from '@/components/Badge';
 
 import PreferenceItem from './Item.tsx';
 import { ListRoot } from './Preference.styles';
 
-const preferenceItems = [
+interface PreferenceItemProps {
+  icon: ReactNode;
+  title: string;
+  href?: string;
+  badge?: ReactNode;
+  onAction?: () => void;
+}
+
+const preferenceItems = (
+  studentVerification: boolean,
+  profileCompletion: boolean,
+): PreferenceItemProps[] => [
   {
     icon: <VerificationIcon />,
     title: '재학생 인증',
     href: '/profile/verification',
-    badge: <Badge variant="red">⚑ 인증을 진행해 주세요</Badge>,
+    badge: !studentVerification ? (
+      <Badge variant="red">⚑ 인증을 진행해 주세요</Badge>
+    ) : undefined,
   },
   {
     icon: <VerificationIcon />,
     title: '프로필 작성',
     href: '/profile/settings',
-    badge: <Badge variant="red">⚑ 작성을 진행해 주세요</Badge>,
+    badge: !profileCompletion ? (
+      <Badge variant="red">⚑ 작성을 진행해 주세요</Badge>
+    ) : undefined,
   },
   {
     icon: <PassIcon />,
@@ -46,10 +61,18 @@ const preferenceItems = [
   },
 ];
 
-const PreferenceList = (): ReactElement => {
+interface PreferenceListProps {
+  memberVerification: boolean;
+  profileCompletion: boolean;
+}
+
+const PreferenceList = ({
+  memberVerification,
+  profileCompletion,
+}: PreferenceListProps): ReactElement => {
   return (
     <ListRoot>
-      {preferenceItems.map(item => (
+      {preferenceItems(memberVerification, profileCompletion).map(item => (
         <PreferenceItem
           key={item.title}
           icon={item.icon}

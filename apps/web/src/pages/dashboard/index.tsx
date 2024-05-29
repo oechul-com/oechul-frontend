@@ -5,12 +5,13 @@ import { ReactElement } from 'react';
 import useFunnel from '@/components/Funnel/Funnel.hooks.tsx';
 import Layout from '@/components/layouts/Layout';
 
+import MeetupTab from './_tabs/MeetupTab/MeetupTab.tsx';
 import { PARTICIPATE_MATCHING_LIST } from './constants.ts';
 import * as styles from './dashboard.styles.ts';
 
 const tabs: string[] = ['initial', 'meetup'];
 
-const DashboardPage = () => {
+const DashboardPage = (): ReactElement => {
   const {
     currentStep: current,
     Funnel: Tab,
@@ -22,7 +23,7 @@ const DashboardPage = () => {
 
   const tabComponents: { [key: string]: ReactElement } = {
     initial: <></>,
-    meetup: <div>meetup</div>,
+    meetup: <MeetupTab />,
   };
 
   return (

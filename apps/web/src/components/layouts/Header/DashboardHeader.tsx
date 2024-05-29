@@ -20,9 +20,9 @@ const DashboardHeader = (): ReactElement => {
         <styles.BrandingWrapper to="/">
           <Logo width={90} height={20} />
         </styles.BrandingWrapper>
-        <styles.ProfileImageWrapper>
+        <styles.ProfileImageWrapper to="/profile">
           {user?.profileUri ? (
-            <styles.ProfileImage src={user.profileUri} alt="Profile Image" />
+            <styles.ProfileImage src={user.profileUri} alt="Profile" />
           ) : (
             <Logo width={32} height={32} />
           )}

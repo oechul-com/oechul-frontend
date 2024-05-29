@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { postSignUp } from '@/apis/permission.ts';
+import { postSignUp } from '@/apis/auth.ts';
 import { QUERIES } from '@/constants.ts';
 
 export default function useSignUpMutation() {

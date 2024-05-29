@@ -65,7 +65,7 @@ export const ProgressBar = styled.div<{ $width: number }>`
   transition: width 0.3s;
 `;
 
-export const ProfileImageWrapper = styled.span`
+export const ProfileImageWrapper = styled(Link)`
   ${theme.layout.center};
   position: relative;
   width: ${rem(40)};
